@@ -1,5 +1,6 @@
 package application;
 	
+import application.navigation.PageNavigator;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -10,11 +11,14 @@ import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application {
-	@Override
-	public void start(Stage primaryStage) {
-	}
 	
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
+    @Override
+    public void start(Stage primaryStage) {
+        PageNavigator pageNavigator = new PageNavigator(primaryStage);
+        pageNavigator.navigateToIndex();
+    }
 }
