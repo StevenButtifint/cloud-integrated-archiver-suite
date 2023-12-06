@@ -1,3 +1,18 @@
 .root {
     -fx-background-color: #1a171f;
 }
+
+#indexTopBar {
+	-fx-min-height: 70px;
+	-fx-max-height: 70px;
+}
+
+#indexSidebar {
+	-fx-background-color: #373042;
+}
+
+#indexLinkList {
+	-fx-margin: 20%, 20%, 0px, 0px;
+	-fx-spacing: 5;
+}
+
