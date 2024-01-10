@@ -1,13 +1,9 @@
 package application;
 	
-import application.navigation.PageNavigator;
+import application.controllers.IndexController;
+import application.util.ViewNavigator;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application {
@@ -18,7 +14,6 @@ public class Main extends Application {
 	
     @Override
     public void start(Stage primaryStage) {
-        PageNavigator pageNavigator = new PageNavigator(primaryStage);
-        pageNavigator.navigateToIndex();
+    	ViewNavigator.loadView("../views/index.fxml", new IndexController(), "Archiver Suite");
     }
 }
