@@ -11,6 +11,39 @@ import javafx.scene.layout.BorderPane;
 
 
 public class IndexController extends BaseController{
+	
+    @FXML
+    private BorderPane mainPane;
+
+    @FXML
+    private AnchorPane contentPane;
+    
+    @FXML
+    private Button cloudLoginBtn;
+    
+    @FXML
+    private Button dashboardButton;
+
+    
+    @FXML
+    private void initialize() {
+    	dashboardButton.setOnAction(event -> goToDashboard());
+    	cloudLoginBtn.setOnAction(event -> goToCloudLogin());
+    }
+    
+    @FXML
+    private void goToDashboard() {
+        loadView("../views/dashboard.fxml");
+        //, new Page2Controller());
+    }
+    
+    @FXML
+    private void goToCloudLogin() {
+        loadView("../views/cloud_login.fxml");
+        //, new Page1Controller());
+    }
+
+	
     private void loadView(String fxmlPath) {
         try {
         	System.out.println("Switched to page: " + fxmlPath);
