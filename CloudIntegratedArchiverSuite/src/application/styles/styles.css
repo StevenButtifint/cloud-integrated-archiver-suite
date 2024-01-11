@@ -8,7 +8,7 @@
 }
 
 #indexSidebar {
-	-fx-background-color: #373042;
+	-fx-background-color: #472360;
 }
 
 #headingLabel {
@@ -36,11 +36,12 @@
 }
 
 
-#sideButton {
+.sideButton {
     -fx-font-size: 12;
-    -fx-background-color: linear-gradient(from 0% 0% to 90% 90%, #302442, #291842);
+	-fx-text-fill: #472360;
 }
 
-#sideButton:hover {
+.sideButton:hover {
 	-fx-text-fill: white;
+	-fx-background-color: #705d97;
 }
