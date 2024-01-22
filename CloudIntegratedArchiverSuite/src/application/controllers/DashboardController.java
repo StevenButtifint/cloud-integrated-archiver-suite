@@ -1,21 +1,17 @@
 package application.controllers;
 
 import application.models.Dashboard;
-import javafx.concurrent.Task;
+import application.services.DashboardService;
 
 
 public class DashboardController {
 	Dashboard dashboard = new Dashboard();
+	private DashboardService dashboardService;
 
 	
-	public void startDashboardTask() {
-        Task<Void> updateTask = new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
-                }
-            }
-        };
-        new Thread(updateTask).start();
-    }
+	public void startDashboardService() {
+		dashboardService = new DashboardService();
+		dashboardService.start();
+	}
 
 }
