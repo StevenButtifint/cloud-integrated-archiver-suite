@@ -14,39 +14,49 @@ public class IndexController extends BaseController{
 	
     @FXML
     private BorderPane mainPane;
-
     @FXML
     private AnchorPane contentPane;
-    
     @FXML
-    private Button cloudLoginBtn;
-    
+    private Button cloudLoginButton;
     @FXML
     private Button dashboardButton;
     @FXML
     private Button newLinkButton;
+    @FXML
+    private Label headingLabel;
+    
+    DashboardController dashboardController = new DashboardController();
     
     @FXML
     private void initialize() {
     	dashboardButton.setOnAction(event -> goToDashboard());
-    	cloudLoginBtn.setOnAction(event -> goToCloudLogin());
+    	cloudLoginButton.setOnAction(event -> goToCloudLogin());
+    	newLinkButton.setOnAction(event -> goToNewLink());
+    	dashboardController.startDashboardService();
     }
     
     @FXML
     private void goToDashboard() {
+    	updateTite("Dashboard");
         loadView("../views/dashboard.fxml");
         //, new Page2Controller());
     }
     
     @FXML
     private void goToNewLink() {
+    	updateTite("Create New Link");
         loadView("../views/new_link.fxml");
     }
     
     @FXML
     private void goToCloudLogin() {
+    	updateTite("Cloud Login");
         loadView("../views/cloud_login.fxml");
         //, new Page1Controller());
+    }
+    
+    private void updateTite(String newTitle) {
+    	headingLabel.setText(newTitle);
     }
 
     private void loadView(String fxmlPath) {
