@@ -23,7 +23,8 @@ public class IndexController extends BaseController{
     
     @FXML
     private Button dashboardButton;
-
+    @FXML
+    private Button newLinkButton;
     
     @FXML
     private void initialize() {
@@ -38,12 +39,16 @@ public class IndexController extends BaseController{
     }
     
     @FXML
+    private void goToNewLink() {
+        loadView("../views/new_link.fxml");
+    }
+    
+    @FXML
     private void goToCloudLogin() {
         loadView("../views/cloud_login.fxml");
         //, new Page1Controller());
     }
 
-	
     private void loadView(String fxmlPath) {
         try {
         	System.out.println("Switched to page: " + fxmlPath);
