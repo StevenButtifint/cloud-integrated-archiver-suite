@@ -44,4 +44,17 @@
 .sideButton:hover {
 	-fx-text-fill: white;
 	-fx-background-color: #705d97;
+
+.window-bar {
+	-fx-background-color: #201c58;
+}
+
+.window-controls {
+	-fx-background-color: #201c58;
+	-fx-background-radius: 0;
+}
+
+.window-controls:hover {
+	-fx-text-fill: white;
+	-fx-background-color: #756cfa;
 }
