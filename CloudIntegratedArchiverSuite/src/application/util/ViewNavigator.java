@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class ViewNavigator {
     public static void loadView(String fxmlPath, BaseController controller, String title) {
@@ -17,6 +18,7 @@ public class ViewNavigator {
 
             Scene scene = new Scene(parent);
             Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.setTitle(title);
             stage.setScene(scene);
             stage.show();
