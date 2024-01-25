@@ -3,9 +3,11 @@ package application.controllers;
 import java.io.IOException;
 
 import application.util.ViewNavigator;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
@@ -23,7 +25,11 @@ public class IndexController extends BaseController{
     @FXML
     private Button newLinkButton;
     @FXML
+    @FXML 
+    private Button quitButton;
+    @FXML
     private Label headingLabel;
+    
     
     DashboardController dashboardController = new DashboardController();
     
@@ -32,6 +38,7 @@ public class IndexController extends BaseController{
     	dashboardButton.setOnAction(event -> goToDashboard());
     	cloudLoginButton.setOnAction(event -> goToCloudLogin());
     	newLinkButton.setOnAction(event -> goToNewLink());
+    	quitButton.setOnAction(event -> quit());
     	dashboardController.startDashboardService();
     }
     
@@ -52,7 +59,17 @@ public class IndexController extends BaseController{
     private void goToCloudLogin() {
     	updateTite("Cloud Login");
         loadView("../views/cloud_login.fxml");
+    }
+    
+    @FXML void quit() {
+    	exit();
+    }
+    
         //, new Page1Controller());
+    }
+    
+    @FXML void exit() {
+    	Platform.exit();
     }
     
     private void updateTite(String newTitle) {
