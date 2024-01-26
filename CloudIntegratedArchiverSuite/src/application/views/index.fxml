@@ -27,27 +27,32 @@
          <children>
             <AnchorPane fx:id="indexTopBar" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox fx:id="indexLinkList" layoutX="135.0" layoutY="64.0" prefHeight="420.0" prefWidth="740.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Button fx:id="cloudLoginButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="819.0" layoutY="8.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="sideButton" text="Cloud Login" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="sideButton">
+                           <image>
+                              <Image url="@../images/user.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="673.0" layoutY="8.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="sideButton" text="Notifications" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="15.0">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="sideButton">
+                           <image>
+                              <Image url="@../images/bell.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label fx:id="headingLabel" layoutX="63.0" layoutY="27.0" text="Dashboard" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
                </children>
             </AnchorPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane maxHeight="20.0" minHeight="20.0" prefHeight="20.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <AnchorPane fx:id="indexSidebar" layoutX="-100.0" layoutY="100.0" maxWidth="80.0" minWidth="80.0" prefHeight="200.0" prefWidth="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <VBox alignment="TOP_CENTER" layoutX="-15.0" layoutY="100.0" prefHeight="600.0" prefWidth="85.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+            <AnchorPane fx:id="contentPane" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0">
                <children>
-                  <AnchorPane fx:id="sidebarTile" maxWidth="80.0" minWidth="80.0" prefHeight="106.0" prefWidth="80.0">
+                  <AnchorPane layoutX="287.0" layoutY="83.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="370.0" prefWidth="706.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="40.0">
                      <children>
-                        <Button fx:id="dashboardButton" alignment="CENTER" contentDisplay="TOP" maxHeight="92.0" minHeight="80.0" mnemonicParsing="false" prefHeight="92.0" styleClass="sideButton" text="Dashboard" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
-                           <graphic>
-                              <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/dashboard.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
+                        <VBox fx:id="indexLinkList" layoutX="135.0" layoutY="64.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </children>
