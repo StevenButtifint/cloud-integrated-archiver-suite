@@ -51,8 +51,84 @@
                      </children>
                   </AnchorPane>
                </children>
-            </VBox>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="V1.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="28.0" />
-         </children></AnchorPane>
+            </AnchorPane>
+            <AnchorPane fx:id="indexSidebar" maxWidth="80.0" minWidth="80.0" prefHeight="200.0" prefWidth="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <VBox alignment="CENTER" layoutX="-15.0" layoutY="100.0" prefWidth="85.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                        <AnchorPane fx:id="sidebarTile" maxWidth="80.0" minWidth="80.0" prefWidth="80.0">
+                           <children>
+                              <Button fx:id="dashboardButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="60.0" minHeight="60.0" mnemonicParsing="false" prefHeight="60.0" styleClass="sideButton" text="Dashboard" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+                                 <graphic>
+                                    <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/dashboard.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="sidebarTile1" maxWidth="80.0" minWidth="80.0" prefWidth="80.0">
+                           <children>
+                              <Button fx:id="newLinkButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="60.0" minHeight="60.0" mnemonicParsing="false" prefHeight="60.0" styleClass="sideButton" text="New Link" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+                                 <graphic>
+                                    <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/dashboard.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="sidebarTile11" maxWidth="80.0" minWidth="80.0" prefWidth="80.0">
+                           <children>
+                              <Button fx:id="manageButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="60.0" minHeight="60.0" mnemonicParsing="false" prefHeight="60.0" styleClass="sideButton" text="Manage" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+                                 <graphic>
+                                    <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/dashboard.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="sidebarTile111" maxWidth="80.0" minWidth="80.0" prefWidth="80.0">
+                           <children>
+                              <Button fx:id="dashboardButton111" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="60.0" minHeight="60.0" mnemonicParsing="false" prefHeight="60.0" styleClass="sideButton" text="Settings" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+                                 <graphic>
+                                    <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/dashboard.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="sidebarTile1111" maxWidth="80.0" minWidth="80.0" prefWidth="80.0">
+                           <children>
+                              <Button fx:id="dashboardButton1111" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="60.0" minHeight="60.0" mnemonicParsing="false" prefHeight="60.0" styleClass="sideButton" text="About" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+                                 <graphic>
+                                    <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/dashboard.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="V1.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="28.0" />
+                  <ImageView fitHeight="50.0" fitWidth="54.0" layoutX="15.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="20.0" />
+                  <AnchorPane layoutY="514.0" maxWidth="80.0" minWidth="80.0" prefWidth="80.0" AnchorPane.bottomAnchor="35.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
