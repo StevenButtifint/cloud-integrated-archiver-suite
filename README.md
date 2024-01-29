@@ -21,13 +21,17 @@ Take control with flexible storage options. Safely store archives and backups on
 
 ### Tech Stack
 - Front End
-  - JavaFX 
-  - FXML
-  - CSS
+  - **JavaFX**: Graphical user interface.
+  - **FXML**: Defines UI layouts.
+  - **CSS**: Styling UI components.
   
-
 - Back End
-  - Java
+  - **Java**: Application logic and backend functionality.
+  - **JDBC**: Connecting to and interacting with the database.
+
+- Database
+  - **PostgreSQL**: Relational database management system.
+
 ---
 
 [Back To The Top](#cloud-integrated-archiver-suite)
