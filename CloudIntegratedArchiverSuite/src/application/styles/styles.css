@@ -45,6 +45,11 @@
 	-fx-text-fill: white;
 	-fx-background-color: #705d97;
 
+.widget {
+	-fx-background-color: #282372;
+	-fx-background-radius: 10;
+}
+
 .window-bar {
 	-fx-background-color: #201c58;
 }
@@ -57,4 +62,13 @@
 .window-controls:hover {
 	-fx-text-fill: white;
 	-fx-background-color: #756cfa;
+}
+
+.tab-pane-no-header .tab-header-area {
+    visibility: hidden;
+    -fx-padding: 0;
+}
+
+.tab-pane-no-header .tab-header-background {
+    visibility: hidden;
 }

@@ -27,6 +27,7 @@ public class IndexController extends BaseController{
     @FXML
     private Button newLinkButton;
     @FXML
+    private Button manageButton;
     @FXML 
     private Button quitButton;
     @FXML
@@ -34,11 +35,16 @@ public class IndexController extends BaseController{
     @FXML
     private TabPane tabPages;
     
+    private static String VIEWS_BASE_DIR = "../views/";
     
     DashboardController dashboardController = new DashboardController();
     
     @FXML
     private void initialize() throws Exception {
+    	// setup tab pane
+    	hideTabePaneHeader();
+    	initializePages();
+    	
     	// set starting page
     	goToDashboard();
     	    	
@@ -49,6 +55,10 @@ public class IndexController extends BaseController{
     	dashboardController.startDashboardService();
     }
     
+    private void hideTabePaneHeader() {
+    	tabPages.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+    	tabPages.getStyleClass().add("tab-pane-no-header");
+    }
     
     private void initializePages() throws Exception {
         tabPages.getTabs().add(initializeTab("dash", "dashboard.fxml"));
