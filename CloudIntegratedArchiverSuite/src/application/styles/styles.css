@@ -8,7 +8,7 @@
 }
 
 #indexSidebar {
-	-fx-background-color: #472360;
+	-fx-background-color: #302c68;
 }
 
 #headingLabel {
@@ -38,12 +38,12 @@
 
 .sideButton {
     -fx-font-size: 12;
-	-fx-text-fill: #472360;
+	-fx-text-fill: #201c58;
 }
 
 .sideButton:hover {
 	-fx-text-fill: white;
-	-fx-background-color: #705d97;
+	-fx-background-color: #756cfa;
 
 .widget {
 	-fx-background-color: #282372;
@@ -51,11 +51,11 @@
 }
 
 .window-bar {
-	-fx-background-color: #201c58;
+	-fx-background-color: #1a171f;
 }
 
 .window-controls {
-	-fx-background-color: #201c58;
+	-fx-background-color: #1a171f;
 	-fx-background-radius: 0;
 }
 
@@ -63,6 +63,7 @@
 	-fx-text-fill: white;
 	-fx-background-color: #756cfa;
 }
+
 
 .tab-pane-no-header .tab-header-area {
     visibility: hidden;
