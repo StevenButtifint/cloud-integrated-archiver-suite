@@ -8,6 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
@@ -61,16 +62,19 @@
             </AnchorPane>
             <AnchorPane fx:id="indexSidebar" maxWidth="80.0" minWidth="80.0" prefHeight="200.0" prefWidth="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox alignment="CENTER" layoutX="-15.0" layoutY="100.0" prefWidth="85.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <VBox alignment="CENTER" layoutX="-15.0" layoutY="100.0" prefWidth="85.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0">
                      <children>
                         <AnchorPane fx:id="sidebarTile" maxWidth="80.0" minWidth="80.0" prefWidth="80.0">
                            <children>
                               <Button fx:id="dashboardButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="60.0" minHeight="60.0" mnemonicParsing="false" prefHeight="60.0" styleClass="sideButton" text="Dashboard" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
                                  <graphic>
-                                    <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/dashboard.png" />
                                        </image>
+                                       <effect>
+                                          <ColorAdjust brightness="0.27" contrast="-0.59" hue="-0.57" saturation="0.52" />
+                                       </effect>
                                     </ImageView>
                                  </graphic>
                               </Button>
@@ -80,10 +84,13 @@
                            <children>
                               <Button fx:id="newLinkButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="60.0" minHeight="60.0" mnemonicParsing="false" prefHeight="60.0" styleClass="sideButton" text="New Link" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
                                  <graphic>
-                                    <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/dashboard.png" />
+                                          <Image url="@../images/configurations.png" />
                                        </image>
+                                       <effect>
+                                          <ColorAdjust brightness="0.27" contrast="-0.59" hue="-0.57" saturation="0.52" />
+                                       </effect>
                                     </ImageView>
                                  </graphic>
                               </Button>
@@ -93,10 +100,13 @@
                            <children>
                               <Button fx:id="manageButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="60.0" minHeight="60.0" mnemonicParsing="false" prefHeight="60.0" styleClass="sideButton" text="Manage" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
                                  <graphic>
-                                    <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/dashboard.png" />
+                                          <Image url="@../images/sound.png" />
                                        </image>
+                                       <effect>
+                                          <ColorAdjust brightness="0.27" contrast="-0.59" hue="-0.57" saturation="0.52" />
+                                       </effect>
                                     </ImageView>
                                  </graphic>
                               </Button>
@@ -106,10 +116,13 @@
                            <children>
                               <Button fx:id="dashboardButton111" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="60.0" minHeight="60.0" mnemonicParsing="false" prefHeight="60.0" styleClass="sideButton" text="Settings" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
                                  <graphic>
-                                    <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/dashboard.png" />
+                                          <Image url="@../images/duplicate.png" />
                                        </image>
+                                       <effect>
+                                          <ColorAdjust brightness="0.27" contrast="-0.59" hue="-0.57" saturation="0.52" />
+                                       </effect>
                                     </ImageView>
                                  </graphic>
                               </Button>
@@ -119,10 +132,13 @@
                            <children>
                               <Button fx:id="dashboardButton1111" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="60.0" minHeight="60.0" mnemonicParsing="false" prefHeight="60.0" styleClass="sideButton" text="About" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
                                  <graphic>
-                                    <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/dashboard.png" />
                                        </image>
+                                       <effect>
+                                          <ColorAdjust brightness="0.27" contrast="-0.59" hue="-0.57" saturation="0.52" />
+                                       </effect>
                                     </ImageView>
                                  </graphic>
                               </Button>
@@ -130,8 +146,17 @@
                         </AnchorPane>
                      </children>
                   </VBox>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="V1.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="28.0" />
-                  <ImageView fitHeight="50.0" fitWidth="54.0" layoutX="15.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="20.0" />
+                  <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="V1.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="30.0">
+                     <font>
+                        <Font size="11.0" />
+                     </font></Text>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+                     <image>
+                        <Image url="@../images/abstract.png" />
+                     </image>
+                     <effect>
+                        <ColorAdjust brightness="0.63" contrast="-1.0" hue="-0.59" saturation="1.0" />
+                     </effect></ImageView>
                </children>
             </AnchorPane>
          </children>

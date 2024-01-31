@@ -3,16 +3,15 @@
 }
 
 #indexTopBar {
-	-fx-min-height: 70px;
-	-fx-max-height: 70px;
 }
 
 #indexSidebar {
-	-fx-background-color: #302c68;
+	-fx-background-color: #312e59;
 }
 
 #headingLabel {
 	-fx-font-size: 28;
+	-fx-text-fill: white;
 }
 
 #indexLinkList {
@@ -30,20 +29,22 @@
 }
 
 .button {
+	-fx-text-fill: white;
     -fx-font-size: 16;
     -fx-background-radius: 10;
     -fx-background-color: linear-gradient(from 0% 0% to 90% 90%, #302442, #291842);
 }
 
-
 .sideButton {
     -fx-font-size: 12;
 	-fx-text-fill: #201c58;
+    -fx-background-color: #312e59;
 }
 
 .sideButton:hover {
 	-fx-text-fill: white;
-	-fx-background-color: #756cfa;
+	-fx-background-color: #474480;
+}
 
 .widget {
 	-fx-background-color: #282372;
@@ -61,7 +62,7 @@
 
 .window-controls:hover {
 	-fx-text-fill: white;
-	-fx-background-color: #756cfa;
+	-fx-background-color: #312e59;
 }
 
 
