@@ -14,7 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 
-public class IndexController extends BaseController{
+public class IndexController extends BaseController {
 	
     @FXML
     private BorderPane mainPane;
@@ -25,9 +25,11 @@ public class IndexController extends BaseController{
     @FXML
     private Button dashboardButton;
     @FXML
-    private Button newLinkButton;
-    @FXML
     private Button manageButton;
+    @FXML
+    private Button monitorButton;
+    @FXML
+    private Button duplicationButton;
     @FXML 
     private Button quitButton;
     @FXML
@@ -35,20 +37,24 @@ public class IndexController extends BaseController{
     @FXML
     private TabPane tabPages;
     
-    private static String VIEWS_BASE_DIR = "../views/";
     
+    private static String VIEWS_BASE_DIR = "../views/";
+        
     @FXML
     private void initialize() throws Exception {
     	// setup tab pane
     	hideTabePaneHeader();
     	initializePages();
-    	
+        
     	// set starting page
     	goToDashboard();
     	    	
     	dashboardButton.setOnAction(event -> goToDashboard());
     	cloudLoginButton.setOnAction(event -> goToCloudLogin());
-    	newLinkButton.setOnAction(event -> goToNewLink());
+    	manageButton.setOnAction(event -> goToManage());
+    	monitorButton.setOnAction(event -> goToMonitor());
+    	duplicationButton.setOnAction(event -> goToDuplication());
+
     	quitButton.setOnAction(event -> quit());
     }
     
@@ -87,6 +93,12 @@ public class IndexController extends BaseController{
     }
     
     @FXML
+    private void goToCloudLogin() {
+    	changeTab(1);
+    	updateTite("Cloud Login");
+    }
+    
+    @FXML
     private void goToNewLink() {
     	changeTab(2);
     	updateTite("Create New Link");
@@ -96,6 +108,18 @@ public class IndexController extends BaseController{
     private void goToManage() {
     	changeTab(3);
     	updateTite("Manage");
+    }
+    
+    @FXML
+    private void goToMonitor() {
+    	changeTab(4);
+    	updateTite("Monitor");
+    }
+    
+    @FXML
+    private void goToDuplication() {
+    	changeTab(5);
+    	updateTite("Duplication");
     }
     
     @FXML void quit() {
