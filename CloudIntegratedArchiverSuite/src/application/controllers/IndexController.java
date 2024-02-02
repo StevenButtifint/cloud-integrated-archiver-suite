@@ -37,8 +37,6 @@ public class IndexController extends BaseController{
     
     private static String VIEWS_BASE_DIR = "../views/";
     
-    DashboardController dashboardController = new DashboardController();
-    
     @FXML
     private void initialize() throws Exception {
     	// setup tab pane
@@ -52,7 +50,6 @@ public class IndexController extends BaseController{
     	cloudLoginButton.setOnAction(event -> goToCloudLogin());
     	newLinkButton.setOnAction(event -> goToNewLink());
     	quitButton.setOnAction(event -> quit());
-    	dashboardController.startDashboardService();
     }
     
     private void hideTabePaneHeader() {
@@ -61,20 +58,22 @@ public class IndexController extends BaseController{
     }
     
     private void initializePages() throws Exception {
-        tabPages.getTabs().add(initializeTab("dash", "dashboard.fxml"));
-        tabPages.getTabs().add(initializeTab("login", "cloud_login.fxml"));
-        tabPages.getTabs().add(initializeTab("new", "new_link.fxml"));
-        tabPages.getTabs().add(initializeTab("manage", "manage.fxml"));
-        
+        tabPages.getTabs().add(initializeTab("dash", "dashboard.fxml", new DashboardController()));
+        tabPages.getTabs().add(initializeTab("login", "cloud_login.fxml", new CloudController()));
+        tabPages.getTabs().add(initializeTab("new", "new_link.fxml", new NewLinkController()));
+        tabPages.getTabs().add(initializeTab("manage", "manage.fxml", new ManageController()));
+        tabPages.getTabs().add(initializeTab("monitor", "monitor.fxml", new MonitorController()));
+        tabPages.getTabs().add(initializeTab("duplication", "duplication.fxml", new DuplicationController()));
+    }
+       
+    private Tab initializeTab(String tabName, String viewName, BaseController controller) throws Exception {
+    	return new Tab(tabName, loadView(viewName, controller));
     }
     
-    private Tab initializeTab(String tabName, String viewName) throws Exception {
-    	return new Tab(tabName, loadView(viewName));
-    }
-    
-    private javafx.scene.Parent loadView(String fxmlPath) throws Exception {
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource(VIEWS_BASE_DIR + fxmlPath));
-        return loader.load();
+    private javafx.scene.Parent loadView(String fxmlPath, BaseController controller) throws Exception {
+    	FXMLLoader loader = new FXMLLoader(controller.getClass().getResource(VIEWS_BASE_DIR + fxmlPath));
+    	loader.setController(controller);
+    	return loader.load();
     }
     
     private void changeTab(int pageIndex) {
