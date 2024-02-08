@@ -2,6 +2,7 @@ package application.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -24,6 +25,7 @@ public class DatabaseConnection {
     	}
     	return connection;
     }
+    
     public void createLinkTable(Connection connection) { 
     	Statement statement;
     	try {
@@ -37,4 +39,26 @@ public class DatabaseConnection {
     }
     
     public void insertLink(Connection connection, String name, String description, String source_location, String destination_location) {
+    	try {    		
+            String query = "INSERT INTO " + LINK_TABLE_NAME + " (name, description, source_location, destination_location, created_date, last_synced, accessible_state) VALUES (?, ?, ?, ?, CURRENT_DATE, CURRENT_DATE, ?)";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                    statement.setString(1, name);
+                    statement.setString(2, description);
+                    statement.setString(3, source_location);
+                    statement.setString(4, destination_location);
+                    statement.setBoolean(5, true);
+
+                    int rowsInserted = statement.executeUpdate();
+                    if (rowsInserted > 0) {
+                        System.out.println("Added New Link");
+                    } else {
+                        System.out.println("Failed to add new link");
+                    }
+            } catch (SQLException e) {
+                    e.printStackTrace();
+            }
+    	} catch (Exception e) {
+    		System.out.println(e);
+    	}
+    }
     
