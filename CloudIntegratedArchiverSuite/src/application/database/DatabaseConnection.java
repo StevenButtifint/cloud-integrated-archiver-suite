@@ -3,8 +3,11 @@ package application.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseConnection {
 	
@@ -62,3 +65,25 @@ public class DatabaseConnection {
     	}
     }
     
+    public List<List<Object>> getAccessibleLinks(Connection connection) {
+    	List<List<Object>> accessibleLinks = new ArrayList<>();
+    	String query = "SELECT * FROM " + LINK_TABLE_NAME + " WHERE accessible_state = ?";
+    	try (PreparedStatement statement = connection.prepareStatement(query)) {
+    		statement.setBoolean(1, true);
+    		try (ResultSet resultSet = statement.executeQuery()) {
+    			while (resultSet.next()) {                       
+    				List<Object> accessibleLink = new ArrayList<>();
+    				accessibleLink.add(resultSet.getInt("empid"));
+    				accessibleLink.add(resultSet.getString("name"));
+    				accessibleLink.add(resultSet.getString("description"));
+    				accessibleLink.add(resultSet.getString("last_synced"));
+
+    				accessibleLinks.add(accessibleLink);
+    				}
+    			}
+    		} catch (SQLException e) {
+    			e.printStackTrace();
+    		}
+    	return accessibleLinks;
+    }
+}
