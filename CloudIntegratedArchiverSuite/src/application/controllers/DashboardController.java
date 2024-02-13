@@ -28,5 +28,29 @@ public class DashboardController extends BaseController {
     	availableLinksThread.start();
     }
     
+    private void updateLinkItemUI(List<Link> accessibleLinks) {
+        Platform.runLater(() -> {        	
+        	LinkItemController linkItemController = new LinkItemController();
+        	        	
+        	try {
+            	FXMLLoader loader = new FXMLLoader(linkItemController.getClass().getResource(LINK_ITEM_PATH));
+            	loader.setController(linkItemController);
+            	
+				for (Link link : accessibleLinks) {
+					Node newView = loader.load();
+					LinkItemController controller = loader.getController();
+					controller.setLinkName(link.getName());
+					controller.setLinkDescription(link.getDescription());
+					
+					dashboardLinkList.getChildren().add(newView);
+				}
+				
+				System.out.println(dashboardLinkList.getChildren().size());
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        });
+    }
 
 }
