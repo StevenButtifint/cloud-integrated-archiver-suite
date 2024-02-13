@@ -24,11 +24,9 @@ public class DashboardController extends BaseController {
 	Dashboard dashboard = new Dashboard();
 	
     public void initialize() {
+    	availableLinksThread = new AvailableLinksThread(this::updateLinkItemUI);
+    	availableLinksThread.start();
     }
     
-	public void startDashboardService() {
-		dashboardService = new DashboardService();
-		dashboardService.start();
-	}
 
 }
