@@ -2,6 +2,7 @@ package application.models;
 
 public class Link {
 	
+	int id;
 	String name;
 	String description;	
 	String source;
@@ -10,9 +11,10 @@ public class Link {
 	String lastSynced;
 	boolean accessible;
 	
-	public Link(String name, String description, String source, String destination, String createdDate,
+	public Link(int id, String name, String description, String source, String destination, String createdDate,
 			String lastSynced, boolean accessible) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.source = source;
@@ -21,7 +23,10 @@ public class Link {
 		this.lastSynced = lastSynced;
 		this.accessible = accessible;
 	}
-
+	public int getId() {
+		return id;
+	}
+	
 	public String getName() {
 		return name;
 	}
