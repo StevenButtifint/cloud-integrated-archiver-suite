@@ -42,10 +42,10 @@
     -fx-background-color: linear-gradient(from 0% 0% to 90% 90%, #312e59, #312e59);
 }
 
+
 .topButton {
 	-fx-background-radius: 10;
 	-fx-background-color: #312e59;
-	
 }
 
 .topButton:hover {
@@ -83,7 +83,6 @@
 	-fx-background-color: #312e59;
 }
 
-
 .tab-pane-no-header .tab-header-area {
     visibility: hidden;
     -fx-padding: 0;
@@ -91,4 +90,36 @@
 
 .tab-pane-no-header .tab-header-background {
     visibility: hidden;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #514e79;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #ff0000;
+}
+
+.scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: #00ff00;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-forground-color: #514e79;
+}
+
+.scroll-bar:vertical .increment-button:hover,
+.scroll-bar:vertical .decrement-button:hover {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .increment-button:pressed,
+.scroll-bar:vertical .decrement-button:pressed {
+    -fx-background-color: transparent;
 }
