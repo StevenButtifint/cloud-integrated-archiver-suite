@@ -4,11 +4,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="linkItem" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="890.0" minWidth="-Infinity" prefHeight="90.0" prefWidth="890.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="800.0" layoutY="3.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="103.0" text="SYNC" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+      <Button fx:id="syncButton" layoutX="800.0" layoutY="3.0" mnemonicParsing="false" onAction="#syncLink" prefHeight="62.0" prefWidth="103.0" styleClass="link-button" text="SYNC" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
          <font>
             <Font size="18.0" />
          </font></Button>
@@ -21,10 +20,10 @@
             <Font size="14.0" />
          </font></Label>
       <Label fx:id="linkDescription" alignment="TOP_LEFT" layoutX="14.0" layoutY="37.0" prefHeight="40.0" prefWidth="587.0" text="Link description" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="17.0" AnchorPane.topAnchor="45.0" />
-      <Text layoutX="639.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNAVAILABLE" AnchorPane.rightAnchor="144.27685546875" AnchorPane.topAnchor="20.6552734375">
+      <Label fx:id="availableStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="639.0" layoutY="19.0" text="UNAVAILABLE" AnchorPane.rightAnchor="144.0" AnchorPane.topAnchor="19.0">
          <font>
             <Font size="17.0" />
          </font>
-      </Text>
+      </Label>
    </children>
 </AnchorPane>
