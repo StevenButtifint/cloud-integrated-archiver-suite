@@ -18,15 +18,18 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			// load application properties
+			Config config = new Config("app.properties");
+
 			// load initial view
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(Config.getProperty("index.view.path")));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(config.getProperty("index.view.path")));
 			Parent root = loader.load();
 
 			// get controller for the view
 			IndexController controller = loader.getController();
 
 			// set the primary stage
-			primaryStage.setTitle(Config.getProperty("application.title"));
+			primaryStage.setTitle(config.getProperty("app.title"));
 			primaryStage.initStyle(StageStyle.UNDECORATED);
 			primaryStage.setScene(new Scene(root, 1000, 600));
 			primaryStage.show();

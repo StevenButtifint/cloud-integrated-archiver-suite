@@ -1,22 +1,30 @@
 package application.config;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class Config {
-	private static Properties properties;
+	private Properties properties;
 
-	static {
+	public Config(String propertiesFilePath) {
 		properties = new Properties();
-		try (FileInputStream fileInputStream = new FileInputStream("src/application/config/.properties")) {
-			properties.load(fileInputStream);
-		} catch (IOException e) {
-			System.err.println("Error loading properties file: " + e.getMessage());
+		loadProperties(propertiesFilePath);
+	}
+
+	private void loadProperties(String propertiesFilePath) {
+		try (InputStream inputStream = getClass().getResourceAsStream(propertiesFilePath)) {
+			if (inputStream != null) {
+				properties.load(inputStream);
+			} else {
+				throw new RuntimeException("Unable to load properties file: " + propertiesFilePath);
+			}
+		} catch (Exception e) {
+			System.err.println("Error loading properties file: " + propertiesFilePath);
+			e.printStackTrace();
 		}
 	}
 
-	public static String getProperty(String key) {
+	public String getProperty(String key) {
 		return properties.getProperty(key);
 	}
 }
