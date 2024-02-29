@@ -8,29 +8,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import application.config.Config;
 import application.models.Link;
 
 public class DatabaseConnection {
-	
-	private static String LINK_TABLE_NAME  = "links";
-
-    public Connection connectToDatabase(String databaseName, String username, String password) {
-    	Connection connection=null;
-    	try {
-    		Class.forName("org.postgresql.Driver");
-    		connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/"+databaseName, username, password);
-    		if (connection!=null) {
-    			System.out.println("Connected to " + databaseName);
-    		} else {
-    			System.out.println("Failed to connect to " + databaseName);
-    		}
-    	} catch (Exception e) {
-    		System.out.println(e);
-    	}
-    	return connection;
-    }
-    
     public void createLinkTable(Connection connection) { 
     	Statement statement;
     	try {
@@ -83,4 +67,26 @@ public class DatabaseConnection {
     		}
     	return accessibleLinks;
     }
+
+	private Config config = new Config("db.properties");
+
+
+	public Connection connectToDatabase() {
+		Connection connection = null;
+		try {
+			Class.forName("org.postgresql.Driver");
+			connection = DriverManager.getConnection(config.getProperty("db.url"), config.getProperty("db.username"),
+					config.getProperty("db.password"));
+			if (connection != null) {
+				logger.log(Level.INFO, "Successfully connected to database: {0}", config.getProperty("db.name"));
+
+			} else {
+				logger.log(Level.SEVERE, "Failed to connect to database: {0}", config.getProperty("db.name"));
+			}
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Failed to setup database connection: {0}", e);
+		}
+		return connection;
+	}
+
 }
