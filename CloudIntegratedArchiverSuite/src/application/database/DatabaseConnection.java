@@ -1,6 +1,7 @@
 package application.database;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,18 +16,6 @@ import application.config.Config;
 import application.models.Link;
 
 public class DatabaseConnection {
-    public void createLinkTable(Connection connection) { 
-    	Statement statement;
-    	try {
-    		String query = "CREATE TABLE " + LINK_TABLE_NAME + "(empid SERIAL, name TEXT, description TEXT, source_location TEXT, destination_location TEXT, created_date DATE, last_synced DATE, accessible_state BOOLEAN, primary key(empid));";
-    		statement = connection.createStatement();
-    		statement.executeUpdate(query);
-    		System.out.println("table created");
-    	} catch (Exception e) {
-    		System.out.println(e);
-    	}
-    }
-    
     public void insertLink(Connection connection, String name, String description, String source_location, String destination_location) {
     	try {    		
             String query = "INSERT INTO " + LINK_TABLE_NAME + " (name, description, source_location, destination_location, created_date, last_synced, accessible_state) VALUES (?, ?, ?, ?, CURRENT_DATE, CURRENT_DATE, ?)";
@@ -70,6 +59,7 @@ public class DatabaseConnection {
 
 	private Config config = new Config("db.properties");
 
+	private static final Logger logger = Logger.getLogger(DatabaseConnection.class.getName());
 
 	public Connection connectToDatabase() {
 		Connection connection = null;
@@ -87,6 +77,35 @@ public class DatabaseConnection {
 			logger.log(Level.SEVERE, "Failed to setup database connection: {0}", e);
 		}
 		return connection;
+	}
+
+	public void initializeLinkTable(Connection connection) {
+		try {
+			DatabaseMetaData metaData = connection.getMetaData();
+			ResultSet tables = metaData.getTables(null, null, config.getProperty("tbl.links"), null);
+
+			// check if the table already exists
+			if (!tables.next()) {
+				createLinkTablee(connection);
+			} else {
+				logger.log(Level.INFO, "Successfully initialized existing links table.");
+			}
+		} catch (SQLException e) {
+			logger.log(Level.SEVERE, "Failed to initialize link table: {0}", new Object[] { e.getMessage(), e });
+		}
+	}
+
+	public void createLinkTablee(Connection connection) {
+		try {
+			Statement statement = connection.createStatement();
+			String query = "CREATE TABLE " + config.getProperty("tbl.links")
+					+ " (empid SERIAL, name TEXT, description TEXT, source_location TEXT, destination_location TEXT, created_date DATE, last_synced DATE, accessible_state BOOLEAN, primary key(empid));";
+			statement.executeUpdate(query);
+			logger.log(Level.INFO, "Successfully initialized new links table.");
+
+		} catch (SQLException e) {
+			logger.log(Level.SEVERE, "Failed to create link table: {0}", new Object[] { e.getMessage(), e });
+		}
 	}
 
 }
