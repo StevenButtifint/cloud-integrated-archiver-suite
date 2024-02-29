@@ -2,7 +2,6 @@ package application.controllers;
 
 import java.io.IOException;
 
-import application.util.ViewNavigator;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,7 +47,7 @@ public class IndexController extends BaseController {
         
     	// set starting page
     	goToDashboard();
-    	    	
+    	
     	dashboardButton.setOnAction(event -> goToDashboard());
     	cloudLoginButton.setOnAction(event -> goToCloudLogin());
     	manageButton.setOnAction(event -> goToManage());
@@ -64,12 +63,12 @@ public class IndexController extends BaseController {
     }
     
     private void initializePages() throws Exception {
-        tabPages.getTabs().add(initializeTab("dash", "dashboard.fxml", new DashboardController()));
-        tabPages.getTabs().add(initializeTab("login", "cloud_login.fxml", new CloudController()));
-        tabPages.getTabs().add(initializeTab("new", "new_link.fxml", new NewLinkController()));
-        tabPages.getTabs().add(initializeTab("manage", "manage.fxml", new ManageController()));
-        tabPages.getTabs().add(initializeTab("monitor", "monitor.fxml", new MonitorController()));
-        tabPages.getTabs().add(initializeTab("duplication", "duplication.fxml", new DuplicationController()));
+        tabPages.getTabs().add(initializeTab("dash", "DashboardView.fxml", new DashboardController()));
+        tabPages.getTabs().add(initializeTab("login", "CloudLoginView.fxml", new CloudController()));
+        tabPages.getTabs().add(initializeTab("new", "NewLinkView.fxml", new NewLinkController()));
+        tabPages.getTabs().add(initializeTab("manage", "ManageView.fxml", new ManageController()));
+        tabPages.getTabs().add(initializeTab("monitor", "MonitorView.fxml", new MonitorController()));
+        tabPages.getTabs().add(initializeTab("duplication", "DuplicationView.fxml", new DuplicationController()));
     }
        
     private Tab initializeTab(String tabName, String viewName, BaseController controller) throws Exception {
@@ -126,6 +125,8 @@ public class IndexController extends BaseController {
     	exit();
     }
     
+    @FXML
+    private void goToQuitConfirm() {
     }
     
     @FXML void exit() {
