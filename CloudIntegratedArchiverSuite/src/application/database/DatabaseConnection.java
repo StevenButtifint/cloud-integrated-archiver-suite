@@ -16,46 +16,6 @@ import application.config.Config;
 import application.models.Link;
 
 public class DatabaseConnection {
-    public void insertLink(Connection connection, String name, String description, String source_location, String destination_location) {
-    	try {    		
-            String query = "INSERT INTO " + LINK_TABLE_NAME + " (name, description, source_location, destination_location, created_date, last_synced, accessible_state) VALUES (?, ?, ?, ?, CURRENT_DATE, CURRENT_DATE, ?)";
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
-                    statement.setString(1, name);
-                    statement.setString(2, description);
-                    statement.setString(3, source_location);
-                    statement.setString(4, destination_location);
-                    statement.setBoolean(5, true);
-
-                    int rowsInserted = statement.executeUpdate();
-                    if (rowsInserted > 0) {
-                        System.out.println("Added New Link");
-                    } else {
-                        System.out.println("Failed to add new link");
-                    }
-            } catch (SQLException e) {
-                    e.printStackTrace();
-            }
-    	} catch (Exception e) {
-    		System.out.println(e);
-    	}
-    }
-    
-    public List<Link> getAccessibleLinks(Connection connection) {
-    	List<Link> accessibleLinks = new ArrayList<>();
-    	String query = "SELECT * FROM " + LINK_TABLE_NAME + " WHERE accessible_state = ?";
-    	try (PreparedStatement statement = connection.prepareStatement(query)) {
-    		statement.setBoolean(1, true);
-    		try (ResultSet resultSet = statement.executeQuery()) {
-    			while (resultSet.next()) {                       
-    				accessibleLinks.add(new Link(resultSet.getInt("empid"), resultSet.getString("name"), resultSet.getString("description"), resultSet.getString("source_location"), resultSet.getString("destination_location"), resultSet.getString("created_date"), resultSet.getString("last_synced"), true));
-
-    				}
-    			}
-    		} catch (SQLException e) {
-    			e.printStackTrace();
-    		}
-    	return accessibleLinks;
-    }
 
 	private Config config = new Config("db.properties");
 
@@ -108,4 +68,68 @@ public class DatabaseConnection {
 		}
 	}
 
+	public void insertLink(Connection connection, String name, String description, String source_location,
+			String destination_location) {
+		try {
+			String query = "INSERT INTO " + config.getProperty("tbl.links")
+					+ " (name, description, source_location, destination_location, created_date, last_synced, accessible_state) VALUES (?, ?, ?, ?, CURRENT_DATE, CURRENT_DATE, ?)";
+			try (PreparedStatement statement = connection.prepareStatement(query)) {
+				statement.setString(1, name);
+				statement.setString(2, description);
+				statement.setString(3, source_location);
+				statement.setString(4, destination_location);
+				statement.setBoolean(5, true);
+
+				int rowsInserted = statement.executeUpdate();
+				if (rowsInserted > 0) {
+					logger.log(Level.INFO, "Successfully added new link.");
+				} else {
+					logger.log(Level.WARNING, "Failed to add new link.");
+				}
+			} catch (SQLException e) {
+				logger.log(Level.SEVERE, "Failed to create new link statement: {0}",
+						new Object[] { e.getMessage(), e });
+			}
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Failed to create new query: {0}", new Object[] { e.getMessage(), e });
+		}
+	}
+
+	public List<Link> getAccessibleLinks(Connection connection) {
+		List<Link> accessibleLinks = new ArrayList<>();
+		String query = "SELECT * FROM " + config.getProperty("tbl.links") + " WHERE accessible_state = ?";
+		try (PreparedStatement statement = connection.prepareStatement(query)) {
+			statement.setBoolean(1, true);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					accessibleLinks.add(new Link(resultSet.getInt("empid"), resultSet.getString("name"),
+							resultSet.getString("description"), resultSet.getString("source_location"),
+							resultSet.getString("destination_location"), resultSet.getString("created_date"),
+							resultSet.getString("last_synced"), resultSet.getString("accessible_state").equals("t")));
+				}
+			}
+		} catch (SQLException e) {
+			logger.log(Level.SEVERE, "Failed to get accessible links query: {0}", new Object[] { e.getMessage(), e });
+		}
+		return accessibleLinks;
+	}
+
+	public List<Link> getInaccessibleLinks(Connection connection) {
+		List<Link> inaccessibleLinks = new ArrayList<>();
+		String query = "SELECT * FROM " + config.getProperty("tbl.links") + " WHERE accessible_state = ?";
+		try (PreparedStatement statement = connection.prepareStatement(query)) {
+			statement.setBoolean(1, false);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					inaccessibleLinks.add(new Link(resultSet.getInt("empid"), resultSet.getString("name"),
+							resultSet.getString("description"), resultSet.getString("source_location"),
+							resultSet.getString("destination_location"), resultSet.getString("created_date"),
+							resultSet.getString("last_synced"), resultSet.getString("accessible_state").equals("t")));
+				}
+			}
+		} catch (SQLException e) {
+			logger.log(Level.SEVERE, "Failed to get inaccessible links query: {0}", new Object[] { e.getMessage(), e });
+		}
+		return inaccessibleLinks;
+	}
 }
