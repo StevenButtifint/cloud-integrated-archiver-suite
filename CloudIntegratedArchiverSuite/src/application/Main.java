@@ -22,7 +22,7 @@ public class Main extends Application {
 			Config config = new Config("app.properties");
 
 			// load initial view
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(config.getProperty("index.view.path")));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(config.getProperty("view.path.index")));
 			Parent root = loader.load();
 
 			// get controller for the view
