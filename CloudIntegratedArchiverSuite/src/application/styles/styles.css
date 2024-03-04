@@ -19,16 +19,29 @@
 	-fx-spacing: 5;
 }
 
-#linkItem {	
-	-fx-background-color: transparent;
-	-fx-background-radius: 10;
-	-fx-background-color: grey;
+.link-item-background-base {
+	-fx-background-radius: 5;
 	-fx-min-width: 100%;
 	-fx-min-height: 90px;
 	-fx-max-height: 90px;
 }
 
-.widgetButton {
+.link-item-progress-ready {
+    -fx-background-color: linear-gradient(to bottom, #413e69, #514e79);
+}
+
+.link-item-progress-complete {
+    -fx-background-color: #00ff00;
+}
+
+.link-item-syncing {
+	-fx-background-radius: 5;
+    -fx-background-color: #00ff00;
+	-fx-min-width: 100%;
+	-fx-min-height: 90px;
+	-fx-max-height: 90px;
+	
+}
 	-fx-text-fill: white;
 	-fx-font-size: 16;
 	-fx-background-radius: 10;
