@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="backgroundPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="890.0" minWidth="-Infinity" prefHeight="90.0" prefWidth="890.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="backgroundPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="890.0" minWidth="-Infinity" prefHeight="90.0" prefWidth="890.0" styleClass="link-item-background-base" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="syncButton" layoutX="800.0" layoutY="3.0" mnemonicParsing="false" onAction="#syncLink" prefHeight="62.0" prefWidth="103.0" styleClass="link-button" text="SYNC" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+      <Rectangle fx:id="backgroundRectangle" arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="773.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="117.0" AnchorPane.topAnchor="0.0" />
+      <Button fx:id="syncButton" layoutX="800.0" layoutY="3.0" mnemonicParsing="false" onAction="#syncLink" prefHeight="62.0" prefWidth="103.0" styleClass="link-button" text="SYNC" textFill="WHITE" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
          <font>
             <Font size="18.0" />
          </font></Button>
@@ -16,19 +17,20 @@
          <font>
             <Font size="22.0" />
          </font></Label>
-      <Label fx:id="linkName1" alignment="BASELINE_CENTER" layoutX="628.0" layoutY="42.0" maxHeight="1.7976931348623157E308" prefHeight="27.0" prefWidth="129.0" text="Synced 20 days ago." textFill="WHITE" wrapText="true" AnchorPane.rightAnchor="133.0" AnchorPane.topAnchor="42.0">
+      <Label fx:id="syncedLabel" alignment="BASELINE_CENTER" layoutX="628.0" layoutY="42.0" maxHeight="1.7976931348623157E308" prefHeight="27.0" prefWidth="129.0" text="Synced 20 days ago." textFill="WHITE" wrapText="true" AnchorPane.rightAnchor="133.0" AnchorPane.topAnchor="42.0">
          <font>
             <Font size="14.0" />
          </font></Label>
       <Label fx:id="linkDescription" alignment="TOP_LEFT" layoutX="14.0" layoutY="37.0" prefHeight="40.0" prefWidth="587.0" text="Link description" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="17.0" AnchorPane.topAnchor="45.0" />
-      <Label fx:id="availableStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="639.0" layoutY="19.0" text="UNAVAILABLE" AnchorPane.rightAnchor="144.0" AnchorPane.topAnchor="19.0">
+      <Label fx:id="availableStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="639.0" layoutY="19.0" text="UNAVAILABLE" AnchorPane.rightAnchor="133.0" AnchorPane.topAnchor="19.0">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
+      <Label fx:id="linkNotice" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="628.0" layoutY="63.0" maxHeight="1.7976931348623157E308" prefHeight="27.0" prefWidth="304.0" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="133.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
-   <styleClass>
-      <String fx:value="link-item-background-base" />
-      <String fx:value="link-item-progress-ready" />
-   </styleClass>
 </AnchorPane>
