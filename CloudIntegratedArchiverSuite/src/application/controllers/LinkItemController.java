@@ -80,4 +80,14 @@ public class LinkItemController {
 	public void setLinkDescription(String description) {
 		linkDescription.setText(description);
 	}
+
+	private void setBackgroundAnimation(String colourA, String colourB) {
+		Timeline timeline = new Timeline(
+				new KeyFrame(Duration.ZERO, new KeyValue(backgroundRectangle.fillProperty(), Color.web(colourA))),
+				new KeyFrame(Duration.seconds(1),
+						new KeyValue(backgroundRectangle.fillProperty(), Color.web(colourB))));
+		timeline.setCycleCount(Animation.INDEFINITE);
+		timeline.setAutoReverse(true);
+		timeline.play();
+	}
 }
