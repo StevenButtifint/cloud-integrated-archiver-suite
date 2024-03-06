@@ -30,6 +30,27 @@ public class LinkItemController {
 	private static final Logger logger = Logger.getLogger(DatabaseConnection.class.getName());
 
 
+	private void setStateSyncing() {
+		syncButton.setText("SYNCING...");
+		syncButton.setTextFill(Color.web("#ffffff"));
+		linkNotice.setText(syncLinkThread.getNoticeMessage());
+		setBackgroundAnimation("#514e79", "#655ebd");
+	}
+
+	private void setStateCompleted() {
+		syncButton.setText("SYNCED");
+		syncButton.setTextFill(Color.web("#514e79"));
+		linkNotice.setText(syncLinkThread.getNoticeMessage());
+		setBackgroundAnimation("#524abd", "#524abd");
+	}
+
+	private void setStateTerminated() {
+		syncButton.setText("RETRY");
+		syncButton.setTextFill(Color.web("#ff0000"));
+		linkNotice.setText(syncLinkThread.getNoticeMessage());
+		setBackgroundAnimation("#603f61", "#603f61");
+	}
+
 	public void setStateAccessible() {
 		syncButton.setDisable(false);
 		availableStatus.setText("AVAILABLE");
