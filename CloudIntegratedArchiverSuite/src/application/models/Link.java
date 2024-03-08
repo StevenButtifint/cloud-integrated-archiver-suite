@@ -1,5 +1,7 @@
 package application.models;
 
+import java.sql.Date;
+
 public class Link {
 
 	int id;
@@ -7,12 +9,12 @@ public class Link {
 	String description;
 	String source;
 	String destination;
-	String createdDate;
-	String lastSynced;
+	Date createdDate;
+	Date lastSynced;
 	boolean accessible;
-	
-	public Link(int id, String name, String description, String source, String destination, String createdDate,
-			String lastSynced, boolean accessible) {
+
+	public Link(int id, String name, String description, String source, String destination, Date createdDate,
+			Date lastSynced, boolean accessible) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -44,9 +46,11 @@ public class Link {
 		return destination;
 	}
 
+	public Date getCreatedDate() {
+		return createdDate;
 	}
 
-	public String getLastSynced() {
+	public Date getLastSynced() {
 		return lastSynced;
 	}
 
@@ -62,8 +66,6 @@ public class Link {
 		this.description = description;
 	}
 
-	public String getCreatedDate() {
-		return createdDate;
 	public void setSource(String source) {
 		this.source = source;
 	}
