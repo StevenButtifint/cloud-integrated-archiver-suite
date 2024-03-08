@@ -1,6 +1,5 @@
 package application.threads;
 
-import java.sql.Connection;
 import java.util.function.Consumer;
 
 import application.database.DatabaseConnection;
@@ -10,39 +9,45 @@ import application.util.FileOperations;
 public class AvailableLinkThread extends Thread {
 
 	private static final int CHECK_FREQUENCY_MS = 3000;
-	
+
 	private Consumer<Boolean> uiAvailableUpdater;
-	
+
 	private Link link;
+
+	private boolean availableState;
 
 	public AvailableLinkThread(Consumer<Boolean> uiUpdater, Link link) {
 		this.uiAvailableUpdater = uiUpdater;
 		this.link = link;
+		this.availableState = link.getAccessible();
 	}
 
 	@Override
 	public void run() {
-		while (true) {
-			try {
-				// validate source location exists and is a directory
-				if (!FileOperations.validDirectory(link.getSource())) {
-					uiAvailableUpdater.accept(false);
-					//////// update db if different
-				}
-				// validate destination location exists and is a directory
-				else if (!FileOperations.validDirectory(link.getDestination())) {
-					uiAvailableUpdater.accept(false);
-				} else {
-					uiAvailableUpdater.accept(true);
-				}
-				Thread.sleep(CHECK_FREQUENCY_MS);
 
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+		DatabaseConnection databaseConnection = new DatabaseConnection();
+		if (databaseConnection.connectToDatabase()) {
+			uiAvailableUpdater.accept(availableState);
+			while (true) {
+				try {
+					// validate source and destination location exists and are directories
+					boolean currentState = isAccessible();
+					if (currentState != availableState) {
+						uiAvailableUpdater.accept(currentState);
+					}
+					Thread.sleep(CHECK_FREQUENCY_MS);
+					
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+	
+				System.out.println("This Should repeat");
+				break;
 			}
-
-			System.out.println("This Should repeat");
-			break;
 		}
+	}
+
+	private boolean isAccessible() {
+		return FileOperations.validDirectory(link.getSource()) && FileOperations.validDirectory(link.getDestination());
 	}
 }
