@@ -41,8 +41,6 @@ public class AvailableLinkThread extends Thread {
 					e.printStackTrace();
 				}
 	
-				System.out.println("This Should repeat");
-				break;
 			}
 		}
 	}
