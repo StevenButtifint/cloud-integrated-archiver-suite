@@ -3,6 +3,7 @@ package application.controllers;
 import java.io.IOException;
 import java.util.List;
 
+import application.config.Config;
 import application.models.Dashboard;
 import application.models.Link;
 import application.threads.AvailableLinksThread;
@@ -12,36 +13,42 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 
-
 public class DashboardController extends BaseController {
-	
-	private static final String LINK_ITEM_PATH = "../views/link_item.fxml";
 
 	@FXML
 	private VBox dashboardLinkList;// = null;
-	
+
 	AvailableLinksThread availableLinksThread;
 	Dashboard dashboard = new Dashboard();
-	
-    public void initialize() {
-    	availableLinksThread = new AvailableLinksThread(this::updateLinkItemUI);
-    	availableLinksThread.start();
-    }
-    
-    private void updateLinkItemUI(List<Link> accessibleLinks) {
-        Platform.runLater(() -> {        	
-        	LinkItemController linkItemController = new LinkItemController();
-        	        	
-        	try {
-            	FXMLLoader loader = new FXMLLoader(linkItemController.getClass().getResource(LINK_ITEM_PATH));
-            	loader.setController(linkItemController);
-            	
+
+	private Config config;
+
+	public void initialize() {
+
+		// load application properties
+		config = new Config("app.properties");
+
+		availableLinksThread = new AvailableLinksThread(this::updateLinkItemsUI);
+		availableLinksThread.start();
+	}
+
+	private void updateLinkItemsUI(List<Link> accessibleLinks) {
+		Platform.runLater(() -> {
+
+			dashboardLinkList.getChildren().clear();
+
+			try {
 				for (Link link : accessibleLinks) {
+
+					LinkItemController linkItemController = new LinkItemController(link);
+					
+					FXMLLoader loader = new FXMLLoader(linkItemController.getClass().getResource(config.getProperty("view.path.linkitem")));
+					loader.setController(linkItemController);
+
 					Node newView = loader.load();
 					LinkItemController controller = loader.getController();
 					controller.setLinkName(link.getName());
 					controller.setLinkDescription(link.getDescription());
-					
 					dashboardLinkList.getChildren().add(newView);
 				}
 				
