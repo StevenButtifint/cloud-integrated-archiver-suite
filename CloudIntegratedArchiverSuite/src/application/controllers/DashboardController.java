@@ -49,11 +49,19 @@ public class DashboardController extends BaseController {
 					LinkItemController controller = loader.getController();
 					controller.setLinkName(link.getName());
 					controller.setLinkDescription(link.getDescription());
+					controller.setSyncedLabel(link.getLastSynced().toString());
+
+					if (link.getAccessible()) {
+						controller.setStateAccessible();
+					} else {
+						controller.setStateInaccessible();
+					}
+
 					dashboardLinkList.getChildren().add(newView);
+
 				}
-				
 				System.out.println(dashboardLinkList.getChildren().size());
-				
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
