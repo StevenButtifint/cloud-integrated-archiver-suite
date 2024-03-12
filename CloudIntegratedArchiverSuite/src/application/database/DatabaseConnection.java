@@ -105,8 +105,8 @@ public class DatabaseConnection {
 				while (resultSet.next()) {
 					accessibleLinks.add(new Link(resultSet.getInt("empid"), resultSet.getString("name"),
 							resultSet.getString("description"), resultSet.getString("source_location"),
-							resultSet.getString("destination_location"), resultSet.getString("created_date"),
-							resultSet.getString("last_synced"), resultSet.getString("accessible_state").equals("t")));
+							resultSet.getString("destination_location"), resultSet.getDate("created_date"),
+							resultSet.getDate("last_synced"), resultSet.getString("accessible_state").equals("t")));
 				}
 			}
 		} catch (SQLException e) {
@@ -124,8 +124,8 @@ public class DatabaseConnection {
 				while (resultSet.next()) {
 					inaccessibleLinks.add(new Link(resultSet.getInt("empid"), resultSet.getString("name"),
 							resultSet.getString("description"), resultSet.getString("source_location"),
-							resultSet.getString("destination_location"), resultSet.getString("created_date"),
-							resultSet.getString("last_synced"), resultSet.getString("accessible_state").equals("t")));
+							resultSet.getString("destination_location"), resultSet.getDate("created_date"),
+							resultSet.getDate("last_synced"), resultSet.getString("accessible_state").equals("t")));
 				}
 			}
 		} catch (SQLException e) {
