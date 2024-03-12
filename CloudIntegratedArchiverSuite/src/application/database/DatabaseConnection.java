@@ -9,93 +9,94 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import application.config.Config;
 import application.models.Link;
 
 public class DatabaseConnection {
 
+	private static final Logger logger = LogManager.getLogger(DatabaseConnection.class.getName());
+
 	private Config config = new Config("db.properties");
 
-	private static final Logger logger = Logger.getLogger(DatabaseConnection.class.getName());
+	private Connection connection;
 
-	public Connection connectToDatabase() {
-		Connection connection = null;
+	public boolean connectToDatabase() {
+		connection = null;
 		try {
 			Class.forName("org.postgresql.Driver");
 			connection = DriverManager.getConnection(config.getProperty("db.url"), config.getProperty("db.username"),
 					config.getProperty("db.password"));
 			if (connection != null) {
-				logger.log(Level.INFO, "Successfully connected to database: {0}", config.getProperty("db.name"));
+				logger.info("Successfully connected to database: " + config.getProperty("db.name"));
+				return true;
 
 			} else {
-				logger.log(Level.SEVERE, "Failed to connect to database: {0}", config.getProperty("db.name"));
+				logger.error("Failed to connect to database: " + config.getProperty("db.name"));
+				return false;
 			}
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Failed to setup database connection: {0}", e);
+			logger.error("Failed to setup database connection: " + config.getProperty("db.name"), e);
+			return false;
 		}
-		return connection;
 	}
 
-	public void initializeLinkTable(Connection connection) {
 		try {
 			DatabaseMetaData metaData = connection.getMetaData();
 			ResultSet tables = metaData.getTables(null, null, config.getProperty("tbl.links"), null);
 
 			// check if the table already exists
 			if (!tables.next()) {
-				createLinkTablee(connection);
+				createLinkTable(connection);
 			} else {
-				logger.log(Level.INFO, "Successfully initialized existing links table.");
+				logger.info("Successfully initialized existing links table.");
 			}
 		} catch (SQLException e) {
-			logger.log(Level.SEVERE, "Failed to initialize link table: {0}", new Object[] { e.getMessage(), e });
+			logger.error("Failed to initialize link table: " + e.getMessage(), e);
 		}
 	}
 
-	public void createLinkTablee(Connection connection) {
+	public void createLinkTable(Connection connection) {
 		try {
 			Statement statement = connection.createStatement();
 			String query = "CREATE TABLE " + config.getProperty("tbl.links")
 					+ " (empid SERIAL, name TEXT, description TEXT, source_location TEXT, destination_location TEXT, created_date DATE, last_synced DATE, accessible_state BOOLEAN, primary key(empid));";
 			statement.executeUpdate(query);
-			logger.log(Level.INFO, "Successfully initialized new links table.");
+			logger.info("Successfully initialized new links table.");
 
 		} catch (SQLException e) {
-			logger.log(Level.SEVERE, "Failed to create link table: {0}", new Object[] { e.getMessage(), e });
+			logger.error("Failed to create link table: " + e.getMessage(), e);
 		}
 	}
 
-	public void insertLink(Connection connection, String name, String description, String source_location,
-			String destination_location) {
-		try {
-			String query = "INSERT INTO " + config.getProperty("tbl.links")
-					+ " (name, description, source_location, destination_location, created_date, last_synced, accessible_state) VALUES (?, ?, ?, ?, CURRENT_DATE, CURRENT_DATE, ?)";
-			try (PreparedStatement statement = connection.prepareStatement(query)) {
-				statement.setString(1, name);
-				statement.setString(2, description);
-				statement.setString(3, source_location);
-				statement.setString(4, destination_location);
-				statement.setBoolean(5, true);
+	public void insertLink(Connection connection, String name, String description, String source_location, String destination_location) {
+		String query = "INSERT INTO " + config.getProperty("tbl.links") + " (name, description, source_location, destination_location, created_date, last_synced, accessible_state) VALUES (?, ?, ?, ?, CURRENT_DATE, CURRENT_DATE, ?)";
+			
+		try (PreparedStatement statement = connection.prepareStatement(query)) {
+			statement.setString(1, name);
+			statement.setString(2, description);
+			statement.setString(3, source_location);
+			statement.setString(4, destination_location);
+			statement.setBoolean(5, true);
 
-				int rowsInserted = statement.executeUpdate();
-				if (rowsInserted > 0) {
-					logger.log(Level.INFO, "Successfully added new link.");
-				} else {
-					logger.log(Level.WARNING, "Failed to add new link.");
-				}
-			} catch (SQLException e) {
-				logger.log(Level.SEVERE, "Failed to create new link statement: {0}",
-						new Object[] { e.getMessage(), e });
+			int rowsInserted = statement.executeUpdate();
+			if (rowsInserted > 0) {
+				logger.info("Successfully added new link.");
+			} else {
+				logger.warn("Failed to add new link.");
 			}
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Failed to create new query: {0}", new Object[] { e.getMessage(), e });
+		} catch (SQLException e) {
+			logger.error("Failed to create new link statement. " + e.getMessage(), e);
 		}
 	}
 
-	public List<Link> getAccessibleLinks(Connection connection) {
+		}
+	}
+
+	public List<Link> getAccessibleLinks() {
 		List<Link> accessibleLinks = new ArrayList<>();
 		String query = "SELECT * FROM " + config.getProperty("tbl.links") + " WHERE accessible_state = ?";
 		try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -109,12 +110,12 @@ public class DatabaseConnection {
 				}
 			}
 		} catch (SQLException e) {
-			logger.log(Level.SEVERE, "Failed to get accessible links query: {0}", new Object[] { e.getMessage(), e });
+			logger.error("Failed to get accessible links query " + e.getMessage(), e);
 		}
 		return accessibleLinks;
 	}
 
-	public List<Link> getInaccessibleLinks(Connection connection) {
+	public List<Link> getInaccessibleLinks() {
 		List<Link> inaccessibleLinks = new ArrayList<>();
 		String query = "SELECT * FROM " + config.getProperty("tbl.links") + " WHERE accessible_state = ?";
 		try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -128,7 +129,7 @@ public class DatabaseConnection {
 				}
 			}
 		} catch (SQLException e) {
-			logger.log(Level.SEVERE, "Failed to get inaccessible links query: {0}", new Object[] { e.getMessage(), e });
+			logger.error("Failed to get inaccessible links query. " + e.getMessage(), e);
 		}
 		return inaccessibleLinks;
 	}
