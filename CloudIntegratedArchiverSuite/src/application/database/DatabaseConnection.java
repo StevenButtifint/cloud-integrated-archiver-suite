@@ -44,6 +44,17 @@ public class DatabaseConnection {
 		}
 	}
 
+	public void closeConnection() {
+		try {
+			if (connection != null && !connection.isClosed()) {
+				connection.close();
+			}
+		} catch (SQLException e) {
+			logger.error("Failed to disconnect from database: " + config.getProperty("db.name"), e);
+		}
+	}
+
+	public void initializeLinkTable() {
 		try {
 			DatabaseMetaData metaData = connection.getMetaData();
 			ResultSet tables = metaData.getTables(null, null, config.getProperty("tbl.links"), null);
