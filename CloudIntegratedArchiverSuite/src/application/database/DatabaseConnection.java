@@ -104,6 +104,15 @@ public class DatabaseConnection {
 		}
 	}
 
+
+	public void updateLastSynced(int linkID) {
+		try {
+			String query = "UPDATE " + config.getProperty("tbl.links") + " SET last_synced = CURRENT_DATE WHERE empid = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, linkID);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			logger.error("Failed to update last synced date. " + e.getMessage(), e);
 		}
 	}
 
