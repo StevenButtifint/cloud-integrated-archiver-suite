@@ -52,4 +52,20 @@ public class CreateLinkController extends BaseController {
 	@FXML
 	private CheckBox syncDeletedBox;
 
+
+	private void updateFieldBorder(TextField textField, boolean isValid) {
+		if (isValid) {
+			setFieldvalid(textField);
+		} else {
+			setFieldInvalid(textField);
+		}
+	}
+
+	private void setFieldInvalid(TextField invalidField) {
+		invalidField.getStyleClass().add("invalid-field");
+	}
+
+	private void setFieldvalid(TextField validField) {
+		validField.getStyleClass().remove("invalid-field");
+	}
 }

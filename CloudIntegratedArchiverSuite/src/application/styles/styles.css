@@ -89,6 +89,10 @@
     -fx-background-color: linear-gradient(from 0% 0% to 90% 90%, #312e59, #312e59);
 }
 
+.invalid-field {
+	-fx-border-color: red;
+	-fx-border-width: 2px;
+}
 
 .topButton {
 	-fx-background-radius: 10;
