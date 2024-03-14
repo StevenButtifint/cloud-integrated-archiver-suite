@@ -1,33 +1,46 @@
 package application.controllers;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class LinkItemController {
+import application.models.Link;
+import application.threads.AvailableLinkThread;
+import application.threads.SyncLinkThread;
+import application.threads.ThreadState;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
+
+public class LinkItemController extends LinkBaseController {
+	
+	private static final Logger logger = LogManager.getLogger(LinkItemController.class.getName());
 
 	private SyncLinkThread syncLinkThread;
 	private AvailableLinkThread availableLinkThread;
 
 	private Link link;
-	@FXML
-	private Label linkName;
-
-	@FXML
-	private Label linkDescription;
 
 	@FXML
 	private Label availableStatus;
 
 	@FXML
 	private Label linkNotice;
-	
+
 	@FXML
 	private Button syncButton;
 
 	@FXML
 	private AnchorPane backgroundPane;
 
-	private static final Logger logger = Logger.getLogger(DatabaseConnection.class.getName());
 
 
 	private void setStateSyncing() {
@@ -72,13 +85,8 @@ public class LinkItemController {
 		linkDescription.getStyleClass().setAll("link-unavailable-text");
 		syncedLabel.getStyleClass().setAll("link-unavailable-text");
 	}
-
-	public void setLinkName(String name) {
-		linkName.setText(name);
 	}
 
-	public void setLinkDescription(String description) {
-		linkDescription.setText(description);
 	}
 
 	private void setBackgroundAnimation(String colourA, String colourB) {

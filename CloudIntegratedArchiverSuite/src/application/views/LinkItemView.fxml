@@ -13,15 +13,15 @@
          <font>
             <Font size="18.0" />
          </font></Button>
-      <Label fx:id="linkName" layoutX="26.0" layoutY="17.0" prefHeight="32.0" prefWidth="587.0" text="Link Name 2" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0">
+      <Label fx:id="nameLabel" layoutX="26.0" layoutY="17.0" prefHeight="32.0" prefWidth="587.0" text="Link Name 2" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0">
          <font>
             <Font size="22.0" />
          </font></Label>
-      <Label fx:id="syncedLabel" alignment="CENTER_RIGHT" layoutX="628.0" layoutY="42.0" maxHeight="1.7976931348623157E308" prefHeight="27.0" prefWidth="221.0" text="Synced 20 days ago." textFill="WHITE" wrapText="true" AnchorPane.rightAnchor="133.0" AnchorPane.topAnchor="42.0">
+      <Label fx:id="lastUsedLabel" alignment="CENTER_RIGHT" layoutX="628.0" layoutY="42.0" maxHeight="1.7976931348623157E308" prefHeight="27.0" prefWidth="221.0" text="Synced 20 days ago." textFill="WHITE" wrapText="true" AnchorPane.rightAnchor="133.0" AnchorPane.topAnchor="42.0">
          <font>
             <Font size="14.0" />
          </font></Label>
-      <Label fx:id="linkDescription" alignment="TOP_LEFT" layoutX="14.0" layoutY="37.0" prefHeight="40.0" prefWidth="587.0" text="Link description" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="17.0" AnchorPane.topAnchor="45.0" />
+      <Label fx:id="descriptionLabel" alignment="TOP_LEFT" layoutX="14.0" layoutY="37.0" prefHeight="40.0" prefWidth="587.0" text="Link description" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="17.0" AnchorPane.topAnchor="45.0" />
       <Label fx:id="availableStatus" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="639.0" layoutY="19.0" text="UNAVAILABLE" AnchorPane.rightAnchor="133.0" AnchorPane.topAnchor="19.0">
          <font>
             <Font size="17.0" />
