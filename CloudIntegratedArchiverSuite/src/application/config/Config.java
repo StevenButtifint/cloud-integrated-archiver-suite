@@ -1,9 +1,16 @@
 package application.config;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Config {
+	
+	private static final Logger logger = LogManager.getLogger(Config.class.getName());
+	
 	private Properties properties;
 
 	public Config(String propertiesFilePath) {
@@ -16,11 +23,11 @@ public class Config {
 			if (inputStream != null) {
 				properties.load(inputStream);
 			} else {
-				throw new RuntimeException("Unable to load properties file: " + propertiesFilePath);
+				logger.error("Unable to load properties file.");
+				throw new IOException("Unable to load properties file." + propertiesFilePath);
 			}
-		} catch (Exception e) {
-			System.err.println("Error loading properties file: " + propertiesFilePath);
-			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("Error loading properties file: " + e.getMessage(), e);
 		}
 	}
 
