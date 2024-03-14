@@ -1,9 +1,15 @@
 package application.controllers;
 
+import java.io.IOException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import application.config.Config;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -12,6 +18,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 public class IndexController extends BaseController {
+	
+	private static final Logger logger = LogManager.getLogger(IndexController.class.getName());
 
 	@FXML
 	private BorderPane mainPane;
@@ -38,7 +46,7 @@ public class IndexController extends BaseController {
 	Config config = new Config("app.properties");
 
 	@FXML
-	private void initialize() throws Exception {
+	private void initialize() {
 		// setup tab pane
 		hideTabePaneHeader();
 		initializePages();
@@ -51,7 +59,6 @@ public class IndexController extends BaseController {
 		manageButton.setOnAction(event -> goToManage());
 		monitorButton.setOnAction(event -> goToMonitor());
 		duplicationButton.setOnAction(event -> goToDuplication());
-
 		quitButton.setOnAction(event -> quit());
 	}
 
@@ -60,23 +67,32 @@ public class IndexController extends BaseController {
 		tabPages.getStyleClass().add("tab-pane-no-header");
 	}
 
-	private void initializePages() throws Exception {
+	private void initializePages() {
+		try {
 		tabPages.getTabs().add(initializeTab("dash", config.getProperty("view.path.dashboard"), new DashboardController()));
 		tabPages.getTabs().add(initializeTab("login", config.getProperty("view.path.cloudlogin"), new CloudController()));
-		tabPages.getTabs().add(initializeTab("new", config.getProperty("view.path.newlink"), new NewLinkController()));
 		tabPages.getTabs().add(initializeTab("manage", config.getProperty("view.path.manage"), new ManageController()));
 		tabPages.getTabs().add(initializeTab("monitor", config.getProperty("view.path.monitor"), new MonitorController()));
 		tabPages.getTabs().add(initializeTab("duplication", config.getProperty("view.path.duplication"), new DuplicationController()));
+		} catch (Exception e) {
+			logger.error("Could not initalise pages.", e);
+		}
 	}
 
-	private Tab initializeTab(String tabName, String viewName, BaseController controller) throws Exception {
+	private Tab initializeTab(String tabName, String viewName, BaseController controller) {
 		return new Tab(tabName, loadView(viewName, controller));
 	}
 
-	private javafx.scene.Parent loadView(String fxmlPath, BaseController controller) throws Exception {
-		FXMLLoader loader = new FXMLLoader(controller.getClass().getResource(fxmlPath));
-		loader.setController(controller);
-		return loader.load();
+	private Parent loadView(String fxmlPath, BaseController controller) {
+		Parent view = null;
+		try {
+			FXMLLoader loader = new FXMLLoader(controller.getClass().getResource(fxmlPath));
+			loader.setController(controller);
+			view = loader.load();
+	    } catch (IOException e) {
+	    	logger.error("Could not load view:" + fxmlPath, e);
+	    }
+		return view;
 	}
 
 	private void changeTab(int pageIndex) {
@@ -95,27 +111,22 @@ public class IndexController extends BaseController {
 		updateTite("Cloud Login");
 	}
 
-	@FXML
-	private void goToNewLink() {
-		changeTab(2);
-		updateTite("Create New Link");
-	}
 
 	@FXML
 	private void goToManage() {
-		changeTab(3);
+		changeTab(2);
 		updateTite("Manage");
 	}
 
 	@FXML
 	private void goToMonitor() {
-		changeTab(4);
+		changeTab(3);
 		updateTite("Monitor");
 	}
 
 	@FXML
 	private void goToDuplication() {
-		changeTab(5);
+		changeTab(4);
 		updateTite("Duplication");
 	}
 
