@@ -1,6 +1,6 @@
 package application.controllers;
 
-public class CloudController extends BaseController{
+public class CloudController {
     public void initialize() {
     }
 }

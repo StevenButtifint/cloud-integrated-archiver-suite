@@ -1,6 +1,6 @@
 package application.controllers;
 
-public class DuplicationController extends BaseController {
+public class DuplicationController {
 	
     public void initialize() {
     }

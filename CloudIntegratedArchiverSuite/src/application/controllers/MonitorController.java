@@ -1,6 +1,6 @@
 package application.controllers;
 
-public class MonitorController extends BaseController {
+public class MonitorController {
 	
     public void initialize() {
     }

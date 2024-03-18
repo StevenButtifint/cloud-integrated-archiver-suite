@@ -13,7 +13,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 
-public class DashboardController extends BaseController {
+public class DashboardController {
+
 
 	@FXML
 	private VBox dashboardLinkList;// = null;

@@ -2,8 +2,8 @@ package application.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+public class ManageHomeController {
 
-public class ManageHomeController extends BaseController {
 
 	private ManageController manageController;
 

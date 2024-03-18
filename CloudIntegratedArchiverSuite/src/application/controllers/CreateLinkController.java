@@ -14,7 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 
-public class CreateLinkController extends BaseController {
+public class CreateLinkController extends SaveLink {
 
 	private static final Logger logger = LogManager.getLogger(CreateLinkController.class.getName());
 
