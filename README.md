@@ -30,16 +30,23 @@ Take control with flexible storage options. Safely store archives and backups on
 
 ### Tech Stack
 - Front End
-  - **JavaFX**: Graphical user interface.
+  - **JavaFX**: Graphical user interface toolkit.
   - **FXML**: Defines UI layouts.
   - **CSS**: Styling UI components.
   
 - Back End
   - **Java**: Application logic and backend functionality.
   - **JDBC**: Connecting to and interacting with the database.
+  - **Google Drive API**: Connecting to and interacting with Google Drive.
 
 - Database
   - **PostgreSQL**: Relational database management system.
+
+### What I Learned
+- How to use SceneBuilder to design dynamic, modular and modern layouts.
+- How to utilise JavaFX CSS to style a modern looking application.
+- How to use pgAdmin to manage the PostgreSQL database.
+- How to manage and configure logging with Log4j2 logging framework.
 
 ---
 
