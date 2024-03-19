@@ -3,6 +3,9 @@ package application.controllers;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import application.config.Config;
 import application.models.Dashboard;
 import application.models.Link;
@@ -15,6 +18,7 @@ import javafx.scene.layout.VBox;
 
 public class DashboardController {
 
+	private static final Logger logger = LogManager.getLogger(DashboardController.class.getName());
 
 	@FXML
 	private VBox dashboardLinkList;// = null;
@@ -50,7 +54,7 @@ public class DashboardController {
 					LinkItemController controller = loader.getController();
 					controller.setLinkName(link.getName());
 					controller.setLinkDescription(link.getDescription());
-					controller.setSyncedLabel(link.getLastSynced().toString());
+					controller.setSyncedLabel(link.sinceSyncedString());
 
 					if (link.getAccessible()) {
 						controller.setStateAccessible();
@@ -61,12 +65,11 @@ public class DashboardController {
 					dashboardLinkList.getChildren().add(newView);
 
 				}
-				System.out.println(dashboardLinkList.getChildren().size());
 
 			} catch (IOException e) {
-				e.printStackTrace();
+		        logger.error("Failed to get links for database. " + e.getMessage(), e);
 			}
-        });
-    }
+		});
+	}
 
 }
