@@ -42,5 +42,10 @@ public class CreateLinkController extends SaveLink {
 		}
 	}
 	
+	private void clearFields() {
+		setNameField("");
+		setDescriptionField("");
+		setSourceField("");
+		setDestinationField("");
 	}
 }
