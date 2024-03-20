@@ -2,7 +2,9 @@
 
 
 ### Demo Video
-coming soon
+<p align="middle">
+<img src="https://github.com/StevenButtifint/cloud-integrated-archiver-suite/blob/main/demo/demo_1.gif?raw=true" width=80% height=100%>
+</p>
 
 
 ### Description
