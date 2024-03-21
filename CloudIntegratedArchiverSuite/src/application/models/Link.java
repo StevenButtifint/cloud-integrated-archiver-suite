@@ -1,6 +1,8 @@
 package application.models;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Link {
 
@@ -56,6 +58,26 @@ public class Link {
 
 	public boolean getAccessible() {
 		return accessible;
+	}
+
+	public int daysSinceSynced() {
+		LocalDate lastSyncedDate = LocalDate.parse(getLastSynced().toString());
+		LocalDate currentDate = LocalDate.now();
+
+		// calculate the difference between the two dates
+		long daysBetween = ChronoUnit.DAYS.between(lastSyncedDate, currentDate);
+		return Math.toIntExact(daysBetween);
+	}
+
+	public String sinceSyncedString() {
+		int daysSinceSynced = daysSinceSynced();
+		if (daysSinceSynced == 0) {
+			return "Last Synced Today";
+		} else if (daysSinceSynced == 1) {
+			return "Last Synced Yesterday";
+		} else {
+			return "Last Synced " + daysSinceSynced + " days ago";
+		}
 	}
 
 	public void setName(String name) {
