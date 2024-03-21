@@ -22,7 +22,7 @@ public class DashboardController {
 	@FXML
 	private VBox dashboardLinkList;
 
-	AvailableLinksThread availableLinksThread;
+	private AvailableLinksThread availableLinksThread;
 
 	private Config config;
 
@@ -33,6 +33,7 @@ public class DashboardController {
 
 		availableLinksThread = new AvailableLinksThread(this::updateLinkItemsUI);
 		availableLinksThread.start();
+		logger.info("Running Dashboard Service");
 	}
 
 	private void updateLinkItemsUI(List<Link> accessibleLinks) {
@@ -41,6 +42,7 @@ public class DashboardController {
 			dashboardLinkList.getChildren().clear();
 
 			try {
+
 				for (Link link : accessibleLinks) {
 
 					LinkItemController linkItemController = new LinkItemController(link);
@@ -65,7 +67,7 @@ public class DashboardController {
 				}
 
 			} catch (IOException e) {
-		        logger.error("Failed to get links for database. " + e.getMessage(), e);
+				logger.error("Failed to get links for database. " + e.getMessage(), e);
 			}
 		});
 	}
