@@ -125,6 +125,24 @@ public class DatabaseConnection {
 	    }
 	}
 
+	public Link getLinkById(int id) {
+		String query = "SELECT * FROM " + config.getProperty("tbl.links") + " WHERE empid = ?";
+		Link link = null;
+		try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			preparedStatement.setInt(1, id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				link = new Link(resultSet.getInt("empid"), resultSet.getString("name"),
+						resultSet.getString("description"), resultSet.getString("source_location"),
+						resultSet.getString("destination_location"), resultSet.getDate("created_date"),
+						resultSet.getDate("last_synced"), resultSet.getBoolean("accessible_state"));
+			}
+		} catch (SQLException e) {
+			logger.error("Failed to get link by ID " + e.getMessage(), e);
+		}
+		return link;
+	}
+	
 
 	public void updateLastSynced(int linkID) {
 		try {
