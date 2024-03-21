@@ -83,7 +83,7 @@ public class DatabaseConnection {
 		}
 	}
 
-	public void insertLink(Connection connection, String name, String description, String source_location, String destination_location) {
+	public void insertLink(String name, String description, String source_location, String destination_location) {
 		String query = "INSERT INTO " + config.getProperty("tbl.links") + " (name, description, source_location, destination_location, created_date, last_synced, accessible_state) VALUES (?, ?, ?, ?, CURRENT_DATE, CURRENT_DATE, ?)";
 			
 		try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -102,6 +102,27 @@ public class DatabaseConnection {
 		} catch (SQLException e) {
 			logger.error("Failed to create new link statement. " + e.getMessage(), e);
 		}
+	}
+	
+	public void updateLink(int id, String name, String description, String source_location, String destination_location) {
+	    String query = "UPDATE " + config.getProperty("tbl.links") + " SET name=?, description=?, source_location=?, destination_location=? WHERE empid=?";
+	    
+	    try (PreparedStatement statement = connection.prepareStatement(query)) {
+	        statement.setString(1, name);
+	        statement.setString(2, description);
+	        statement.setString(3, source_location);
+	        statement.setString(4, destination_location);
+	        statement.setInt(5, id);
+
+	        int rowsUpdated = statement.executeUpdate();
+	        if (rowsUpdated > 0) {
+	            logger.info("Successfully updated link with ID " + id);
+	        } else {
+	            logger.warn("No link found with ID " + id);
+	        }
+	    } catch (SQLException e) {
+	        logger.error("Failed to update link. " + e.getMessage(), e);
+	    }
 	}
 
 
