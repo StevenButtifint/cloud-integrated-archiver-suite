@@ -7,7 +7,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import application.config.Config;
-import application.models.Dashboard;
 import application.models.Link;
 import application.threads.AvailableLinksThread;
 import javafx.application.Platform;
@@ -21,10 +20,9 @@ public class DashboardController {
 	private static final Logger logger = LogManager.getLogger(DashboardController.class.getName());
 
 	@FXML
-	private VBox dashboardLinkList;// = null;
+	private VBox dashboardLinkList;
 
 	AvailableLinksThread availableLinksThread;
-	Dashboard dashboard = new Dashboard();
 
 	private Config config;
 
@@ -46,7 +44,7 @@ public class DashboardController {
 				for (Link link : accessibleLinks) {
 
 					LinkItemController linkItemController = new LinkItemController(link);
-					
+
 					FXMLLoader loader = new FXMLLoader(linkItemController.getClass().getResource(config.getProperty("view.path.linkitem")));
 					loader.setController(linkItemController);
 
@@ -71,5 +69,4 @@ public class DashboardController {
 			}
 		});
 	}
-
 }
