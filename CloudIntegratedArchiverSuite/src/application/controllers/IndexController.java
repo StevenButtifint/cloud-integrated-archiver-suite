@@ -17,7 +17,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
-public class IndexController extends BaseController {
+public class IndexController {
 	
 	private static final Logger logger = LogManager.getLogger(IndexController.class.getName());
 
@@ -67,7 +67,7 @@ public class IndexController extends BaseController {
 		tabPages.getStyleClass().add("tab-pane-no-header");
 	}
 
-	private void initializePages() {
+	public void initializePages() {
 		try {
 		tabPages.getTabs().add(initializeTab("dash", config.getProperty("view.path.dashboard"), new DashboardController()));
 		tabPages.getTabs().add(initializeTab("login", config.getProperty("view.path.cloudlogin"), new CloudController()));
@@ -79,11 +79,11 @@ public class IndexController extends BaseController {
 		}
 	}
 
-	private Tab initializeTab(String tabName, String viewName, BaseController controller) {
+	private Tab initializeTab(String tabName, String viewName, Object controller) {
 		return new Tab(tabName, loadView(viewName, controller));
 	}
 
-	private Parent loadView(String fxmlPath, BaseController controller) {
+	private Parent loadView(String fxmlPath, Object controller) {
 		Parent view = null;
 		try {
 			FXMLLoader loader = new FXMLLoader(controller.getClass().getResource(fxmlPath));
@@ -111,11 +111,11 @@ public class IndexController extends BaseController {
 		updateTite("Cloud Login");
 	}
 
-
 	@FXML
 	private void goToManage() {
 		changeTab(2);
 		updateTite("Manage");
+		manageController.goToManageHome();
 	}
 
 	@FXML
