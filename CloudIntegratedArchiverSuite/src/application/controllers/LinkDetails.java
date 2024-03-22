@@ -38,6 +38,13 @@ public class LinkDetails {
 		backButton.setOnAction(event -> manageController.goToManageHome());
 	}
 
+	public void showLinkDetails(Link link) {
+		setNameField(link.getName());
+		setDescriptionField(link.getDescription());
+		setSourceField(link.getSource());
+		setDestinationField(link.getDestination());
+	}
+	
 
 	protected void setFieldInvalid(TextField invalidField) {
 		invalidField.getStyleClass().add("invalid-field");
