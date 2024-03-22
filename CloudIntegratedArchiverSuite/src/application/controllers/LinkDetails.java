@@ -43,8 +43,23 @@ public class LinkDetails {
 		setDescriptionField(link.getDescription());
 		setSourceField(link.getSource());
 		setDestinationField(link.getDestination());
+		clearInvalidFields();
 	}
 	
+	protected void clearInvalidFields() {
+		updateValidFieldBorder(nameField, true);
+		updateValidFieldBorder(descriptionField, true);
+		updateValidFieldBorder(sourceField, true);
+		updateValidFieldBorder(destinationField, true);
+	}
+
+	protected void updateValidFieldBorder(TextField textField, boolean isValid) {
+		if (isValid) {
+			setFieldvalid(textField);
+		} else {
+			setFieldInvalid(textField);
+		}
+	}
 
 	protected void setFieldInvalid(TextField invalidField) {
 		invalidField.getStyleClass().add("invalid-field");
