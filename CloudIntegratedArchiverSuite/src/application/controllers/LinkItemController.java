@@ -49,16 +49,24 @@ public class LinkItemController extends LinkBaseController {
 	@FXML
 	private AnchorPane backgroundPane;
 
+	@FXML
+	private Rectangle backgroundRectangle;
+
 	public LinkItemController(Link link) {
 		this.link = link;
 		config = new Config("app.properties");
+	}
+
+	private void initialiseBackgroundRectangle() {
+		backgroundRectangle.widthProperty().bind(backgroundPane.widthProperty());
+		backgroundRectangle.heightProperty().bind(backgroundPane.heightProperty());
 	}
 
 
 
 	private void setStateSyncing() {
 		linkNotice.setText(syncLinkThread.getNoticeMessage());
-		setBackgroundAnimation("#514e79", "#655ebd");
+		setBackgroundAnimation(config.getProperty("colour.syncing.start"), config.getProperty("colour.syncing.end"));
 	}
 
 	private void setStateCompleted() {
@@ -66,13 +74,15 @@ public class LinkItemController extends LinkBaseController {
 		syncButton.getStyleClass().add("link-button-complete");
 		setButtonIcon("img.check", 0);
 		linkNotice.setText(syncLinkThread.getNoticeMessage());
-		setBackgroundAnimation("#524abd", "#524abd");
+		setBackgroundAnimation(config.getProperty("colour.link.complete"), config.getProperty("colour.link.complete"));
+		syncButton.setDisable(false);
 	}
 
 	private void setStateTerminated() {
 		linkNotice.setText(syncLinkThread.getNoticeMessage());
-		setBackgroundAnimation("#603f61", "#603f61");
 		setButtonIcon("img.cross", 0);
+		setBackgroundAnimation(config.getProperty("colour.link.terminated"), config.getProperty("colour.link.terminated"));
+		syncButton.setDisable(false);
 	}
 
 	public void setStateAccessible() {
