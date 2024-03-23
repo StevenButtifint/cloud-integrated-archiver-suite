@@ -3,6 +3,7 @@ package application.controllers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import application.config.Config;
 import application.models.Link;
 import application.threads.AvailableLinkThread;
 import application.threads.SyncLinkThread;
@@ -15,17 +16,21 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class LinkItemController extends LinkBaseController {
-	
+
 	private static final Logger logger = LogManager.getLogger(LinkItemController.class.getName());
 
 	private SyncLinkThread syncLinkThread;
 	private AvailableLinkThread availableLinkThread;
+
+	private Config config;
 
 	private Link link;
 
@@ -39,29 +44,35 @@ public class LinkItemController extends LinkBaseController {
 	private Button syncButton;
 
 	@FXML
+	private ImageView syncImage;
+
+	@FXML
 	private AnchorPane backgroundPane;
+
+	public LinkItemController(Link link) {
+		this.link = link;
+		config = new Config("app.properties");
+	}
 
 
 
 	private void setStateSyncing() {
-		syncButton.setText("SYNCING...");
-		syncButton.setTextFill(Color.web("#ffffff"));
 		linkNotice.setText(syncLinkThread.getNoticeMessage());
 		setBackgroundAnimation("#514e79", "#655ebd");
 	}
 
 	private void setStateCompleted() {
-		syncButton.setText("SYNCED");
-		syncButton.setTextFill(Color.web("#514e79"));
+		syncButton.getStyleClass().remove("link-button");
+		syncButton.getStyleClass().add("link-button-complete");
+		setButtonIcon("img.check", 0);
 		linkNotice.setText(syncLinkThread.getNoticeMessage());
 		setBackgroundAnimation("#524abd", "#524abd");
 	}
 
 	private void setStateTerminated() {
-		syncButton.setText("RETRY");
-		syncButton.setTextFill(Color.web("#ff0000"));
 		linkNotice.setText(syncLinkThread.getNoticeMessage());
 		setBackgroundAnimation("#603f61", "#603f61");
+		setButtonIcon("img.cross", 0);
 	}
 
 	public void setStateAccessible() {
@@ -85,6 +96,12 @@ public class LinkItemController extends LinkBaseController {
 		linkDescription.getStyleClass().setAll("link-unavailable-text");
 		syncedLabel.getStyleClass().setAll("link-unavailable-text");
 	}
+
+	private void setButtonIcon(String image, int translateX) {
+		syncImage.setImage(new Image(config.getProperty(image)));
+		syncImage.setTranslateX(translateX);
+	}
+
 	}
 
 	}
