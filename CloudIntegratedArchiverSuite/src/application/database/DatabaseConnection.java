@@ -143,6 +143,18 @@ public class DatabaseConnection {
 		return link;
 	}
 	
+	public boolean deleteLinkById(int id) {
+	    String query = "DELETE FROM " + config.getProperty("tbl.links") + " WHERE empid = ?";
+	    try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+	        preparedStatement.setInt(1, id);
+	        preparedStatement.executeUpdate();
+	        logger.info("Link with ID " + id + " deleted successfully.");
+	        return true;
+	    } catch (SQLException e) {
+	        logger.error("Failed to delete link by ID " + id + ": " + e.getMessage(), e);
+	        return false;
+	    }
+	}
 
 	public void updateLastSynced(int linkID) {
 		try {
