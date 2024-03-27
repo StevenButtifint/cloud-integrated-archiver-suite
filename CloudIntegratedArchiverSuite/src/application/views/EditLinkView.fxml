@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="newLinkPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="600.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="widget" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox prefHeight="15.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label styleClass="widget-title" text="Edit Link">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="236.0" prefWidth="880.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane>
+                           <children>
+                              <VBox layoutX="202.0" layoutY="14.0" prefHeight="101.0" prefWidth="870.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label styleClass="widget-title" text="Name">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="nameField" styleClass="entry-box">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextField>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane>
+                           <children>
+                              <VBox layoutX="202.0" layoutY="14.0" prefHeight="101.0" prefWidth="870.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label styleClass="widget-title" text="Description">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="descriptionField" prefHeight="31.0" prefWidth="530.0" styleClass="entry-box">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextField>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane>
+                           <children>
+                              <VBox layoutX="124.0" layoutY="-57.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label styleClass="widget-title" text="Source Location">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="sourceField" editable="false" styleClass="entry-box" />
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                       <children>
+                                          <Button fx:id="localSourceButton" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" prefHeight="35.0" styleClass="link-button" text="  Local Folder" HBox.hgrow="ALWAYS">
+                                             <graphic>
+                                                <ImageView fitHeight="27.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/folder.png" />
+                                                   </image>
+                                                   <effect>
+                                                      <ColorAdjust brightness="0.63" contrast="-0.83" hue="-0.39" saturation="0.73" />
+                                                   </effect>
+                                                </ImageView>
+                                             </graphic></Button>
+                                          <Button maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" prefHeight="35.0" styleClass="link-button" text="  Cloud Folder" HBox.hgrow="ALWAYS">
+                                             <graphic>
+                                                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/cloud.png" />
+                                                   </image>
+                                                   <effect>
+                                                      <ColorAdjust brightness="0.63" contrast="-0.83" hue="-0.39" saturation="0.73" />
+                                                   </effect>
+                                                </ImageView>
+                                             </graphic></Button>
+                                       </children>
+                                       <padding>
+                                          <Insets right="10.0" top="5.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane>
+                           <children>
+                              <VBox layoutX="568.0" layoutY="13.0" prefHeight="125.0" prefWidth="229.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label styleClass="widget-title" text="Destination Location">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="destinationField" editable="false" styleClass="entry-box" />
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="160.0" spacing="10.0">
+                                       <children>
+                                          <Button fx:id="localDestinationButton" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" prefHeight="35.0" styleClass="link-button" text="  Local Folder">
+                                             <graphic>
+                                                <ImageView fitHeight="27.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/folder.png" />
+                                                   </image>
+                                                   <effect>
+                                                      <ColorAdjust brightness="0.63" contrast="-0.83" hue="-0.39" saturation="0.73" />
+                                                   </effect>
+                                                </ImageView>
+                                             </graphic></Button>
+                                          <Button maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" prefHeight="35.0" styleClass="link-button" text="  Cloud Folder">
+                                             <graphic>
+                                                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/cloud.png" />
+                                                   </image>
+                                                   <effect>
+                                                      <ColorAdjust brightness="0.63" contrast="-0.83" hue="-0.39" saturation="0.73" />
+                                                   </effect>
+                                                </ImageView>
+                                             </graphic></Button>
+                                       </children>
+                                       <padding>
+                                          <Insets right="10.0" top="5.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane>
+                           <children>
+                              <VBox layoutX="158.0" layoutY="-14.0" prefHeight="212.0" prefWidth="870.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label styleClass="widget-title" text="Properties">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0">
+                                       <children>
+                                          <CheckBox disable="true" mnemonicParsing="false" prefWidth="300.0" selected="true" style="-fx-opacity: .5;" styleClass="widget-title" text="Sync New Files" HBox.hgrow="ALWAYS">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </CheckBox>
+                                          <CheckBox fx:id="syncModifiedBox" mnemonicParsing="false" prefWidth="300.0" selected="true" styleClass="widget-title" text="Sync Modifications" HBox.hgrow="ALWAYS">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </CheckBox>
+                                          <CheckBox fx:id="syncDeletedBox" mnemonicParsing="false" prefWidth="300.0" selected="true" styleClass="widget-title" text="Sync Deletions" HBox.hgrow="ALWAYS">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </CheckBox>
+                                          <CheckBox fx:id="archiveBox" mnemonicParsing="false" prefWidth="300.0" styleClass="widget-title" text="Archive Syncs" HBox.hgrow="ALWAYS">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </CheckBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="530.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Button fx:id="backButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" styleClass="link-button" text="Back">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="39.0" prefWidth="72.0" styleClass="link-button" text="Save">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </AnchorPane>
+         </children>
+         <padding>
+            <Insets left="15.0" right="15.0" top="10.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
