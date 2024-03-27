@@ -54,7 +54,7 @@ public class DatabaseConnection {
 		}
 	}
 
-	public void initializeLinkTable() {
+	public boolean initialiseLinkTable() {
 		try {
 			DatabaseMetaData metaData = connection.getMetaData();
 			ResultSet tables = metaData.getTables(null, null, config.getProperty("tbl.links"), null);
@@ -65,8 +65,10 @@ public class DatabaseConnection {
 			} else {
 				logger.info("Successfully initialized existing links table.");
 			}
+			return true;
 		} catch (SQLException e) {
 			logger.error("Failed to initialize link table: " + e.getMessage(), e);
+			return false;
 		}
 	}
 
