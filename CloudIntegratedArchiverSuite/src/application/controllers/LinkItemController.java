@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 
 import application.config.Config;
 import application.models.Link;
-import application.threads.AvailableLinkThread;
 import application.threads.SyncLinkThread;
 import application.threads.ThreadState;
 import javafx.animation.Animation;
@@ -28,7 +27,6 @@ public class LinkItemController extends LinkBaseController {
 	private static final Logger logger = LogManager.getLogger(LinkItemController.class.getName());
 
 	private SyncLinkThread syncLinkThread;
-	private AvailableLinkThread availableLinkThread;
 
 	private Config config;
 
@@ -63,6 +61,26 @@ public class LinkItemController extends LinkBaseController {
 	}
 
 
+	private void updateStateUI(ThreadState threadState) {
+		Platform.runLater(() -> {
+			initialiseBackgroundRectangle();
+			switch (threadState) {
+			case RUNNING:
+				logger.info("Link Sync Running.");
+				setStateSyncing();
+				break;
+			case COMPLETED:
+				logger.info("Link Sync Completed.");
+				setStateCompleted();
+				break;
+			case TERMINATED:
+				logger.info("Link Sync Terminated.");
+				setStateTerminated();
+				break;
+			}
+		});
+	}
+
 
 	private void setStateSyncing() {
 		linkNotice.setText(syncLinkThread.getNoticeMessage());
@@ -91,9 +109,9 @@ public class LinkItemController extends LinkBaseController {
 		availableStatus.getStyleClass().setAll("link-available-label");
 		backgroundPane.getStyleClass().remove("link-item-inaccessible");
 		backgroundPane.getStyleClass().add("link-item-accessible");
-		linkName.getStyleClass().setAll("link-available-text");
-		linkDescription.getStyleClass().setAll("link-available-text");
-		syncedLabel.getStyleClass().setAll("link-available-text");
+		nameLabel.getStyleClass().setAll("link-available-text");
+		descriptionLabel.getStyleClass().setAll("link-available-text");
+		lastUsedLabel.getStyleClass().setAll("link-available-text");
 	}
 
 	public void setStateInaccessible() {
@@ -102,9 +120,9 @@ public class LinkItemController extends LinkBaseController {
 		availableStatus.getStyleClass().setAll("link-unavailable-label");
 		backgroundPane.getStyleClass().remove("link-item-accessible");
 		backgroundPane.getStyleClass().add("link-item-inaccessible");
-		linkName.getStyleClass().setAll("link-unavailable-text");
-		linkDescription.getStyleClass().setAll("link-unavailable-text");
-		syncedLabel.getStyleClass().setAll("link-unavailable-text");
+		nameLabel.getStyleClass().setAll("link-unavailable-text");
+		descriptionLabel.getStyleClass().setAll("link-unavailable-text");
+		lastUsedLabel.getStyleClass().setAll("link-unavailable-text");
 	}
 
 	private void setButtonIcon(String image, int translateX) {
@@ -114,6 +132,10 @@ public class LinkItemController extends LinkBaseController {
 
 	}
 
+	public void setSyncedLabel(String lastSynced) {
+		Platform.runLater(() -> {
+			lastUsedLabel.setText(lastSynced);
+		});
 	}
 
 	private void setBackgroundAnimation(String colourA, String colourB) {
@@ -125,4 +147,9 @@ public class LinkItemController extends LinkBaseController {
 		timeline.setAutoReverse(true);
 		timeline.play();
 	}
+
+	public String getAvailableStatus() {
+		return availableStatus.getText();
+	}
+
 }
