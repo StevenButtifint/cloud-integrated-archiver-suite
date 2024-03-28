@@ -29,10 +29,14 @@ public class EditLinkController extends SaveLink {
 		String source = getSourceFieldString();
 		String destination = getDestinationFieldString();
 
+		Boolean syncModifed = syncModifiedBox.isSelected();
+		Boolean syncDeleted = syncDeletedBox.isSelected();
+		Boolean syncAsArchive = syncAsArchiveBox.isSelected();
+
 		if (validateContent(name, description, source, destination)) {
 			databaseConnection = new DatabaseConnection();
 			if (databaseConnection.connectToDatabase()) {
-				databaseConnection.updateLink(linkID, name, description, source, destination);
+				databaseConnection.updateLink(linkID, name, description, source, destination, syncModifed, syncDeleted, syncAsArchive);
 				databaseConnection.closeConnection();
 				manageController.goToManageHome();
 				

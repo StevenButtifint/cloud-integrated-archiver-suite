@@ -26,15 +26,16 @@ public class CreateLinkController extends SaveLink {
 
 		Boolean syncModifed = syncModifiedBox.isSelected();
 		Boolean syncDeleted = syncDeletedBox.isSelected();
-		Boolean archiveBackup = archiveBox.isSelected();
+		Boolean archiveBackup = syncAsArchiveBox.isSelected();
 
 		if (validateContent(name, description, source, destination)) {
 			databaseConnection = new DatabaseConnection();
 			if (databaseConnection.connectToDatabase()) {
-				databaseConnection.insertLink(name, description, source, destination);
+				databaseConnection.insertLink(name, description, source, destination, syncModifed, syncDeleted, archiveBackup);
 				databaseConnection.closeConnection();
 				manageController.goToManageHome();
 				clearFields();
+				manageController.refreshDashboard();
 				logger.info("Successfully Saved new link.");
 			} else {
 				logger.error("No database connection established to save new link.");

@@ -2,6 +2,7 @@ package application.database;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -76,7 +77,7 @@ public class DatabaseConnection {
 		try {
 			Statement statement = connection.createStatement();
 			String query = "CREATE TABLE " + config.getProperty("tbl.links")
-					+ " (empid SERIAL, name TEXT, description TEXT, source_location TEXT, destination_location TEXT, created_date DATE, last_synced DATE, accessible_state BOOLEAN, primary key(empid));";
+					+ " (empid SERIAL, name TEXT, description TEXT, source_location TEXT, destination_location TEXT, created_date DATE, last_synced DATE, sync_modified BOOLEAN, sync_deleted BOOLEAN, sync_as_archive BOOLEAN, primary key(empid));";
 			statement.executeUpdate(query);
 			logger.info("Successfully initialized new links table.");
 
@@ -85,16 +86,19 @@ public class DatabaseConnection {
 		}
 	}
 
-	public void insertLink(String name, String description, String source_location, String destination_location) {
-		String query = "INSERT INTO " + config.getProperty("tbl.links") + " (name, description, source_location, destination_location, created_date, last_synced, accessible_state) VALUES (?, ?, ?, ?, CURRENT_DATE, CURRENT_DATE, ?)";
-			
+	public void insertLink(String name, String description, String source_location, String destination_location, boolean sync_modified, boolean sync_deleted, boolean sync_as_archive) {
+		String query = "INSERT INTO " + config.getProperty("tbl.links") + " (name, description, source_location, destination_location, created_date, last_synced, sync_modified, sync_deleted, sync_as_archive) VALUES (?, ?, ?, ?, CURRENT_DATE, ?, ?, ?, ?)";
+		
 		try (PreparedStatement statement = connection.prepareStatement(query)) {
 			statement.setString(1, name);
 			statement.setString(2, description);
 			statement.setString(3, source_location);
 			statement.setString(4, destination_location);
-			statement.setBoolean(5, true);
-
+			statement.setDate(5, Date.valueOf("9999-01-01"));
+			statement.setBoolean(6, sync_modified);
+			statement.setBoolean(7, sync_deleted);
+			statement.setBoolean(8, sync_as_archive);
+			
 			int rowsInserted = statement.executeUpdate();
 			if (rowsInserted > 0) {
 				logger.info("Successfully added new link.");
@@ -106,15 +110,18 @@ public class DatabaseConnection {
 		}
 	}
 	
-	public void updateLink(int id, String name, String description, String source_location, String destination_location) {
-	    String query = "UPDATE " + config.getProperty("tbl.links") + " SET name=?, description=?, source_location=?, destination_location=? WHERE empid=?";
+	public void updateLink(int id, String name, String description, String source_location, String destination_location, boolean syncModifed, boolean syncDeleted, boolean syncAsArchive) {
+	    String query = "UPDATE " + config.getProperty("tbl.links") + " SET name=?, description=?, source_location=?, destination_location=?, sync_modified=?, sync_deleted=?, sync_as_archive=? WHERE empid=?";
 	    
 	    try (PreparedStatement statement = connection.prepareStatement(query)) {
 	        statement.setString(1, name);
 	        statement.setString(2, description);
 	        statement.setString(3, source_location);
 	        statement.setString(4, destination_location);
-	        statement.setInt(5, id);
+	        statement.setBoolean(5, syncModifed);
+	        statement.setBoolean(6, syncDeleted);
+	        statement.setBoolean(7, syncAsArchive);
+	        statement.setInt(8, id);
 
 	        int rowsUpdated = statement.executeUpdate();
 	        if (rowsUpdated > 0) {
@@ -137,7 +144,8 @@ public class DatabaseConnection {
 				link = new Link(resultSet.getInt("empid"), resultSet.getString("name"),
 						resultSet.getString("description"), resultSet.getString("source_location"),
 						resultSet.getString("destination_location"), resultSet.getDate("created_date"),
-						resultSet.getDate("last_synced"), resultSet.getBoolean("accessible_state"));
+						resultSet.getDate("last_synced"), resultSet.getBoolean("sync_modified"),
+						resultSet.getBoolean("sync_deleted"), resultSet.getBoolean("sync_as_archive"));
 			}
 		} catch (SQLException e) {
 			logger.error("Failed to get link by ID " + e.getMessage(), e);
@@ -168,7 +176,6 @@ public class DatabaseConnection {
 			logger.error("Failed to update last synced date. " + e.getMessage(), e);
 		}
 	}
-
 	public List<Link> getAccessibleLinks() {
 		List<Link> accessibleLinks = new ArrayList<>();
 		String query = "SELECT * FROM " + config.getProperty("tbl.links") + " WHERE accessible_state = ?";
