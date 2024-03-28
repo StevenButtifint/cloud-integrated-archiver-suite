@@ -6,17 +6,30 @@ import java.time.temporal.ChronoUnit;
 
 public class Link {
 
-	int id;
-	String name;
-	String description;
-	String source;
-	String destination;
-	Date createdDate;
-	Date lastSynced;
-	boolean accessible;
+	private int id;
+
+	private String name;
+
+	private String description;
+
+	private String source;
+
+	private String destination;
+
+	private Date createdDate;
+
+	private Date lastSynced;
+
+	private boolean accessible;
+
+	private boolean syncModified;
+
+	private boolean syncDeleted;
+
+	private boolean syncAsArchive;
 
 	public Link(int id, String name, String description, String source, String destination, Date createdDate,
-			Date lastSynced, boolean accessible) {
+			Date lastSynced, boolean syncModified, boolean syncDeleted, boolean syncAsArchive) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -25,7 +38,9 @@ public class Link {
 		this.destination = destination;
 		this.createdDate = createdDate;
 		this.lastSynced = lastSynced;
-		this.accessible = accessible;
+		this.syncModified = syncModified;
+		this.syncDeleted = syncDeleted;
+		this.syncAsArchive = syncAsArchive;
 	}
 
 	public int getId() {
@@ -56,6 +71,18 @@ public class Link {
 		return lastSynced;
 	}
 
+	public boolean getSyncModified() {
+		return syncModified;
+	}
+
+	public boolean getSyncDeleted() {
+		return syncDeleted;
+	}
+
+	public boolean getSyncAsArchive() {
+		return syncAsArchive;
+	}
+
 	public boolean getAccessible() {
 		return accessible;
 	}
@@ -75,8 +102,10 @@ public class Link {
 			return "Last Synced Today";
 		} else if (daysSinceSynced == 1) {
 			return "Last Synced Yesterday";
-		} else {
+		} else if (daysSinceSynced > 0) {
 			return "Last Synced " + daysSinceSynced + " days ago";
+		} else {
+			return "Never Synced";
 		}
 	}
 
@@ -102,5 +131,17 @@ public class Link {
 
 	public void setAccessible(boolean accessible) {
 		this.accessible = accessible;
+	}
+
+	public void setSyncModified(boolean syncModified) {
+		this.syncModified = syncModified;
+	}
+
+	public void setSyncDeleted(boolean syncDeleted) {
+		this.syncDeleted = syncDeleted;
+	}
+
+	public void setSyncAsArchive(boolean syncAsArchive) {
+		this.syncAsArchive = syncAsArchive;
 	}
 }
