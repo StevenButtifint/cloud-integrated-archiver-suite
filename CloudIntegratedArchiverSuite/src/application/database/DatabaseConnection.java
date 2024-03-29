@@ -76,8 +76,7 @@ public class DatabaseConnection {
 	public void createLinkTable(Connection connection) {
 		try {
 			Statement statement = connection.createStatement();
-			String query = "CREATE TABLE " + config.getProperty("tbl.links")
-					+ " (empid SERIAL, name TEXT, description TEXT, source_location TEXT, destination_location TEXT, created_date DATE, last_synced DATE, sync_modified BOOLEAN, sync_deleted BOOLEAN, sync_as_archive BOOLEAN, primary key(empid));";
+			String query = "CREATE TABLE " + config.getProperty("tbl.links") + " (empid SERIAL, name TEXT, description TEXT, source_location TEXT, destination_location TEXT, created_date DATE, last_synced DATE, sync_modified BOOLEAN, sync_deleted BOOLEAN, sync_as_archive BOOLEAN, primary key(empid));";
 			statement.executeUpdate(query);
 			logger.info("Successfully initialized new links table.");
 
@@ -88,7 +87,7 @@ public class DatabaseConnection {
 
 	public void insertLink(String name, String description, String source_location, String destination_location, boolean sync_modified, boolean sync_deleted, boolean sync_as_archive) {
 		String query = "INSERT INTO " + config.getProperty("tbl.links") + " (name, description, source_location, destination_location, created_date, last_synced, sync_modified, sync_deleted, sync_as_archive) VALUES (?, ?, ?, ?, CURRENT_DATE, ?, ?, ?, ?)";
-		
+
 		try (PreparedStatement statement = connection.prepareStatement(query)) {
 			statement.setString(1, name);
 			statement.setString(2, description);
@@ -98,7 +97,7 @@ public class DatabaseConnection {
 			statement.setBoolean(6, sync_modified);
 			statement.setBoolean(7, sync_deleted);
 			statement.setBoolean(8, sync_as_archive);
-			
+
 			int rowsInserted = statement.executeUpdate();
 			if (rowsInserted > 0) {
 				logger.info("Successfully added new link.");
@@ -109,29 +108,29 @@ public class DatabaseConnection {
 			logger.error("Failed to create new link statement. " + e.getMessage(), e);
 		}
 	}
-	
-	public void updateLink(int id, String name, String description, String source_location, String destination_location, boolean syncModifed, boolean syncDeleted, boolean syncAsArchive) {
-	    String query = "UPDATE " + config.getProperty("tbl.links") + " SET name=?, description=?, source_location=?, destination_location=?, sync_modified=?, sync_deleted=?, sync_as_archive=? WHERE empid=?";
-	    
-	    try (PreparedStatement statement = connection.prepareStatement(query)) {
-	        statement.setString(1, name);
-	        statement.setString(2, description);
-	        statement.setString(3, source_location);
-	        statement.setString(4, destination_location);
-	        statement.setBoolean(5, syncModifed);
-	        statement.setBoolean(6, syncDeleted);
-	        statement.setBoolean(7, syncAsArchive);
-	        statement.setInt(8, id);
 
-	        int rowsUpdated = statement.executeUpdate();
-	        if (rowsUpdated > 0) {
-	            logger.info("Successfully updated link with ID " + id);
-	        } else {
-	            logger.warn("No link found with ID " + id);
-	        }
-	    } catch (SQLException e) {
-	        logger.error("Failed to update link. " + e.getMessage(), e);
-	    }
+	public void updateLink(int id, String name, String description, String source_location, String destination_location, boolean syncModifed, boolean syncDeleted, boolean syncAsArchive) {
+		String query = "UPDATE " + config.getProperty("tbl.links") + " SET name=?, description=?, source_location=?, destination_location=?, sync_modified=?, sync_deleted=?, sync_as_archive=? WHERE empid=?";
+
+		try (PreparedStatement statement = connection.prepareStatement(query)) {
+			statement.setString(1, name);
+			statement.setString(2, description);
+			statement.setString(3, source_location);
+			statement.setString(4, destination_location);
+			statement.setBoolean(5, syncModifed);
+			statement.setBoolean(6, syncDeleted);
+			statement.setBoolean(7, syncAsArchive);
+			statement.setInt(8, id);
+
+			int rowsUpdated = statement.executeUpdate();
+			if (rowsUpdated > 0) {
+				logger.info("Successfully updated link with ID " + id);
+			} else {
+				logger.warn("No link found with ID " + id);
+			}
+		} catch (SQLException e) {
+			logger.error("Failed to update link. " + e.getMessage(), e);
+		}
 	}
 
 	public Link getLinkById(int id) {
@@ -152,18 +151,18 @@ public class DatabaseConnection {
 		}
 		return link;
 	}
-	
+
 	public boolean deleteLinkById(int id) {
-	    String query = "DELETE FROM " + config.getProperty("tbl.links") + " WHERE empid = ?";
-	    try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-	        preparedStatement.setInt(1, id);
-	        preparedStatement.executeUpdate();
-	        logger.info("Link with ID " + id + " deleted successfully.");
-	        return true;
-	    } catch (SQLException e) {
-	        logger.error("Failed to delete link by ID " + id + ": " + e.getMessage(), e);
-	        return false;
-	    }
+		String query = "DELETE FROM " + config.getProperty("tbl.links") + " WHERE empid = ?";
+		try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			preparedStatement.setInt(1, id);
+			preparedStatement.executeUpdate();
+			logger.info("Link with ID " + id + " deleted successfully.");
+			return true;
+		} catch (SQLException e) {
+			logger.error("Failed to delete link by ID " + id + ": " + e.getMessage(), e);
+			return false;
+		}
 	}
 
 	public void updateLastSynced(int linkID) {
