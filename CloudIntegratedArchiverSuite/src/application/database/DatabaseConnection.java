@@ -175,41 +175,24 @@ public class DatabaseConnection {
 			logger.error("Failed to update last synced date. " + e.getMessage(), e);
 		}
 	}
-	public List<Link> getAccessibleLinks() {
-		List<Link> accessibleLinks = new ArrayList<>();
-		String query = "SELECT * FROM " + config.getProperty("tbl.links") + " WHERE accessible_state = ?";
+
+	public List<Link> getAllLinks() {
+		List<Link> allLinks = new ArrayList<>();
+		String query = "SELECT * FROM " + config.getProperty("tbl.links");
 		try (PreparedStatement statement = connection.prepareStatement(query)) {
-			statement.setBoolean(1, true);
 			try (ResultSet resultSet = statement.executeQuery()) {
 				while (resultSet.next()) {
-					accessibleLinks.add(new Link(resultSet.getInt("empid"), resultSet.getString("name"),
+					allLinks.add(new Link(resultSet.getInt("empid"), resultSet.getString("name"),
 							resultSet.getString("description"), resultSet.getString("source_location"),
 							resultSet.getString("destination_location"), resultSet.getDate("created_date"),
-							resultSet.getDate("last_synced"), resultSet.getString("accessible_state").equals("t")));
+							resultSet.getDate("last_synced"), resultSet.getString("sync_modified").equals("t"),
+							resultSet.getString("sync_deleted").equals("t"),
+							resultSet.getString("sync_as_archive").equals("t")));
 				}
 			}
 		} catch (SQLException e) {
 			logger.error("Failed to get accessible links query " + e.getMessage(), e);
 		}
-		return accessibleLinks;
-	}
-
-	public List<Link> getInaccessibleLinks() {
-		List<Link> inaccessibleLinks = new ArrayList<>();
-		String query = "SELECT * FROM " + config.getProperty("tbl.links") + " WHERE accessible_state = ?";
-		try (PreparedStatement statement = connection.prepareStatement(query)) {
-			statement.setBoolean(1, false);
-			try (ResultSet resultSet = statement.executeQuery()) {
-				while (resultSet.next()) {
-					inaccessibleLinks.add(new Link(resultSet.getInt("empid"), resultSet.getString("name"),
-							resultSet.getString("description"), resultSet.getString("source_location"),
-							resultSet.getString("destination_location"), resultSet.getDate("created_date"),
-							resultSet.getDate("last_synced"), resultSet.getString("accessible_state").equals("t")));
-				}
-			}
-		} catch (SQLException e) {
-			logger.error("Failed to get inaccessible links query. " + e.getMessage(), e);
-		}
-		return inaccessibleLinks;
+		return allLinks;
 	}
 }
