@@ -9,6 +9,7 @@ import application.config.Config;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,6 +17,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 public class IndexController {
 	
@@ -42,17 +44,20 @@ public class IndexController {
 	@FXML
 	private TabPane tabPages;
 
-	// load application properties
-	Config config = new Config("app.properties");
 
 	@FXML
 	private void initialize() {
+		// load application properties
+		config = new Config("app.properties");
+		
 		// setup tab pane
 		hideTabePaneHeader();
 		initializePages();
 
 		// set starting page
 		goToDashboard();
+		
+		setDraggableBehavior(indexTopBar);
 
 		dashboardButton.setOnAction(event -> goToDashboard());
 		cloudLoginButton.setOnAction(event -> goToCloudLogin());
@@ -61,6 +66,19 @@ public class IndexController {
 		duplicationButton.setOnAction(event -> goToDuplication());
 		quitButton.setOnAction(event -> quit());
 	}
+	
+	private void setDraggableBehavior(Node node) {
+        node.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        node.setOnMouseDragged(event -> {
+            Stage stage = (Stage) node.getScene().getWindow();
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
+    }
 
 	private void hideTabePaneHeader() {
 		tabPages.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
@@ -69,9 +87,9 @@ public class IndexController {
 
 	public void initializePages() {
 		try {
-		tabPages.getTabs().add(initializeTab("dash", config.getProperty("view.path.dashboard"), new DashboardController()));
+		tabPages.getTabs().add(initializeTab("dash", config.getProperty("view.path.dashboard"), dashboardController));
 		tabPages.getTabs().add(initializeTab("login", config.getProperty("view.path.cloudlogin"), new CloudController()));
-		tabPages.getTabs().add(initializeTab("manage", config.getProperty("view.path.manage"), new ManageController()));
+		tabPages.getTabs().add(initializeTab("manage", config.getProperty("view.path.manage"), manageController));
 		tabPages.getTabs().add(initializeTab("monitor", config.getProperty("view.path.monitor"), new MonitorController()));
 		tabPages.getTabs().add(initializeTab("duplication", config.getProperty("view.path.duplication"), new DuplicationController()));
 		} catch (Exception e) {
