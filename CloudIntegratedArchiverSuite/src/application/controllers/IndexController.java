@@ -22,11 +22,19 @@ import javafx.stage.Stage;
 public class IndexController {
 	
 	private static final Logger logger = LogManager.getLogger(IndexController.class.getName());
+	
+	private DashboardController dashboardController;
+	
+	private ManageController manageController;
+	
+	private Config config;
 
 	@FXML
 	private BorderPane mainPane;
 	@FXML
 	private AnchorPane contentPane;
+	@FXML
+	private AnchorPane indexTopBar;
 	@FXML
 	private Button cloudLoginButton;
 	@FXML
@@ -44,11 +52,18 @@ public class IndexController {
 	@FXML
 	private TabPane tabPages;
 
+    private double xOffset = 0;
+    
+    private double yOffset = 0;
 
 	@FXML
 	private void initialize() {
 		// load application properties
 		config = new Config("app.properties");
+		
+		dashboardController = new DashboardController();
+		manageController = new ManageController();
+		manageController.setDashboardController(dashboardController);
 		
 		// setup tab pane
 		hideTabePaneHeader();
@@ -150,6 +165,7 @@ public class IndexController {
 
 	@FXML
 	void quit() {
+		dashboardController.stopDashboardThread();
 		exit();
 	}
 
