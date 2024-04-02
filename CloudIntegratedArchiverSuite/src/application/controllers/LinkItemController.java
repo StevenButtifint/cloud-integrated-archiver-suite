@@ -29,7 +29,7 @@ public class LinkItemController extends LinkBaseController {
 
 	private SyncLinkThread syncLinkThread;
 
-	private Config config;
+	private static Config config;
 
 	private Link link;
 
@@ -61,6 +61,12 @@ public class LinkItemController extends LinkBaseController {
 		backgroundRectangle.heightProperty().bind(backgroundPane.heightProperty());
 	}
 
+	@FXML
+	private void syncLink() {
+		syncButton.setDisable(true);
+		syncLinkThread = new SyncLinkThread(this::updateStateUI, this::setSyncedLabel, link);
+		syncLinkThread.start();
+	}
 
 	private void updateStateUI(ThreadState threadState) {
 		Platform.runLater(() -> {
@@ -131,6 +137,8 @@ public class LinkItemController extends LinkBaseController {
 		syncImage.setTranslateX(translateX);
 	}
 
+	public void setLink(Link link) {
+		this.link = link;
 	}
 
 	public void setSyncedLabel(String lastSynced) {
