@@ -7,6 +7,7 @@ import application.config.Config;
 import application.models.Link;
 import application.threads.SyncLinkThread;
 import application.threads.ThreadState;
+import application.util.FileOperations;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -150,6 +151,10 @@ public class LinkItemController extends LinkBaseController {
 
 	public String getAvailableStatus() {
 		return availableStatus.getText();
+	}
+
+	public boolean isAccessible() {
+		return FileOperations.validDirectory(link.getSource()) && FileOperations.validDirectory(link.getDestination());
 	}
 
 }
