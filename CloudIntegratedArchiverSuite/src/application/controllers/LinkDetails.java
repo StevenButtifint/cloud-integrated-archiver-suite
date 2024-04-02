@@ -27,7 +27,7 @@ public class LinkDetails {
 	protected CheckBox syncDeletedBox;
 	
 	@FXML
-	protected CheckBox archiveBox;
+	protected CheckBox syncAsArchiveBox;
 
 	@FXML
 	private Button backButton;
