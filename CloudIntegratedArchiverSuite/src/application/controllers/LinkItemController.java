@@ -88,6 +88,13 @@ public class LinkItemController extends LinkBaseController {
 		});
 	}
 
+	public void updateAvailableStateUI(Boolean availableState) {
+		if (availableState) {
+			setStateAccessible();
+		} else {
+			setStateInaccessible();
+		}
+	}
 
 	private void setStateSyncing() {
 		linkNotice.setText(syncLinkThread.getNoticeMessage());
