@@ -125,7 +125,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </CheckBox>
-                                          <CheckBox fx:id="archiveBox" disable="true" mnemonicParsing="false" prefWidth="300.0" style="-fx-opacity: 1;" styleClass="widget-title" text="Archive Syncs" HBox.hgrow="ALWAYS">
+                                          <CheckBox fx:id="syncAsArchiveBox" disable="true" mnemonicParsing="false" prefWidth="300.0" style="-fx-opacity: 1;" styleClass="widget-title" text="Archive Syncs" HBox.hgrow="ALWAYS">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
