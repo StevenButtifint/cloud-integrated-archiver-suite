@@ -10,12 +10,12 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import application.config.Config;
 import application.controllers.IndexController;
+import application.util.AlertError;
 
 public class Main extends Application {
 	private static final Logger logger = LogManager.getLogger(Main.class.getName());
@@ -44,14 +44,11 @@ public class Main extends Application {
 
 		} catch (IOException e) {
 			logger.error("Failed to setup the primary stage: " + e.getMessage(), e);
-			
+
 			// display an error message to the user
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setTitle("Failed to launch Archiver Suite");
-			alert.setHeaderText("Application Error");
-			alert.setContentText("An error occurred while loading the application.");
-			alert.showAndWait();
-			
+			AlertError.showError("Failed to launch Archiver Suite", "Application Error",
+					"An error occurred while loading the application.");
+
 			// exit application
 			Platform.exit();
 		}
