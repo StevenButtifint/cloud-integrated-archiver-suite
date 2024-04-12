@@ -36,7 +36,7 @@
                               <Image url="@../images/user.png" />
                            </image>
                            <effect>
-                              <ColorAdjust brightness="0.27" contrast="-0.59" hue="-0.57" saturation="0.52" />
+                              <ColorAdjust brightness="0.68" contrast="0.07" hue="-0.52" saturation="1.0" />
                            </effect>
                         </ImageView>
                      </graphic>
@@ -48,7 +48,7 @@
                               <Image url="@../images/bell.png" />
                            </image>
                            <effect>
-                              <ColorAdjust brightness="0.27" contrast="-0.59" hue="-0.57" saturation="0.52" />
+                              <ColorAdjust brightness="0.68" contrast="0.07" hue="-0.52" saturation="1.0" />
                            </effect>
                         </ImageView>
                      </graphic>
@@ -56,7 +56,7 @@
                   <Label fx:id="headingLabel" layoutX="63.0" layoutY="27.0" text="Dashboard" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="20.0" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="contentPane" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="105.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="70.0">
+            <AnchorPane fx:id="contentPane" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="105.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="95.0">
                <children>
                   <AnchorPane layoutX="658.0" layoutY="83.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="420.0" prefWidth="162.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="658.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="40.0">
                      <children>
@@ -79,7 +79,7 @@
                                           <Image url="@../images/dashboard.png" />
                                        </image>
                                        <effect>
-                                          <ColorAdjust brightness="0.27" contrast="-0.59" hue="-0.57" saturation="0.52" />
+                                          <ColorAdjust brightness="0.68" contrast="0.07" hue="-0.52" saturation="1.0" />
                                        </effect>
                                     </ImageView>
                                  </graphic>
@@ -95,7 +95,7 @@
                                           <Image url="@../images/configurations.png" />
                                        </image>
                                        <effect>
-                                          <ColorAdjust brightness="0.27" contrast="-0.59" hue="-0.57" saturation="0.52" />
+                                          <ColorAdjust brightness="0.68" contrast="0.07" hue="-0.52" saturation="1.0" />
                                        </effect>
                                     </ImageView>
                                  </graphic>
@@ -111,7 +111,7 @@
                                           <Image url="@../images/bar-graph.png" />
                                        </image>
                                        <effect>
-                                          <ColorAdjust brightness="0.27" contrast="-0.59" hue="-0.57" saturation="0.52" />
+                                          <ColorAdjust brightness="0.68" contrast="0.07" hue="-0.52" saturation="1.0" />
                                        </effect>
                                     </ImageView>
                                  </graphic>
@@ -120,14 +120,14 @@
                         </AnchorPane>
                         <AnchorPane fx:id="sidebarTile111" maxWidth="80.0" minWidth="80.0" prefWidth="80.0">
                            <children>
-                              <Button fx:id="duplicationButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="60.0" minHeight="60.0" mnemonicParsing="false" prefHeight="60.0" styleClass="sideButton" text="duplication" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+                              <Button fx:id="comparerButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="60.0" minHeight="60.0" mnemonicParsing="false" prefHeight="60.0" styleClass="sideButton" text="comparer" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
                                  <graphic>
                                     <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/duplicate.png" />
                                        </image>
                                        <effect>
-                                          <ColorAdjust brightness="0.27" contrast="-0.59" hue="-0.57" saturation="0.52" />
+                                          <ColorAdjust brightness="0.68" contrast="0.07" hue="-0.52" saturation="1.0" />
                                        </effect>
                                     </ImageView>
                                  </graphic>
@@ -143,7 +143,7 @@
                                           <Image url="@../images/setting.png" />
                                        </image>
                                        <effect>
-                                          <ColorAdjust brightness="0.27" contrast="-0.59" hue="-0.57" saturation="0.52" />
+                                          <ColorAdjust brightness="0.68" contrast="0.07" hue="-0.52" saturation="1.0" />
                                        </effect>
                                     </ImageView>
                                  </graphic>
