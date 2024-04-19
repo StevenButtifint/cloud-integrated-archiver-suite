@@ -1,36 +1,70 @@
 package application.controllers;
 
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import application.interfaces.ComputationalTask;
+import application.interfaces.TaskCompleteListener;
+import application.models.ComparedFolderResults;
+import application.models.DuplicatePair;
 import application.threads.FolderComparerThread;
+import application.threads.WorkerThread;
+import application.util.FileExplorer;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
-public class ComparerController {
-	
-	private FolderComparerThread folderComparerThread;
-	
+public class ComparerController implements TaskCompleteListener<ComparedFolderResults> {
+
+	private static final Logger logger = LogManager.getLogger(ComparerController.class.getName());
+
+	private ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+	private ComputationalTask<ComparedFolderResults> folderComparerThread;
+
+	private WorkerThread<ComparedFolderResults> workerThread;
+
+	private Future<ComparedFolderResults> future;
+
 	@FXML
 	private Button compareButton;
-	
-	
-    public void initialize() {
-    	
-    	compareButton.setOnAction(event -> compareFolders());
-        System.out.println("Compaerer Controller");
-    }
-    
-    
-    //when calling FolderComparerThread have wait code that once its done it uses get methods in the thread class to get the values assuming this doesnt lock up the main UI when waiting for the thread to finihs so dont have to pass the consumer methods in as wasnt that bad to do
 
-    //if this works then change the other threads to follow this if better practice
+	@FXML
+	private Button select1Button;
 
-    private void compareFolders() {
-    	compareButton.setDisable(true);
-    	folderComparerThread = new FolderComparerThread("A", "B");
-    	folderComparerThread.start();
-    	
-    	//wait for thread to complete or OOP correct way to then use get methods for the results of the thread???
-    	// dont lock up UI main 
-    	compareButton.setDisable(false);
-    }
-    
+	@FXML
+	private Button select2Button;
+
+	@FXML
+	private TextField path1Field;
+
+	@FXML
+	private TextField path2Field;
+
+	@FXML
+	private ListView<String> unique1List;
+
+	@FXML
+	private ListView<String> unique2List;
+
+	@FXML
+	private TableView<DuplicatePair> duplicateTable;
+
+	@FXML
+	private TableColumn<DuplicatePair, String> column1;
+
+	@FXML
+	private TableColumn<DuplicatePair, String> column2;
+
 }
