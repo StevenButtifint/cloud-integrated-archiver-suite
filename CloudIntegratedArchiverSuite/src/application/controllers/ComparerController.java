@@ -70,6 +70,21 @@ public class ComparerController implements TaskCompleteListener<ComparedFolderRe
 	public void initialize() {
 		select1Button.setOnAction(event -> setLocalLocation(path1Field));
 		select2Button.setOnAction(event -> setLocalLocation(path2Field));
+		setupDuplicateTable();
+	}
+
+	private void setupDuplicateTable() {
+		column1.setCellValueFactory(param -> {
+			DuplicatePair pair = (DuplicatePair) param.getValue();
+			return new ReadOnlyStringWrapper(pair.getPath1());
+		});
+
+		column2.setCellValueFactory(param -> {
+			DuplicatePair pair = (DuplicatePair) param.getValue();
+			return new ReadOnlyStringWrapper(pair.getPath2());
+		});
+	}
+
 	}
 
 	private void setLocalLocation(TextField outputField) {
