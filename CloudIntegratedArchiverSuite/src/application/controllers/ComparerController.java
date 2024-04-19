@@ -67,4 +67,16 @@ public class ComparerController implements TaskCompleteListener<ComparedFolderRe
 	@FXML
 	private TableColumn<DuplicatePair, String> column2;
 
+	public void initialize() {
+		select1Button.setOnAction(event -> setLocalLocation(path1Field));
+		select2Button.setOnAction(event -> setLocalLocation(path2Field));
+	}
+
+	private void setLocalLocation(TextField outputField) {
+		String location = FileExplorer.selectFolder();
+		if (location != null) {
+			outputField.setText(location);
+		}
+	}
+
 }
