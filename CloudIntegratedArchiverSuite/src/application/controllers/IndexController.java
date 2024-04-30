@@ -27,6 +27,8 @@ public class IndexController {
 	
 	private ManageController manageController;
 	
+	private ComparerController comparerController;
+	
 	private Config config;
 
 	@FXML
@@ -44,7 +46,7 @@ public class IndexController {
 	@FXML
 	private Button monitorButton;
 	@FXML
-	private Button duplicationButton;
+	private Button comparerButton;
 	@FXML
 	private Button quitButton;
 	@FXML
@@ -62,6 +64,7 @@ public class IndexController {
 		config = new Config("app.properties");
 		
 		dashboardController = new DashboardController();
+		comparerController = new ComparerController();
 		manageController = new ManageController();
 		manageController.setDashboardController(dashboardController);
 		
@@ -78,7 +81,7 @@ public class IndexController {
 		cloudLoginButton.setOnAction(event -> goToCloudLogin());
 		manageButton.setOnAction(event -> goToManage());
 		monitorButton.setOnAction(event -> goToMonitor());
-		duplicationButton.setOnAction(event -> goToDuplication());
+		comparerButton.setOnAction(event -> goToComparer());
 		quitButton.setOnAction(event -> quit());
 	}
 	
@@ -106,7 +109,7 @@ public class IndexController {
 		tabPages.getTabs().add(initializeTab("login", config.getProperty("view.path.cloudlogin"), new CloudController()));
 		tabPages.getTabs().add(initializeTab("manage", config.getProperty("view.path.manage"), manageController));
 		tabPages.getTabs().add(initializeTab("monitor", config.getProperty("view.path.monitor"), new MonitorController()));
-		tabPages.getTabs().add(initializeTab("duplication", config.getProperty("view.path.duplication"), new DuplicationController()));
+		tabPages.getTabs().add(initializeTab("duplication", config.getProperty("view.path.comparer"), comparerController));
 		} catch (Exception e) {
 			logger.error("Could not initalise pages.", e);
 		}
@@ -158,14 +161,15 @@ public class IndexController {
 	}
 
 	@FXML
-	private void goToDuplication() {
+	private void goToComparer() {
 		changeTab(4);
-		updateTite("Duplication");
+		updateTite("Compare");
 	}
 
 	@FXML
 	void quit() {
 		dashboardController.stopDashboardThread();
+		comparerController.stopComparingFolders();
 		exit();
 	}
 
