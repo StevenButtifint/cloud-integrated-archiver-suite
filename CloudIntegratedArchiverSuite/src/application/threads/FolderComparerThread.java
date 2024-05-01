@@ -22,4 +22,14 @@ public class FolderComparerThread extends Thread {
 		this.folder1Path = folder1Path;
 		this.folder2Path = folder2Path;
 	}
+
+	private Map<String, String> getInfoMap(List<File> filesList) {
+		Map<String, String> infoMap = new HashMap<>();
+		for (File file : filesList) {
+			String fileInfo = file.length() + ":" + file.lastModified();
+			infoMap.put(FileOperations.getRelativePath(file, folder1Path), fileInfo);
+		}
+		return infoMap;
+	}
+
 }
