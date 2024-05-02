@@ -3,11 +3,18 @@ package application.controllers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import application.config.Config;
 import application.database.DatabaseConnection;
 
 public class CreateLinkController extends SaveLink {
 
 	private static final Logger logger = LogManager.getLogger(CreateLinkController.class.getName());
+	
+	private Config dbConfig;
+	
+	public CreateLinkController(Config dbConfig) {
+		this.dbConfig = dbConfig;
+	}
 
 	public void initialize() {
 		super.initialize();
@@ -29,7 +36,7 @@ public class CreateLinkController extends SaveLink {
 		Boolean archiveBackup = syncAsArchiveBox.isSelected();
 
 		if (validateContent(name, description, source, destination)) {
-			databaseConnection = new DatabaseConnection();
+			databaseConnection = new DatabaseConnection(dbConfig);
 			if (databaseConnection.connectToDatabase()) {
 				databaseConnection.insertLink(name, description, source, destination, syncModifed, syncDeleted, archiveBackup);
 				databaseConnection.closeConnection();

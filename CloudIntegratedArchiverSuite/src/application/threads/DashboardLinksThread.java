@@ -5,6 +5,8 @@ import java.util.function.Consumer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import application.config.Config;
+
 
 public class DashboardLinksThread extends LoadLinksThread {
 
@@ -16,7 +18,8 @@ public class DashboardLinksThread extends LoadLinksThread {
 
 	private boolean reload = true;
 
-	public DashboardLinksThread(Consumer<Boolean> uiUpdater) {
+	public DashboardLinksThread(Consumer<Boolean> uiUpdater, Config dbConfig) {
+		super(dbConfig);
 		this.uiUpdater = uiUpdater;
 	}
 

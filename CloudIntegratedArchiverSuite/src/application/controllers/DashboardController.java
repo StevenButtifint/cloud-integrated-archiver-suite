@@ -28,13 +28,17 @@ public class DashboardController {
 
 	private DashboardLinksThread dashboardLinksThread;
 
-	private Config config;
+	private Config appConfig;
+	
+	private Config dbConfig;
+	
+	public DashboardController(Config appConfig, Config dbConfig) {
+		this.appConfig = appConfig;
+		this.dbConfig = dbConfig;
+	}
 
 	public void initialize() {
-		// load application properties
-		config = new Config("app.properties");
-
-		dashboardLinksThread = new DashboardLinksThread(this::updateLinkList);
+		dashboardLinksThread = new DashboardLinksThread(this::updateLinkList, dbConfig);
 		dashboardLinksThread.start();
 	}
 
@@ -45,9 +49,9 @@ public class DashboardController {
 			
 			for (Link link : dashboardLinksThread.getLinks()) {
 				
-				LinkItemController linkItemController = new LinkItemController(link);
+				LinkItemController linkItemController = new LinkItemController(link, appConfig, dbConfig);
 				
-				FXMLLoader loader = new FXMLLoader(linkItemController.getClass().getResource(config.getProperty("view.path.linkitem")));
+				FXMLLoader loader = new FXMLLoader(linkItemController.getClass().getResource(appConfig.getProperty("view.path.linkitem")));
 				loader.setController(linkItemController);
 				Node newView = loader.load();
 				LinkItemController controller = loader.getController();

@@ -3,6 +3,7 @@ package application.controllers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import application.config.Config;
 import application.database.DatabaseConnection;
 import application.models.Link;
 
@@ -11,6 +12,12 @@ public class EditLinkController extends SaveLink {
 	private static final Logger logger = LogManager.getLogger(EditLinkController.class.getName());
 
 	private int linkID;
+	
+	private Config dbConfig;
+	
+	public EditLinkController(Config dbConfig) {
+		this.dbConfig = dbConfig;
+	}
 
 	public void initialize() {
 		super.initialize();
@@ -34,7 +41,7 @@ public class EditLinkController extends SaveLink {
 		Boolean syncAsArchive = syncAsArchiveBox.isSelected();
 
 		if (validateContent(name, description, source, destination)) {
-			databaseConnection = new DatabaseConnection();
+			databaseConnection = new DatabaseConnection(dbConfig);
 			if (databaseConnection.connectToDatabase()) {
 				databaseConnection.updateLink(linkID, name, description, source, destination, syncModifed, syncDeleted, syncAsArchive);
 				databaseConnection.closeConnection();

@@ -3,6 +3,7 @@ package application.controllers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import application.config.Config;
 import application.database.DatabaseConnection;
 import application.models.Link;
 import javafx.fxml.FXML;
@@ -14,10 +15,16 @@ public class DeleteLinkController extends LinkDetails {
 	
 	private DatabaseConnection databaseConnection;
 	
+	private Config dbConfig;
+
 	@FXML
 	private Button deleteButton;
 	
 	private int linkID;
+	
+	public DeleteLinkController(Config dbConfig) {
+		this.dbConfig = dbConfig;
+	}
 	
 	public void initialize() {
 		super.initialize();
@@ -31,7 +38,7 @@ public class DeleteLinkController extends LinkDetails {
 	}
 	
 	private void deleteLink() {
-		databaseConnection = new DatabaseConnection();
+		databaseConnection = new DatabaseConnection(dbConfig);
 		if (databaseConnection.connectToDatabase()) {
 			databaseConnection.deleteLinkById(linkID);
 			databaseConnection.closeConnection();

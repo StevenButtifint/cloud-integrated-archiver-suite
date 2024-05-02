@@ -29,7 +29,9 @@ public class LinkItemController extends LinkBaseController {
 
 	private SyncLinkThread syncLinkThread;
 
-	private static Config config;
+	private Config appConfig;
+	
+	private Config dbConfig;
 
 	private Link link;
 
@@ -51,9 +53,10 @@ public class LinkItemController extends LinkBaseController {
 	@FXML
 	private Rectangle backgroundRectangle;
 
-	public LinkItemController(Link link) {
+	public LinkItemController(Link link, Config appConfig, Config dbConfig) {
 		this.link = link;
-		config = new Config("app.properties");
+		this.appConfig = appConfig;
+		this.dbConfig = dbConfig;
 	}
 
 	private void initialiseBackgroundRectangle() {
@@ -64,7 +67,7 @@ public class LinkItemController extends LinkBaseController {
 	@FXML
 	private void syncLink() {
 		syncButton.setDisable(true);
-		syncLinkThread = new SyncLinkThread(this::updateStateUI, this::setSyncedLabel, link);
+		syncLinkThread = new SyncLinkThread(dbConfig, this::updateStateUI, this::setSyncedLabel, link);
 		syncLinkThread.start();
 	}
 
@@ -98,7 +101,7 @@ public class LinkItemController extends LinkBaseController {
 
 	private void setStateSyncing() {
 		linkNotice.setText(syncLinkThread.getNoticeMessage());
-		setBackgroundAnimation(config.getProperty("colour.syncing.start"), config.getProperty("colour.syncing.end"));
+		setBackgroundAnimation(appConfig.getProperty("colour.syncing.start"), appConfig.getProperty("colour.syncing.end"));
 	}
 
 	private void setStateCompleted() {
@@ -106,14 +109,14 @@ public class LinkItemController extends LinkBaseController {
 		syncButton.getStyleClass().add("link-button-complete");
 		setButtonIcon("img.check", 0);
 		linkNotice.setText(syncLinkThread.getNoticeMessage());
-		setBackgroundAnimation(config.getProperty("colour.link.complete"), config.getProperty("colour.link.complete"));
+		setBackgroundAnimation(appConfig.getProperty("colour.link.complete"), appConfig.getProperty("colour.link.complete"));
 		syncButton.setDisable(false);
 	}
 
 	private void setStateTerminated() {
 		linkNotice.setText(syncLinkThread.getNoticeMessage());
 		setButtonIcon("img.cross", 0);
-		setBackgroundAnimation(config.getProperty("colour.link.terminated"), config.getProperty("colour.link.terminated"));
+		setBackgroundAnimation(appConfig.getProperty("colour.link.terminated"), appConfig.getProperty("colour.link.terminated"));
 		syncButton.setDisable(false);
 	}
 
@@ -140,7 +143,7 @@ public class LinkItemController extends LinkBaseController {
 	}
 
 	private void setButtonIcon(String image, int translateX) {
-		syncImage.setImage(new Image(config.getProperty(image)));
+		syncImage.setImage(new Image(appConfig.getProperty(image)));
 		syncImage.setTranslateX(translateX);
 	}
 
