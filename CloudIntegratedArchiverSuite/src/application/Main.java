@@ -20,7 +20,7 @@ import application.util.AlertError;
 public class Main extends Application {
 	private static final Logger logger = LogManager.getLogger(Main.class.getName());
 
-	private static final String APP_PROPERTIES = "app.properties";
+	private static final String CONFIG_FILE = "app.properties";
 	private static final String VIEW_PATH_INDEX = "view.path.index";
 	private static final String APP_TITLE = "app.title";
 
@@ -49,10 +49,10 @@ public class Main extends Application {
 
 	private boolean initialiseConfiguration() {
 		try {
-			config = new Config(APP_PROPERTIES);
+			config = new Config(CONFIG_FILE);
 			logger.info("Successfully loaded application properties.");
 			return true;
-		} catch (Exception e) {
+		} catch (IOException e) {
 			logger.error("Failed to load application properties: " + e.getMessage(), e);
 			AlertError.showError("Failed to launch Archiver Suite", "Application Error",
 					"Cannot load application properties.");

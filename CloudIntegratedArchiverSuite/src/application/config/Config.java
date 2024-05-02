@@ -11,14 +11,14 @@ public class Config {
 	
 	private static final Logger logger = LogManager.getLogger(Config.class.getName());
 	
-	private Properties properties;
+	private final Properties properties;
 
-	public Config(String propertiesFilePath) {
+	public Config(String propertiesFilePath) throws IOException {
 		properties = new Properties();
 		loadProperties(propertiesFilePath);
 	}
 
-	private void loadProperties(String propertiesFilePath) {
+	private void loadProperties(String propertiesFilePath) throws IOException {
 		try (InputStream inputStream = getClass().getResourceAsStream(propertiesFilePath)) {
 			if (inputStream != null) {
 				properties.load(inputStream);
@@ -28,6 +28,7 @@ public class Config {
 			}
 		} catch (IOException e) {
 			logger.error("Error loading properties file: " + e.getMessage(), e);
+			throw e;
 		}
 	}
 
