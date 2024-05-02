@@ -14,18 +14,22 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import application.config.Config;
+import application.controllers.ControllerFactory;
 import application.database.DatabaseConnection;
 import application.util.AlertError;
 
 public class Main extends Application {
 	private static final Logger logger = LogManager.getLogger(Main.class.getName());
 
-	private static final String CONFIG_FILE = "app.properties";
+	private static final String APP_CONFIG_FILE = "app.properties";
+	private static final String DB_CONFIG_FILE = "db.properties";
+
 	private static final String VIEW_PATH_INDEX = "view.path.index";
 	private static final String APP_TITLE = "app.title";
 
 	private DatabaseConnection databaseConnection;
-	private Config config;
+	private Config appConfig;
+	private Config dbConfig;
 
 	public static void main(String[] args) {
 		logger.info("Starting application...");
@@ -49,19 +53,21 @@ public class Main extends Application {
 
 	private boolean initialiseConfiguration() {
 		try {
-			config = new Config(CONFIG_FILE);
+			appConfig = new Config(APP_CONFIG_FILE);
 			logger.info("Successfully loaded application properties.");
+			dbConfig = new Config(DB_CONFIG_FILE);
+			logger.info("Successfully loaded database properties.");
 			return true;
 		} catch (IOException e) {
-			logger.error("Failed to load application properties: " + e.getMessage(), e);
+			logger.error("Failed to load configuration properties: " + e.getMessage(), e);
 			AlertError.showError("Failed to launch Archiver Suite", "Application Error",
-					"Cannot load application properties.");
+					"Cannot load configuration properties.");
 			return false;
 		}
 	}
 
 	private boolean initialiseDatabaseTables() {
-		databaseConnection = new DatabaseConnection();
+		databaseConnection = new DatabaseConnection(dbConfig);
 		if (!databaseConnection.connectToDatabase()) {
 			logger.error("Unable to connect to Link database.");
 			AlertError.showError("Database Failure", "Connection Error", "Cannot connect to the database.");
@@ -74,14 +80,17 @@ public class Main extends Application {
 			return false;
 		}
 		databaseConnection.closeConnection();
+		logger.info("Successfully initialised database.");
 		return true;
 	}
 
 	private boolean setupPrimaryStage(Stage primaryStage) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(config.getProperty(VIEW_PATH_INDEX)));
+			ControllerFactory controllerFactory = new ControllerFactory(appConfig, dbConfig);
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(appConfig.getProperty(VIEW_PATH_INDEX)));
+			loader.setControllerFactory(clazz -> controllerFactory.getIndexController());
 			Parent root = loader.load();
-			primaryStage.setTitle(config.getProperty(APP_TITLE));
+			primaryStage.setTitle(appConfig.getProperty(APP_TITLE));
 			primaryStage.initStyle(StageStyle.UNDECORATED);
 			primaryStage.setScene(new Scene(root, 1000, 600));
 			primaryStage.show();
