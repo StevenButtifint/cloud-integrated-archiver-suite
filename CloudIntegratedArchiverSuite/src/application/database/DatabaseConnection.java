@@ -21,9 +21,13 @@ public class DatabaseConnection {
 
 	private static final Logger logger = LogManager.getLogger(DatabaseConnection.class.getName());
 
-	private Config config = new Config("db.properties");
+	private Config config;
 
 	private Connection connection;
+	
+	public DatabaseConnection(Config config) {
+		this.config = config;
+	}
 
 	public boolean connectToDatabase() {
 		connection = null;
