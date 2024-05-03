@@ -15,11 +15,13 @@ import application.models.DuplicatePair;
 import application.threads.FolderComparerThread;
 import application.threads.WorkerThread;
 import application.util.FileExplorer;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -51,6 +53,9 @@ public class ComparerController implements TaskCompleteListener<ComparedFolderRe
 
 	@FXML
 	private TextField path2Field;
+
+	@FXML
+	private Label noticeLabel;
 
 	@FXML
 	private ListView<String> unique1List;
@@ -92,6 +97,26 @@ public class ComparerController implements TaskCompleteListener<ComparedFolderRe
 		if (location != null) {
 			outputField.setText(location);
 		}
+	}
+
+	private void updateUniqueFiles(ListView<String> listview, List<String> uniqueItems) {
+		listview.getItems().clear();
+		ObservableList<String> observableList = FXCollections.observableArrayList(uniqueItems);
+		listview.setItems(observableList);
+	}
+
+	private void updateDuplicateTable(List<DuplicatePair> duplicates) {
+		duplicateTable.getItems().clear();
+		ObservableList<DuplicatePair> results = FXCollections.observableArrayList(duplicates);
+		duplicateTable.setItems(results);
+	}
+
+	private void setNoticeMessage(String message) {
+		noticeLabel.setText(message);
+	}
+
+	private void clearNotice() {
+		noticeLabel.setText("");
 	}
 
 }
