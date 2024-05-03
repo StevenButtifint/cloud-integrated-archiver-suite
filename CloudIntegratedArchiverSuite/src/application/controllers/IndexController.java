@@ -20,43 +20,54 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class IndexController {
-	
+
 	private static final Logger logger = LogManager.getLogger(IndexController.class.getName());
-	
+
 	private DashboardController dashboardController;
-	
+
 	private ManageController manageController;
-	
+
 	private ComparerController comparerController;
-	
+
 	private Config config;
+
+	private double xOffset = 0;
+
+	private double yOffset = 0;
 
 	@FXML
 	private BorderPane mainPane;
+
 	@FXML
 	private AnchorPane contentPane;
+
 	@FXML
 	private AnchorPane indexTopBar;
+
 	@FXML
 	private Button cloudLoginButton;
+
 	@FXML
 	private Button dashboardButton;
+
 	@FXML
 	private Button manageButton;
+
 	@FXML
 	private Button monitorButton;
+
 	@FXML
 	private Button comparerButton;
+
 	@FXML
 	private Button quitButton;
+
 	@FXML
 	private Label headingLabel;
+
 	@FXML
 	private TabPane tabPages;
 
-    private double xOffset = 0;
-    
-    private double yOffset = 0;
 
 	@FXML
 	private void initialize() {
@@ -84,19 +95,19 @@ public class IndexController {
 		comparerButton.setOnAction(event -> goToComparer());
 		quitButton.setOnAction(event -> quit());
 	}
-	
-	private void setDraggableBehavior(Node node) {
-        node.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
 
-        node.setOnMouseDragged(event -> {
-            Stage stage = (Stage) node.getScene().getWindow();
-            stage.setX(event.getScreenX() - xOffset);
-            stage.setY(event.getScreenY() - yOffset);
-        });
-    }
+	private void setDraggableBehavior() {
+		indexTopBar.setOnMousePressed(event -> {
+			xOffset = event.getSceneX();
+			yOffset = event.getSceneY();
+		});
+
+		indexTopBar.setOnMouseDragged(event -> {
+			Stage stage = (Stage) indexTopBar.getScene().getWindow();
+			stage.setX(event.getScreenX() - xOffset);
+			stage.setY(event.getScreenY() - yOffset);
+		});
+	}
 
 	private void hideTabePaneHeader() {
 		tabPages.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
@@ -105,11 +116,11 @@ public class IndexController {
 
 	public void initializePages() {
 		try {
-		tabPages.getTabs().add(initializeTab("dash", config.getProperty("view.path.dashboard"), dashboardController));
-		tabPages.getTabs().add(initializeTab("login", config.getProperty("view.path.cloudlogin"), new CloudController()));
-		tabPages.getTabs().add(initializeTab("manage", config.getProperty("view.path.manage"), manageController));
-		tabPages.getTabs().add(initializeTab("monitor", config.getProperty("view.path.monitor"), new MonitorController()));
-		tabPages.getTabs().add(initializeTab("duplication", config.getProperty("view.path.comparer"), comparerController));
+			tabPages.getTabs().add(initializeTab("dash", config.getProperty("view.path.dashboard"), dashboardController));
+			tabPages.getTabs().add(initializeTab("login", config.getProperty("view.path.cloudlogin"), new CloudController()));
+			tabPages.getTabs().add(initializeTab("manage", config.getProperty("view.path.manage"), manageController));
+			tabPages.getTabs().add(initializeTab("monitor", config.getProperty("view.path.monitor"), new MonitorController()));
+			tabPages.getTabs().add(initializeTab("duplication", config.getProperty("view.path.comparer"), comparerController));
 		} catch (Exception e) {
 			logger.error("Could not initalise pages.", e);
 		}
@@ -125,9 +136,9 @@ public class IndexController {
 			FXMLLoader loader = new FXMLLoader(controller.getClass().getResource(fxmlPath));
 			loader.setController(controller);
 			view = loader.load();
-	    } catch (IOException e) {
-	    	logger.error("Could not load view:" + fxmlPath, e);
-	    }
+		} catch (IOException e) {
+			logger.error("Could not load view:" + fxmlPath, e);
+		}
 		return view;
 	}
 
