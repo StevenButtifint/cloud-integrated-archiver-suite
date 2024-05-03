@@ -9,7 +9,6 @@ import application.config.Config;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -29,7 +28,7 @@ public class IndexController {
 
 	private ComparerController comparerController;
 
-	private Config config;
+	private Config appConfig;
 
 	private double xOffset = 0;
 
@@ -68,26 +67,24 @@ public class IndexController {
 	@FXML
 	private TabPane tabPages;
 
+	public IndexController(Config appConfig, DashboardController dashboardController,
+			ComparerController comparerController, ManageController manageController) {
+		this.dashboardController = dashboardController;
+		this.comparerController = comparerController;
+		this.manageController = manageController;
+		this.appConfig = appConfig;
+	}
 
 	@FXML
 	private void initialize() {
-		// load application properties
-		config = new Config("app.properties");
-		
-		dashboardController = new DashboardController();
-		comparerController = new ComparerController();
-		manageController = new ManageController();
-		manageController.setDashboardController(dashboardController);
-		
-		// setup tab pane
 		hideTabePaneHeader();
-		initializePages();
-
-		// set starting page
+		setDraggableBehavior();
 		goToDashboard();
-		
-		setDraggableBehavior(indexTopBar);
+		setButtonActions();
+		initializePages();
+	}
 
+	private void setButtonActions() {
 		dashboardButton.setOnAction(event -> goToDashboard());
 		cloudLoginButton.setOnAction(event -> goToCloudLogin());
 		manageButton.setOnAction(event -> goToManage());
@@ -116,11 +113,11 @@ public class IndexController {
 
 	public void initializePages() {
 		try {
-			tabPages.getTabs().add(initializeTab("dash", config.getProperty("view.path.dashboard"), dashboardController));
-			tabPages.getTabs().add(initializeTab("login", config.getProperty("view.path.cloudlogin"), new CloudController()));
-			tabPages.getTabs().add(initializeTab("manage", config.getProperty("view.path.manage"), manageController));
-			tabPages.getTabs().add(initializeTab("monitor", config.getProperty("view.path.monitor"), new MonitorController()));
-			tabPages.getTabs().add(initializeTab("duplication", config.getProperty("view.path.comparer"), comparerController));
+			tabPages.getTabs().add(initializeTab("dash", appConfig.getProperty("view.path.dashboard"), dashboardController));
+			tabPages.getTabs().add(initializeTab("login", appConfig.getProperty("view.path.cloudlogin"), new CloudController()));
+			tabPages.getTabs().add(initializeTab("manage", appConfig.getProperty("view.path.manage"), manageController));
+			tabPages.getTabs().add(initializeTab("monitor", appConfig.getProperty("view.path.monitor"), new MonitorController()));
+			tabPages.getTabs().add(initializeTab("duplication", appConfig.getProperty("view.path.comparer"), comparerController));
 		} catch (Exception e) {
 			logger.error("Could not initalise pages.", e);
 		}
