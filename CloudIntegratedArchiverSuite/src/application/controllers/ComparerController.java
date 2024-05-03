@@ -75,6 +75,7 @@ public class ComparerController implements TaskCompleteListener<ComparedFolderRe
 	public void initialize() {
 		select1Button.setOnAction(event -> setLocalLocation(path1Field));
 		select2Button.setOnAction(event -> setLocalLocation(path2Field));
+		compareButton.setOnAction(event -> startTask());
 		setupDuplicateTable();
 	}
 
@@ -90,6 +91,49 @@ public class ComparerController implements TaskCompleteListener<ComparedFolderRe
 		});
 	}
 
+	public void startTask() {
+		compareButton.setDisable(true);
+		folderComparerThread = new FolderComparerThread(path1Field.getText(), path2Field.getText());
+		workerThread = new WorkerThread<>(folderComparerThread, this);
+		future = executorService.submit(workerThread);
+		// Optionally, store the future for potential cancellation or further processing
+	}
+
+	public void stopComparingFolders() {
+		// Attempt to cancel the future
+		if (future != null) {
+			future.cancel(true);
+		}
+
+		// Stop the worker thread
+		if (workerThread != null) {
+			workerThread.stopExecution();
+		}
+	}
+
+	@Override
+	public void onTaskComplete(ComparedFolderResults result) {
+		Platform.runLater(() -> {
+			updateUniqueFiles(unique1List, result.getUniqueFilesInFolder1());
+			updateUniqueFiles(unique2List, result.getUniqueFilesInFolder2());
+			updateDuplicateTable(result.getCommonFiles());
+			compareButton.setDisable(false);
+			clearNotice();
+		});
+	}
+
+	@Override
+	public void onTaskFailed(Exception e) {
+		logger.error("Comparer thread failed.", e.getMessage());
+		Platform.runLater(() -> {
+			setNoticeMessage("Comparison failed " + e.getMessage());
+			compareButton.setDisable(false);
+		});
+	}
+
+	public void shutdown() {
+		stopComparingFolders();
+		executorService.shutdown();
 	}
 
 	private void setLocalLocation(TextField outputField) {
