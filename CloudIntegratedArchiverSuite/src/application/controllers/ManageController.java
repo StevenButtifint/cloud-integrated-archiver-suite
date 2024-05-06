@@ -44,6 +44,47 @@ public class ManageController {
 	}
 
 	public void initialize() {
+		manageHomeController.setManageController(this);
+		createLinkController.setManageController(this);
+		viewLinkController.setManageController(this);
+		editLinkController.setManageController(this);
+		deleteLinkController.setManageController(this);
+		initializePages();
+		goToManageHome();
+	}
+
+	private void initializePages() {
+		try {
+			manageTabs.getTabs().addAll(
+					initializeTab("home", config.getProperty("view.path.managehome"), manageHomeController),
+					initializeTab("create", config.getProperty("view.path.newlink"), createLinkController),
+					initializeTab("view", config.getProperty("view.path.viewlink"), viewLinkController),
+					initializeTab("edit", config.getProperty("view.path.editlink"), editLinkController),
+					initializeTab("delete", config.getProperty("view.path.deletelink"), deleteLinkController));
+
+		} catch (Exception e) {
+			logger.error("Could not initalise pages." + e.getMessage(), e);
+		}
+	}
+
+	public void refreshDashboard() {
+		dashboardController.refreshDashboardList();
+	}
+
+	private Tab initializeTab(String tabName, String viewName, Object controller) {
+		return new Tab(tabName, loadView(viewName, controller));
+	}
+
+	private Parent loadView(String fxmlPath, Object controller) {
+		Parent view = null;
+		try {
+			FXMLLoader loader = new FXMLLoader(controller.getClass().getResource(fxmlPath));
+			loader.setController(controller);
+			view = loader.load();
+		} catch (IOException e) {
+			logger.error("Could not load view:" + fxmlPath, e);
+		}
+		return view;
 	}
 
 	private void changeTab(int pageIndex) {
