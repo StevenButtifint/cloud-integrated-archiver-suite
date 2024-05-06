@@ -45,5 +45,32 @@ public class ManageController {
 
 	public void initialize() {
 	}
+
+	private void changeTab(int pageIndex) {
+		manageTabs.getSelectionModel().select(pageIndex);
+	}
+
+	public void goToManageHome() {
+		manageHomeController.refreshLinksList();
+		changeTab(0);
+	}
+
+	public void goToCreateLink() {
+		changeTab(1);
+	}
+
+	public void goToViewLink(Link link) {
+		viewLinkController.showLinkDetails(link);
+		changeTab(2);
+	}
+
+	public void goToEditLink(Link link) {
+		editLinkController.showLinkDetails(link);
+		changeTab(3);
+	}
+
+	public void goToDeleteLink(Link link) {
+		deleteLinkController.showLinkDetails(link);
+		changeTab(4);
 	}
 }
