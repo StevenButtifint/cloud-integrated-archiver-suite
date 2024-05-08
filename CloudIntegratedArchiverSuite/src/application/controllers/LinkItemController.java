@@ -30,10 +30,8 @@ public class LinkItemController extends LinkBaseController {
 	private SyncLinkThread syncLinkThread;
 
 	private Config appConfig;
-	
-	private Config dbConfig;
 
-	private Link link;
+	private Config dbConfig;
 
 	@FXML
 	private Label availableStatus;
@@ -54,9 +52,15 @@ public class LinkItemController extends LinkBaseController {
 	private Rectangle backgroundRectangle;
 
 	public LinkItemController(Link link, Config appConfig, Config dbConfig) {
-		this.link = link;
+		super(link);
 		this.appConfig = appConfig;
 		this.dbConfig = dbConfig;
+	}
+
+	@FXML
+	public void initialize() {
+		super.initialize();
+		updateAvailableStateUI(isAccessible());
 	}
 
 	private void initialiseBackgroundRectangle() {
@@ -160,8 +164,7 @@ public class LinkItemController extends LinkBaseController {
 	private void setBackgroundAnimation(String colourA, String colourB) {
 		Timeline timeline = new Timeline(
 				new KeyFrame(Duration.ZERO, new KeyValue(backgroundRectangle.fillProperty(), Color.web(colourA))),
-				new KeyFrame(Duration.seconds(1),
-						new KeyValue(backgroundRectangle.fillProperty(), Color.web(colourB))));
+				new KeyFrame(Duration.seconds(1), new KeyValue(backgroundRectangle.fillProperty(), Color.web(colourB))));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.setAutoReverse(true);
 		timeline.play();

@@ -29,9 +29,9 @@ public class DashboardController {
 	private DashboardLinksThread dashboardLinksThread;
 
 	private Config appConfig;
-	
+
 	private Config dbConfig;
-	
+
 	public DashboardController(Config appConfig, Config dbConfig) {
 		this.appConfig = appConfig;
 		this.dbConfig = dbConfig;
@@ -55,11 +55,7 @@ public class DashboardController {
 				loader.setController(linkItemController);
 				Node newView = loader.load();
 				LinkItemController controller = loader.getController();
-				controller.setLinkName(link.getName());
-				controller.setLinkDescription(link.getDescription());
-				controller.setSyncedLabel(link.sinceSyncedString());
-				controller.updateAvailableStateUI(controller.isAccessible());
-				
+
 				dashboardLinkList.getChildren().add(newView);
 				linkControllerNodePairs.add(new Pair<>(controller, newView));
 			}

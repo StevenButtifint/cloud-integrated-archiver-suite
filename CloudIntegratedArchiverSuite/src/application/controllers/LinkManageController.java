@@ -17,11 +17,15 @@ public class LinkManageController extends LinkBaseController {
 
 	private ManageController manageController;
 
-	private Link link;
-
 	public LinkManageController(ManageController manageController, Link link) {
+		super(link);
 		this.manageController = manageController;
-		this.link = link;
+	}
+
+	@FXML
+	public void initialize() {
+		super.initialize();
+		initialiseButtons();
 	}
 
 	public void initialiseButtons() {
