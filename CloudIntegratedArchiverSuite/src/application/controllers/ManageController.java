@@ -68,7 +68,7 @@ public class ManageController {
 	}
 
 	public void refreshDashboard() {
-		dashboardController.refreshDashboardList();
+		dashboardController.reloadDashboardLinks();
 	}
 
 	private Tab initializeTab(String tabName, String viewName, Object controller) {

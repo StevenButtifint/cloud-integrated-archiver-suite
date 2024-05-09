@@ -41,6 +41,23 @@ public class DashboardController {
 	public void initialize() {
 		reloadDashboardLinks();
 	}
+
+	public void reloadDashboardLinks() {
+		dashboardService.getLinksAsync().thenAccept(links -> {
+			// This code runs asynchronously once the links are fetched
+			Platform.runLater(() -> {
+				populateLinksList(links);
+				orderLinksListAvailability();
+			});
+		}).exceptionally(e -> {
+			logger.error("failed to get link list." + e.getMessage());
+			Platform.runLater(() -> {
+				showLinkListError(e.getMessage());
+			});
+			return null;
+		});
+	}
+
 	}
 
 	private void populateLinkList() {
