@@ -90,7 +90,7 @@ public class IndexController {
 		manageButton.setOnAction(event -> goToManage());
 		monitorButton.setOnAction(event -> goToMonitor());
 		comparerButton.setOnAction(event -> goToComparer());
-		quitButton.setOnAction(event -> quit());
+		quitButton.setOnAction(event -> goToQuit());
 	}
 
 	private void setDraggableBehavior() {
@@ -175,23 +175,19 @@ public class IndexController {
 	}
 
 	@FXML
-	void quit() {
-		dashboardController.stopDashboardThread();
-		comparerController.stopComparingFolders();
-		exit();
+	private void goToQuit() {
+		quit();
 	}
 
 	@FXML
 	private void goToQuitConfirm() {
 	}
 
-	@FXML
-	void exit() {
+	private void quit() {
 		Platform.exit();
 	}
 
 	private void updateTite(String newTitle) {
 		headingLabel.setText(newTitle);
 	}
-
 }
