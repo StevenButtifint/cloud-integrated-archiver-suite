@@ -58,9 +58,28 @@ public class DashboardController {
 		});
 	}
 
+	public void orderLinksListAvailability() {
+		List<Node> available = new ArrayList<>();
+		List<Node> unavailable = new ArrayList<>();
+
+		for (Pair<LinkItemController, Node> controllerNodePair : linkControllerNodePairs) {
+			if (controllerNodePair.getKey().isAccessible()) {
+				available.add(controllerNodePair.getValue());
+				controllerNodePair.getKey().setStateAccessible();
+			} else {
+				unavailable.add(controllerNodePair.getValue());
+				controllerNodePair.getKey().setStateInaccessible();
+			}
+		}
+
+		List<Node> reorderedList = new ArrayList<>(available);
+		reorderedList.addAll(unavailable);
+		Platform.runLater(() -> {
+			dashboardLinkList.getChildren().setAll(reorderedList);
+		});
 	}
 
-	private void populateLinkList() {
+	private void populateLinksList(List<Link> links) {
 		try {
 			linkControllerNodePairs.clear();
 			dashboardLinkList.getChildren().clear();
