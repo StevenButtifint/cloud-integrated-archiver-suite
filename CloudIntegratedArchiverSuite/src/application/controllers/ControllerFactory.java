@@ -29,6 +29,18 @@ public class ControllerFactory {
 		this.dbConfig = dbConfig;
 	}
 	
+	public void stopServices() {
+		if (schedulerService != null) {
+			schedulerService.shutdown();
+		}
+		if (dashboardService != null) {
+			dashboardService.shutdown();
+		}
+		if (comparerController != null) {
+			comparerController.stopComparingFolders();
+		}
+	}
+	
 	private ExecutorService getExecutorService() {
 		if (executorService == null) {
 			 executorService = Executors.newCachedThreadPool();

@@ -28,6 +28,7 @@ public class Main extends Application {
 	private static final String APP_TITLE = "app.title";
 
 	private DatabaseConnection databaseConnection;
+	private ControllerFactory controllerFactory;
 	private Config appConfig;
 	private Config dbConfig;
 
@@ -86,9 +87,8 @@ public class Main extends Application {
 
 	private boolean setupPrimaryStage(Stage primaryStage) {
 		try {
-			ControllerFactory controllerFactory = new ControllerFactory(appConfig, dbConfig);
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(appConfig.getProperty(VIEW_PATH_INDEX)));
-			loader.setControllerFactory(clazz -> controllerFactory.getIndexController());
+			loader.setControllerFactory(clazz -> getControllerFactory().getIndexController());
 			Parent root = loader.load();
 			primaryStage.setTitle(appConfig.getProperty(APP_TITLE));
 			primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -102,5 +102,21 @@ public class Main extends Application {
 			return false;
 		}
 	}
+	
+	@Override
+	public void stop() {
+		if (controllerFactory != null) {
+			controllerFactory.stopServices();
+		}
+        System.out.println("Services shutdown.");
+	}
+	
+	public ControllerFactory getControllerFactory() {
+		if (controllerFactory == null) {
+			controllerFactory = new ControllerFactory(appConfig, dbConfig);
+		}
+		return controllerFactory;
+	}
+
 
 }
