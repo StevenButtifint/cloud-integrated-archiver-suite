@@ -20,9 +20,11 @@ public class DashboardService {
 	}
 
 	public CompletableFuture<List<Link>> getLinksAsync() {
+		// Submit the task to be processed asynchronously and return a CompletableFuture
 		return CompletableFuture.supplyAsync(() -> getCurrentLinksList(), executorService);
 	}
 
+	// background process
 	private List<Link> getCurrentLinksList() {
 		return databaseConnection.getAllLinks();
 	}

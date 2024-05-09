@@ -1,11 +1,20 @@
 package application.controllers;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import application.config.Config;
+import application.database.DatabaseConnection;
+import application.services.DashboardService;
+import application.services.SchedulerService;
 
 public class ControllerFactory {
 	private Config appConfig;
 	private Config dbConfig;
 	private DashboardController dashboardController;
+	private ExecutorService executorService;
+	private DashboardService dashboardService;
+	private SchedulerService schedulerService;
 	private IndexController indexController;
 	private ManageHomeController manageHomeController;
 	private ManageController manageController;
@@ -19,17 +28,43 @@ public class ControllerFactory {
 		this.appConfig = appConfig;
 		this.dbConfig = dbConfig;
 	}
+	
+	private ExecutorService getExecutorService() {
+		if (executorService == null) {
+			 executorService = Executors.newCachedThreadPool();
+		}
+		return executorService;
+	}
 
-	public DashboardController getDashboardController() {
+	private void initializeDashboardService() {
+		if (dashboardService == null) {
+			DatabaseConnection databaseConnection = new DatabaseConnection(dbConfig);
+			databaseConnection.connectToDatabase();
+			executorService = getExecutorService();
+			dashboardService = new DashboardService(databaseConnection, executorService);
+		}
+	}
+
+	private void initializeSchedulerService() {
+		if (schedulerService == null) {
+			schedulerService = new SchedulerService();
+			schedulerService.scheduleTask(dashboardController::orderLinksListAvailability, 2);
+		}
+	}
+
+	public synchronized DashboardController getDashboardController() {
 		if (dashboardController == null) {
-			dashboardController = new DashboardController(appConfig, dbConfig);
+			initializeDashboardService();
+			dashboardController = new DashboardController(dashboardService, appConfig, dbConfig);
+			initializeSchedulerService();
 		}
 		return dashboardController;
 	}
 
 	public ManageHomeController getManageHomeController() {
 		if (manageHomeController == null) {
-			manageHomeController = new ManageHomeController(appConfig, dbConfig);
+			DatabaseConnection databaseConnection = new DatabaseConnection(dbConfig);
+			manageHomeController = new ManageHomeController(appConfig, databaseConnection);
 		}
 		return manageHomeController;
 	}
