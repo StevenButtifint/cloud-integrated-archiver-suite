@@ -108,7 +108,7 @@ public class Main extends Application {
 		if (controllerFactory != null) {
 			controllerFactory.stopServices();
 		}
-        System.out.println("Services shutdown.");
+		logger.info("Services shutdown.");
 	}
 	
 	public ControllerFactory getControllerFactory() {
