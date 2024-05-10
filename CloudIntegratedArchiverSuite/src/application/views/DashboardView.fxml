@@ -13,7 +13,7 @@
          <children>
             <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" styleClass="widget" VBox.vgrow="ALWAYS">
                <children>
-                  <ScrollPane fitToWidth="true" layoutX="78.0" layoutY="25.0" prefHeight="465.0" prefWidth="799.0" styleClass="scroll-widget" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="35.0">
+                  <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="78.0" layoutY="25.0" prefHeight="465.0" prefWidth="799.0" styleClass="scroll-widget" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="35.0">
                      <content>
                         <VBox fx:id="dashboardLinkList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" spacing="6.0" styleClass="scroll-widget">
                            <padding>
@@ -21,7 +21,7 @@
                            </padding></VBox>
                      </content>
                   </ScrollPane>
-                  <Text layoutX="35.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="widget-title" text="Links" wrappingWidth="284.900390625" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="5.0">
+                  <Text fill="#6f6da1" layoutX="35.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="widget-title" text="Sync Links" wrappingWidth="284.900390625" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="5.0">
                      <font>
                         <Font size="20.0" />
                      </font>
