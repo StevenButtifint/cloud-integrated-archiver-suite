@@ -60,7 +60,7 @@ public class ControllerFactory {
 	private void initializeSchedulerService() {
 		if (schedulerService == null) {
 			schedulerService = new SchedulerService();
-			schedulerService.scheduleTask(dashboardController::orderLinksListAvailability, 2);
+			schedulerService.scheduleTask(dashboardController::orderLinksListAvailability, 15);
 		}
 	}
 
