@@ -28,4 +28,16 @@ public class MonitorController {
 	public void initialize() {
 	}
 
+	public void addNewOperation(LinkOperationDetails linkOperationDetails) {
+		LinkOperationController linkOperationController = new LinkOperationController(linkOperationDetails);
+		FXMLLoader loader = new FXMLLoader(linkOperationController.getClass().getResource(appConfig.getProperty("view.path.linkoperation")));
+		loader.setController(linkOperationController);
+		Node newOperation;
+		try {
+			newOperation = loader.load();
+			operationsVBox.getChildren().add(newOperation);
+		} catch (IOException e) {
+			logger.error("Unable to initalise new link operation controller" + e.getMessage(), e);
+		}
+	}
 }
