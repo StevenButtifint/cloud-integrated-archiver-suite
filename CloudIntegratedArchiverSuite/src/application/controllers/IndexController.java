@@ -27,6 +27,8 @@ public class IndexController {
 	private ManageController manageController;
 
 	private ComparerController comparerController;
+	
+	private MonitorController monitorController;
 
 	private Config appConfig;
 
@@ -68,10 +70,12 @@ public class IndexController {
 	private TabPane tabPages;
 
 	public IndexController(Config appConfig, DashboardController dashboardController,
-			ComparerController comparerController, ManageController manageController) {
+			ComparerController comparerController, ManageController manageController, 
+			MonitorController monitorController) {
 		this.dashboardController = dashboardController;
 		this.comparerController = comparerController;
 		this.manageController = manageController;
+		this.monitorController = monitorController;
 		this.appConfig = appConfig;
 	}
 
@@ -116,7 +120,7 @@ public class IndexController {
 			tabPages.getTabs().add(initializeTab("dash", appConfig.getProperty("view.path.dashboard"), dashboardController));
 			tabPages.getTabs().add(initializeTab("login", appConfig.getProperty("view.path.cloudlogin"), new CloudController()));
 			tabPages.getTabs().add(initializeTab("manage", appConfig.getProperty("view.path.manage"), manageController));
-			tabPages.getTabs().add(initializeTab("monitor", appConfig.getProperty("view.path.monitor"), new MonitorController()));
+			tabPages.getTabs().add(initializeTab("monitor", appConfig.getProperty("view.path.monitor"), monitorController));
 			tabPages.getTabs().add(initializeTab("duplication", appConfig.getProperty("view.path.comparer"), comparerController));
 		} catch (Exception e) {
 			logger.error("Could not initalise pages.", e);

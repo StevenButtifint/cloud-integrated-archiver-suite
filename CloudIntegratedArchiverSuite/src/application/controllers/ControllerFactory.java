@@ -6,7 +6,9 @@ import java.util.concurrent.Executors;
 import application.config.Config;
 import application.database.DatabaseConnection;
 import application.services.DashboardService;
+import application.services.MonitorService;
 import application.services.SchedulerService;
+import application.util.OperationManager;
 
 public class ControllerFactory {
 	private Config appConfig;
@@ -15,6 +17,7 @@ public class ControllerFactory {
 	private ExecutorService executorService;
 	private DashboardService dashboardService;
 	private SchedulerService schedulerService;
+	private MonitorService monitorService;
 	private IndexController indexController;
 	private ManageHomeController manageHomeController;
 	private ManageController manageController;
@@ -23,12 +26,14 @@ public class ControllerFactory {
 	private ViewLinkController viewLinkController;
 	private EditLinkController editLinkController;
 	private DeleteLinkController deleteLinkController;
+	private MonitorController monitorController;
+	private OperationManager operationManager;
 
 	public ControllerFactory(Config appConfig, Config dbConfig) {
 		this.appConfig = appConfig;
 		this.dbConfig = dbConfig;
 	}
-	
+
 	public void stopServices() {
 		if (schedulerService != null) {
 			schedulerService.shutdown();
@@ -128,8 +133,29 @@ public class ControllerFactory {
 	public IndexController getIndexController() {
 		if (indexController == null) {
 			indexController = new IndexController(appConfig, getDashboardController(), getComparerController(),
-					getManageController());
+					getManageController(), getMonitorController());
 		}
 		return indexController;
+	}
+
+	public MonitorController getMonitorController() {
+		if (monitorController == null) {
+			monitorController = new MonitorController(appConfig);
+			initializeMonitorService(monitorController, getOperationManager());
+		}
+		return monitorController;
+	}
+
+	public OperationManager getOperationManager() {
+		if (operationManager == null) {
+			operationManager = new OperationManager();
+		}
+		return operationManager;
+	}
+
+	private void initializeMonitorService(MonitorController monitorController, OperationManager operationManager) {
+		if (monitorService == null) {
+			monitorService = new MonitorService(monitorController, operationManager);
+		}
 	}
 }
