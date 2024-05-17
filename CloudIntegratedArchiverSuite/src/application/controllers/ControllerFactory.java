@@ -4,8 +4,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import application.config.Config;
-import application.database.DatabaseConnection;
+import application.database.DatabaseConnectionPool;
 import application.services.DashboardService;
+import application.services.DatabaseService;
 import application.services.MonitorService;
 import application.services.SchedulerService;
 import application.util.OperationManager;
@@ -13,6 +14,7 @@ import application.util.OperationManager;
 public class ControllerFactory {
 	private Config appConfig;
 	private Config dbConfig;
+	private DatabaseService databaseService;
 	private DashboardController dashboardController;
 	private ExecutorService executorService;
 	private DashboardService dashboardService;
@@ -45,20 +47,29 @@ public class ControllerFactory {
 			comparerController.stopComparingFolders();
 		}
 	}
-	
+
+	private DatabaseService getDatabaseService() {
+		if (databaseService == null) {
+			DatabaseConnectionPool connectionPool = new DatabaseConnectionPool(
+					dbConfig.getProperty("db.driver"),
+					dbConfig.getProperty("db.url"), 
+					dbConfig.getProperty("db.username"),
+					dbConfig.getProperty("db.password"));
+			databaseService = new DatabaseService(connectionPool, dbConfig);
+		}
+		return databaseService;
+	}
+
 	private ExecutorService getExecutorService() {
 		if (executorService == null) {
-			 executorService = Executors.newCachedThreadPool();
+			executorService = Executors.newCachedThreadPool();
 		}
 		return executorService;
 	}
 
 	private void initializeDashboardService() {
 		if (dashboardService == null) {
-			DatabaseConnection databaseConnection = new DatabaseConnection(dbConfig);
-			databaseConnection.connectToDatabase();
-			executorService = getExecutorService();
-			dashboardService = new DashboardService(databaseConnection, executorService);
+			dashboardService = new DashboardService(getDatabaseService(), getExecutorService());
 		}
 	}
 
@@ -80,15 +91,14 @@ public class ControllerFactory {
 
 	public ManageHomeController getManageHomeController() {
 		if (manageHomeController == null) {
-			DatabaseConnection databaseConnection = new DatabaseConnection(dbConfig);
-			manageHomeController = new ManageHomeController(appConfig, databaseConnection);
+			manageHomeController = new ManageHomeController(appConfig, getDatabaseService());
 		}
 		return manageHomeController;
 	}
 
 	public CreateLinkController getCreateLinkController() {
 		if (createLinkController == null) {
-			createLinkController = new CreateLinkController(dbConfig);
+			createLinkController = new CreateLinkController(getDatabaseService());
 		}
 		return createLinkController;
 	}

@@ -5,17 +5,16 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import application.database.DatabaseConnection;
 import application.models.Link;
 
 public class DashboardService {
 
-	private DatabaseConnection databaseConnection;
+	private DatabaseService databaseService;
 
 	private ExecutorService executorService;
 
-	public DashboardService(DatabaseConnection databaseConnection, ExecutorService executorService) {
-		this.databaseConnection = databaseConnection;
+	public DashboardService(DatabaseService databaseService, ExecutorService executorService) {
+		this.databaseService = databaseService;
 		this.executorService = executorService;
 	}
 
@@ -26,12 +25,11 @@ public class DashboardService {
 
 	// background process
 	private List<Link> getCurrentLinksList() {
-		return databaseConnection.getAllLinks();
+		return databaseService.getAllLinks();
 	}
 
 	public void shutdown() {
 		executorService.shutdown();
-		databaseConnection.closeConnection();
 		try {
 			if (!executorService.awaitTermination(60, TimeUnit.SECONDS)) {
 				executorService.shutdownNow();
