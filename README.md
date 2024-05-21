@@ -42,10 +42,13 @@ Take control with flexible storage options. Safely store archives and backups on
   - **PostgreSQL**: Relational database management system.
 
 ### What I Learned
-- How to use SceneBuilder to design dynamic, modular and modern layouts.
-- How to utilise JavaFX CSS to style a modern looking application.
-- How to use pgAdmin to manage the PostgreSQL database.
-- How to manage and configure logging with Log4j2 logging framework.
+- Used SceneBuilder to design dynamic, modular and modern layouts.
+- Styled a modern-looking application using JavaFX CSS.
+- Managed the PostgreSQL database with pgAdmin.
+- Configured and managed logging with the Log4j2 logging framework.
+- Utilised connection pooling to enhance interaction efficiency and resource management.
+- Applied dependency injection to enhance modularity and simplify testing.
+  
 
 ---
 
