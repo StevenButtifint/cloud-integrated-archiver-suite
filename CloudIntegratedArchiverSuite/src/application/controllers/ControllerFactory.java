@@ -112,14 +112,14 @@ public class ControllerFactory {
 
 	public EditLinkController getEditLinkController() {
 		if (editLinkController == null) {
-			editLinkController = new EditLinkController(dbConfig);
+			editLinkController = new EditLinkController(getDatabaseService());
 		}
 		return editLinkController;
 	}
 
 	public DeleteLinkController getDeleteLinkController() {
 		if (deleteLinkController == null) {
-			deleteLinkController = new DeleteLinkController(dbConfig);
+			deleteLinkController = new DeleteLinkController(getDatabaseService());
 		}
 		return deleteLinkController;
 	}

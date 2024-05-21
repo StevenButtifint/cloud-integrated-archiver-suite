@@ -3,25 +3,22 @@ package application.controllers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import application.config.Config;
-import application.database.DatabaseConnection;
 import application.models.Link;
+import application.services.DatabaseService;
 
 public class EditLinkController extends SaveLink {
 
 	private static final Logger logger = LogManager.getLogger(EditLinkController.class.getName());
 
 	private int linkID;
-	
-	private Config dbConfig;
-	
-	public EditLinkController(Config dbConfig) {
-		this.dbConfig = dbConfig;
+
+	public EditLinkController(DatabaseService databaseService) {
+		super(databaseService);
 	}
 
 	public void initialize() {
 		super.initialize();
-		saveButton.setOnAction(event -> saveChanges());
+		saveButton.setOnAction(event -> saveLink());
 	}
 
 	@Override
@@ -30,27 +27,28 @@ public class EditLinkController extends SaveLink {
 		linkID = link.getId();
 	}
 
-	private void saveChanges() {
+	@Override
+	protected void saveLink() {
 		String name = getNameFieldString();
 		String description = getDescriptionFieldString();
 		String source = getSourceFieldString();
 		String destination = getDestinationFieldString();
-
 		Boolean syncModifed = syncModifiedBox.isSelected();
 		Boolean syncDeleted = syncDeletedBox.isSelected();
 		Boolean syncAsArchive = syncAsArchiveBox.isSelected();
 
 		if (validateContent(name, description, source, destination)) {
-			databaseConnection = new DatabaseConnection(dbConfig);
-			if (databaseConnection.connectToDatabase()) {
-				databaseConnection.updateLink(linkID, name, description, source, destination, syncModifed, syncDeleted, syncAsArchive);
-				databaseConnection.closeConnection();
+			if (databaseService.updateLink(linkID, name, description, source, destination, syncModifed, syncDeleted, syncAsArchive)) {
 				manageController.goToManageHome();
-				
+				manageController.refreshDashboard();
 				logger.info("Succesfully updated link content.");
 			} else {
-				logger.error("No database connection established to update link.");
+				logger.warn("Unable to save new link.");
+				showErrorNotice();
 			}
 		}
+	}
+
+	private void showErrorNotice() {
 	}
 }
