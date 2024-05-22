@@ -4,9 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import application.config.Config;
+import application.enums.OperationState;
 import application.models.Link;
 import application.threads.SyncLinkThread;
-import application.threads.ThreadState;
 import application.util.FileOperations;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -75,7 +75,7 @@ public class LinkItemController extends LinkBaseController {
 		syncLinkThread.start();
 	}
 
-	private void updateStateUI(ThreadState threadState) {
+	private void updateStateUI(OperationState threadState) {
 		Platform.runLater(() -> {
 			initialiseBackgroundRectangle();
 			switch (threadState) {
