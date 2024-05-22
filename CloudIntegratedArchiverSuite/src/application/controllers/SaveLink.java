@@ -5,20 +5,19 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import application.database.DatabaseConnection;
+import application.services.DatabaseService;
 import application.util.FileExplorer;
 import application.util.LinkValidator;
 import application.util.ValidationResult;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 
-public class SaveLink extends LinkDetails {
+public abstract class SaveLink extends LinkDetails {
 
 	private static final Logger logger = LogManager.getLogger(SaveLink.class.getName());
-
-	protected DatabaseConnection databaseConnection;
+	
+	protected DatabaseService databaseService;
 
 	@FXML
 	protected Button saveButton;
@@ -28,6 +27,10 @@ public class SaveLink extends LinkDetails {
 
 	@FXML
 	private Button localDestinationButton;
+	
+	public SaveLink(DatabaseService databaseService) {
+		this.databaseService = databaseService;
+	}
 
 	public void initialize() {
 		super.initialize();
@@ -43,14 +46,11 @@ public class SaveLink extends LinkDetails {
 	}
 
 	protected boolean validateContent(String name, String description, String source, String destination) {
-
 		ValidationResult validationResult = LinkValidator.validate(name, description, source, destination);
 
-		// check all fields where valid
 		if (validationResult.isValid()) {
 			clearInvalidFields();
 			return true;
-
 		} else {
 			Map<String, Boolean> invalidResults = validationResult.getValidationStatus();
 			updateValidFieldBorder(nameField, invalidResults.get("name"));
@@ -61,4 +61,7 @@ public class SaveLink extends LinkDetails {
 			return false;
 		}
 	}
+	
+	protected abstract void saveLink();
+	
 }
