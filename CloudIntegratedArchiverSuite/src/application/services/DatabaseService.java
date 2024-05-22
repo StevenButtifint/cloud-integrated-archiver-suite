@@ -60,7 +60,7 @@ public class DatabaseService {
 		}
 	}
 
-	public void insertLink(String name, String description, String source_location, String destination_location,
+	public boolean insertLink(String name, String description, String source_location, String destination_location,
 			boolean sync_modified, boolean sync_deleted, boolean sync_as_archive) {
 		String query = "INSERT INTO " + dbConfig.getProperty("tbl.links")
 				+ " (name, description, source_location, destination_location, created_date, last_synced, sync_modified, sync_deleted, sync_as_archive) VALUES (?, ?, ?, ?, CURRENT_DATE, ?, ?, ?, ?)";
@@ -77,15 +77,18 @@ public class DatabaseService {
 			int rowsInserted = preparedStatement.executeUpdate();
 			if (rowsInserted > 0) {
 				logger.info("Successfully added new link.");
+				return true;
 			} else {
 				logger.warn("Failed to add new link.");
+				return false;
 			}
 		} catch (SQLException e) {
 			logger.error("Failed to create new link statement. " + e.getMessage(), e);
+			return false;
 		}
 	}
 
-	public void updateLink(int id, String name, String description, String source_location, String destination_location,
+	public boolean updateLink(int id, String name, String description, String source_location, String destination_location,
 			boolean syncModifed, boolean syncDeleted, boolean syncAsArchive) {
 		String query = "UPDATE " + dbConfig.getProperty("tbl.links")
 				+ " SET name=?, description=?, source_location=?, destination_location=?, sync_modified=?, sync_deleted=?, sync_as_archive=? WHERE empid=?";
@@ -102,11 +105,14 @@ public class DatabaseService {
 			int rowsUpdated = preparedStatement.executeUpdate();
 			if (rowsUpdated > 0) {
 				logger.info("Successfully updated link with ID " + id);
+				return true;
 			} else {
 				logger.warn("No link found with ID " + id);
+				return false;
 			}
 		} catch (SQLException e) {
 			logger.error("Failed to update link. " + e.getMessage(), e);
+			return false;
 		}
 	}
 
