@@ -44,4 +44,19 @@ public class ManageHomeController {
 	public void setManageController(ManageController manageController) {
 		this.manageController = manageController;
 	}
+
+	public void refreshLinksList() {
+		manageLinkList.getChildren().clear();
+		List<Link> allLinks = databaseService.getAllLinks();
+
+		for (Link link : allLinks) {
+			try {
+				Node newView = createLinkNode(link);
+				manageLinkList.getChildren().add(newView);
+			} catch (IOException e) {
+				logger.error("Failed to load link item view", e);
+			}
+		}
+	}
+
 }
