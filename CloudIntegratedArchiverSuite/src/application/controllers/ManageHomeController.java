@@ -59,4 +59,11 @@ public class ManageHomeController {
 		}
 	}
 
+	private Node createLinkNode(Link link) throws IOException {
+		LinkManageController controller = new LinkManageController(manageController, link);
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(appConfig.getProperty("view.path.linkmanage")));
+		loader.setController(controller);
+		Node view = loader.load();
+		return view;
+	}
 }
