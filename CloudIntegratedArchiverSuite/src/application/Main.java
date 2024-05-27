@@ -47,6 +47,10 @@ public class Main extends Application {
 			return;
 		}
 
+		if (!setupControllerFactory()) {
+			return;
+		}
+
 		if (!setupPrimaryStage(primaryStage)) {
 			Platform.exit();
 		}
@@ -61,8 +65,7 @@ public class Main extends Application {
 			return true;
 		} catch (IOException e) {
 			logger.error("Failed to load configuration properties: " + e.getMessage(), e);
-			AlertError.showError("Failed to launch Archiver Suite", "Application Error",
-					"Cannot load configuration properties.");
+			AlertError.showError("Failed to launch Archiver Suite", "Application Error", "Cannot load configuration properties.");
 			return false;
 		}
 	}
@@ -85,6 +88,18 @@ public class Main extends Application {
 		return true;
 	}
 
+	private boolean setupControllerFactory() {
+		try {
+			controllerFactory = getControllerFactory();
+			controllerFactory.initializeServices();
+			logger.info("Successfully initialised services.");
+			return true;
+		} catch (Exception e) {
+			logger.error("Unable to initialise controller factory.");
+			return false;
+		}
+	}
+
 	private boolean setupPrimaryStage(Stage primaryStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(appConfig.getProperty(VIEW_PATH_INDEX)));
@@ -102,7 +117,7 @@ public class Main extends Application {
 			return false;
 		}
 	}
-	
+
 	@Override
 	public void stop() {
 		if (controllerFactory != null) {
@@ -110,7 +125,7 @@ public class Main extends Application {
 		}
 		logger.info("Services shutdown.");
 	}
-	
+
 	public ControllerFactory getControllerFactory() {
 		if (controllerFactory == null) {
 			controllerFactory = new ControllerFactory(appConfig, dbConfig);

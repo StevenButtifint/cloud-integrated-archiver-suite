@@ -35,6 +35,12 @@ public class ControllerFactory {
 		this.appConfig = appConfig;
 		this.dbConfig = dbConfig;
 	}
+	
+	public void initializeServices() {
+		initializeDatabaseService();
+		initializeDashboardService();
+		initializeSchedulerService();
+	}
 
 	public void stopServices() {
 		if (schedulerService != null) {
@@ -47,8 +53,8 @@ public class ControllerFactory {
 			comparerController.stopComparingFolders();
 		}
 	}
-
-	private DatabaseService getDatabaseService() {
+	
+	private void initializeDatabaseService() {
 		if (databaseService == null) {
 			DatabaseConnectionPool connectionPool = new DatabaseConnectionPool(
 					dbConfig.getProperty("db.driver"),
@@ -57,7 +63,39 @@ public class ControllerFactory {
 					dbConfig.getProperty("db.password"));
 			databaseService = new DatabaseService(connectionPool, dbConfig);
 		}
+	}
+	
+	private void initializeDashboardService() {
+		if (dashboardService == null) {
+			dashboardService = new DashboardService(getDatabaseService(), getExecutorService());
+		}
+	}
+	
+	private void initializeSchedulerService() {
+		if (schedulerService == null) {
+			schedulerService = new SchedulerService();
+			schedulerService.scheduleTask(getDashboardController()::orderLinksListAvailability, 15);
+		}
+	}
+	
+	private void initializeMonitorService() {
+		if (monitorService == null) {
+			monitorService = new MonitorService(getMonitorController(), getOperationManager());
+		}
+	}
+
+	private DatabaseService getDatabaseService() {
+		if (databaseService == null) {
+			initializeDatabaseService();
+		}
 		return databaseService;
+	}
+	
+	private DashboardService getDashboardService() {
+		if (dashboardService == null) {
+			initializeDashboardService();
+		}
+		return dashboardService;
 	}
 
 	private ExecutorService getExecutorService() {
@@ -67,24 +105,9 @@ public class ControllerFactory {
 		return executorService;
 	}
 
-	private void initializeDashboardService() {
-		if (dashboardService == null) {
-			dashboardService = new DashboardService(getDatabaseService(), getExecutorService());
-		}
-	}
-
-	private void initializeSchedulerService() {
-		if (schedulerService == null) {
-			schedulerService = new SchedulerService();
-			schedulerService.scheduleTask(dashboardController::orderLinksListAvailability, 15);
-		}
-	}
-
 	public synchronized DashboardController getDashboardController() {
 		if (dashboardController == null) {
-			initializeDashboardService();
-			dashboardController = new DashboardController(dashboardService, appConfig, dbConfig);
-			initializeSchedulerService();
+			dashboardController = new DashboardController(getDashboardService(), getMonitorService(), appConfig, dbConfig);
 		}
 		return dashboardController;
 	}
@@ -151,7 +174,6 @@ public class ControllerFactory {
 	public MonitorController getMonitorController() {
 		if (monitorController == null) {
 			monitorController = new MonitorController(appConfig);
-			initializeMonitorService(monitorController, getOperationManager());
 		}
 		return monitorController;
 	}
@@ -162,10 +184,11 @@ public class ControllerFactory {
 		}
 		return operationManager;
 	}
-
-	private void initializeMonitorService(MonitorController monitorController, OperationManager operationManager) {
+	
+	private MonitorService getMonitorService() {
 		if (monitorService == null) {
-			monitorService = new MonitorService(monitorController, operationManager);
+			initializeMonitorService();
 		}
+		return monitorService;
 	}
 }
