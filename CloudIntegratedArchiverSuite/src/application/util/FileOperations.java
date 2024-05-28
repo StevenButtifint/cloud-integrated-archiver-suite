@@ -27,5 +27,9 @@ public class FileOperations {
 		return fileList;
 	}
 
+	public static String getRelativePath(File file, String baseFolder) {
+		String absolutePath = file.getAbsolutePath();
+		return absolutePath.substring(baseFolder.length() + 1);
+	}
 
 }
