@@ -56,12 +56,7 @@ public class ControllerFactory {
 	
 	private void initializeDatabaseService() {
 		if (databaseService == null) {
-			DatabaseConnectionPool connectionPool = new DatabaseConnectionPool(
-					dbConfig.getProperty("db.driver"),
-					dbConfig.getProperty("db.url"), 
-					dbConfig.getProperty("db.username"),
-					dbConfig.getProperty("db.password"));
-			databaseService = new DatabaseService(connectionPool, dbConfig);
+			databaseService = new DatabaseService(newDatabaseConnectionPool(), dbConfig);
 		}
 	}
 	
@@ -82,6 +77,14 @@ public class ControllerFactory {
 		if (monitorService == null) {
 			monitorService = new MonitorService(getMonitorController(), getOperationManager());
 		}
+	}
+	
+	private DatabaseConnectionPool newDatabaseConnectionPool() {
+		return new DatabaseConnectionPool(
+				dbConfig.getProperty("db.driver"),
+				dbConfig.getProperty("db.url"), 
+				dbConfig.getProperty("db.username"),
+				dbConfig.getProperty("db.password"));
 	}
 
 	private DatabaseService getDatabaseService() {
