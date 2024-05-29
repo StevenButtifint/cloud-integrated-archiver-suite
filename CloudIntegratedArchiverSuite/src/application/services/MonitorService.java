@@ -1,6 +1,8 @@
 package application.services;
 
 import application.controllers.MonitorController;
+import application.enums.OperationState;
+import application.models.Link;
 import application.models.LinkOperationDetails;
 import application.util.OperationManager;
 
@@ -14,9 +16,11 @@ public class MonitorService {
 		this.monitorController = monitorController;
 		this.operationManager = operationManager;
 	}
-	
-	public void addNewOperation(LinkOperationDetails linkOperationDetails) {
+
+	public void addNewOperation(Link link, OperationState operationState) {
+		LinkOperationDetails linkOperationDetails = new LinkOperationDetails(link.getName(), link.getDescription(), operationState);
 		monitorController.addNewOperation(linkOperationDetails);
+		monitorController.updateActiveLinks(operationState);
 		operationManager.addSyncOperation(linkOperationDetails);
 	}
 

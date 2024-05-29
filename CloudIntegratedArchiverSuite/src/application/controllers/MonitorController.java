@@ -6,10 +6,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import application.config.Config;
+import application.enums.OperationState;
 import application.models.LinkOperationDetails;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 public class MonitorController {
@@ -20,6 +22,11 @@ public class MonitorController {
 
 	@FXML
 	private VBox operationsVBox;
+	
+	@FXML
+	private Label activeEventsLabel;
+	
+	private int activeEventsCount;
 
 	public MonitorController(Config appConfig) {
 		this.appConfig = appConfig;
@@ -39,5 +46,14 @@ public class MonitorController {
 		} catch (IOException e) {
 			logger.error("Unable to initalise new link operation controller" + e.getMessage(), e);
 		}
+	}
+	
+	public void updateActiveLinks(OperationState operationState) {
+		if ((operationState == OperationState.COMPLETED) || (operationState == OperationState.TERMINATED)) {
+			activeEventsCount -= 1;
+		} else {
+			activeEventsCount += 1;
+		}
+		activeEventsLabel.setText(String.valueOf(activeEventsCount));
 	}
 }
