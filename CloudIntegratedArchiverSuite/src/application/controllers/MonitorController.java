@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import application.config.Config;
 import application.enums.OperationState;
+import application.interfaces.OperationManager;
 import application.models.LinkOperationDetails;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,14 +19,16 @@ public class MonitorController {
 
 	private static final Logger logger = LogManager.getLogger(MonitorController.class.getName());
 
+	private OperationManager operationManager;
+
 	private Config appConfig;
 
 	@FXML
 	private VBox operationsVBox;
-	
+
 	@FXML
 	private Label activeEventsLabel;
-	
+
 	private int activeEventsCount;
 
 	public MonitorController(Config appConfig) {
@@ -33,6 +36,10 @@ public class MonitorController {
 	}
 
 	public void initialize() {
+	}
+
+	public void setOperationManager(OperationManager operationManager) {
+		this.operationManager = operationManager;
 	}
 
 	public void addNewOperation(LinkOperationDetails linkOperationDetails) {

@@ -2,9 +2,9 @@ package application.services;
 
 import application.controllers.MonitorController;
 import application.enums.OperationState;
+import application.interfaces.OperationManager;
 import application.models.Link;
 import application.models.LinkOperationDetails;
-import application.util.OperationManager;
 
 public class MonitorService {
 
@@ -21,7 +21,7 @@ public class MonitorService {
 		LinkOperationDetails linkOperationDetails = new LinkOperationDetails(link.getName(), link.getDescription(), operationState);
 		monitorController.addNewOperation(linkOperationDetails);
 		monitorController.updateActiveLinks(operationState);
-		operationManager.addSyncOperation(linkOperationDetails);
+		operationManager.addOperation(linkOperationDetails);
 	}
 
 }
