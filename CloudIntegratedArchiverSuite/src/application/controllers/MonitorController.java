@@ -12,6 +12,7 @@ import application.models.LinkOperationDetails;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
@@ -22,6 +23,12 @@ public class MonitorController {
 	private OperationManager operationManager;
 
 	private Config appConfig;
+
+	@FXML
+	private Button saveButton;
+
+	@FXML
+	private Button clearButton;
 
 	@FXML
 	private VBox operationsVBox;
@@ -36,6 +43,8 @@ public class MonitorController {
 	}
 
 	public void initialize() {
+		saveButton.setOnAction(event -> operationManager.saveOperations());
+		clearButton.setOnAction(event -> clearOperations());
 	}
 
 	public void setOperationManager(OperationManager operationManager) {
@@ -54,7 +63,16 @@ public class MonitorController {
 			logger.error("Unable to initalise new link operation controller" + e.getMessage(), e);
 		}
 	}
-	
+
+	private void clearOperations() {
+		operationManager.clearOperations();
+		clearOperationsWidget();
+	}
+
+	private void clearOperationsWidget() {
+		operationsVBox.getChildren().clear();
+	}
+
 	public void updateActiveLinks(OperationState operationState) {
 		if ((operationState == OperationState.COMPLETED) || (operationState == OperationState.TERMINATED)) {
 			activeEventsCount -= 1;
