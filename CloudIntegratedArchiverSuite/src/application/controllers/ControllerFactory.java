@@ -9,7 +9,7 @@ import application.services.DashboardService;
 import application.services.DatabaseService;
 import application.services.MonitorService;
 import application.services.SchedulerService;
-import application.util.OperationManager;
+import application.util.LinkOperationManager;
 
 public class ControllerFactory {
 	private Config appConfig;
@@ -29,7 +29,7 @@ public class ControllerFactory {
 	private EditLinkController editLinkController;
 	private DeleteLinkController deleteLinkController;
 	private MonitorController monitorController;
-	private OperationManager operationManager;
+	private LinkOperationManager operationManager;
 
 	public ControllerFactory(Config appConfig, Config dbConfig) {
 		this.appConfig = appConfig;
@@ -182,9 +182,9 @@ public class ControllerFactory {
 		return monitorController;
 	}
 
-	public OperationManager getOperationManager() {
+	public LinkOperationManager getOperationManager() {
 		if (operationManager == null) {
-			operationManager = new OperationManager();
+			operationManager = new LinkOperationManager();
 		}
 		return operationManager;
 	}
