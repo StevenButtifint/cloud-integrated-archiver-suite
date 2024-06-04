@@ -76,6 +76,7 @@ public class ControllerFactory {
 	private void initializeMonitorService() {
 		if (monitorService == null) {
 			monitorService = new MonitorService(getMonitorController(), getOperationManager());
+			monitorService.initializeControllerManager();
 		}
 	}
 	

@@ -17,6 +17,10 @@ public class MonitorService {
 		this.operationManager = operationManager;
 	}
 
+	public void initializeControllerManager() {
+		monitorController.setOperationManager(operationManager);
+	}
+
 	public void addNewOperation(Link link, OperationState operationState) {
 		LinkOperationDetails linkOperationDetails = new LinkOperationDetails(link.getName(), link.getDescription(), operationState);
 		monitorController.addNewOperation(linkOperationDetails);
