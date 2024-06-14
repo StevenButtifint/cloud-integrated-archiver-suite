@@ -81,4 +81,8 @@ public class MonitorController {
 		}
 		activeEventsLabel.setText(String.valueOf(activeEventsCount));
 	}
+	
+	public boolean activeEvents() {
+		return activeEventsCount > 0;
+	}
 }

@@ -27,7 +27,7 @@ public class IndexController {
 	private ManageController manageController;
 
 	private ComparerController comparerController;
-	
+
 	private MonitorController monitorController;
 
 	private Config appConfig;
@@ -70,7 +70,7 @@ public class IndexController {
 	private TabPane tabPages;
 
 	public IndexController(Config appConfig, DashboardController dashboardController,
-			ComparerController comparerController, ManageController manageController, 
+			ComparerController comparerController, ManageController manageController,
 			MonitorController monitorController) {
 		this.dashboardController = dashboardController;
 		this.comparerController = comparerController;
@@ -180,7 +180,11 @@ public class IndexController {
 
 	@FXML
 	private void goToQuit() {
-		quit();
+		if (monitorController.activeEvents()) {
+			goToQuitConfirm();
+		} else {
+			quit();
+		}
 	}
 
 	@FXML
