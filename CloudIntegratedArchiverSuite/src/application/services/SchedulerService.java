@@ -7,7 +7,9 @@ import java.util.concurrent.TimeUnit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class SchedulerService {
+import application.interfaces.ISchedulerService;
+
+public class SchedulerService implements ISchedulerService {
 
 	private static final Logger logger = LogManager.getLogger(SchedulerService.class.getName());
 
@@ -17,10 +19,12 @@ public class SchedulerService {
 		this.scheduler = Executors.newScheduledThreadPool(1);
 	}
 
+	@Override
 	public void scheduleTask(Runnable task, long period) {
 		scheduler.scheduleAtFixedRate(task, 0, period, TimeUnit.SECONDS);
 	}
 
+	@Override
 	public void shutdown() {
 		try {
 			scheduler.shutdown();

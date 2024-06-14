@@ -3,8 +3,8 @@ package application.controllers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import application.interfaces.IDatabaseService;
 import application.models.Link;
-import application.services.DatabaseService;
 
 public class EditLinkController extends SaveLink {
 
@@ -12,7 +12,7 @@ public class EditLinkController extends SaveLink {
 
 	private int linkID;
 
-	public EditLinkController(DatabaseService databaseService) {
+	public EditLinkController(IDatabaseService databaseService) {
 		super(databaseService);
 	}
 

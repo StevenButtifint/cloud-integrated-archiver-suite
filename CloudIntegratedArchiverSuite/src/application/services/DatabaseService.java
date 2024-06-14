@@ -15,9 +15,10 @@ import org.apache.logging.log4j.Logger;
 
 import application.config.Config;
 import application.database.DatabaseConnectionPool;
+import application.interfaces.IDatabaseService;
 import application.models.Link;
 
-public class DatabaseService {
+public class DatabaseService implements IDatabaseService {
 
 	private static final Logger logger = LogManager.getLogger(DatabaseService.class.getName());
 
@@ -30,6 +31,7 @@ public class DatabaseService {
 		this.dbConfig = dbConfig;
 	}
 
+	@Override
 	public boolean initialiseLinkTable() {
 		try (Connection connection = connectionPool.getConnection()) {
 			DatabaseMetaData metaData = connection.getMetaData();
@@ -60,6 +62,7 @@ public class DatabaseService {
 		}
 	}
 
+	@Override
 	public boolean insertLink(String name, String description, String source_location, String destination_location,
 			boolean sync_modified, boolean sync_deleted, boolean sync_as_archive) {
 		String query = "INSERT INTO " + dbConfig.getProperty("tbl.links")
@@ -88,6 +91,7 @@ public class DatabaseService {
 		}
 	}
 
+	@Override
 	public boolean updateLink(int id, String name, String description, String source_location, String destination_location,
 			boolean syncModifed, boolean syncDeleted, boolean syncAsArchive) {
 		String query = "UPDATE " + dbConfig.getProperty("tbl.links")
@@ -116,6 +120,7 @@ public class DatabaseService {
 		}
 	}
 
+	@Override
 	public Link getLinkById(int id) {
 		String query = "SELECT * FROM " + dbConfig.getProperty("tbl.links") + " WHERE empid = ?";
 		try (Connection connection = connectionPool.getConnection();
@@ -135,6 +140,7 @@ public class DatabaseService {
 		return null;
 	}
 
+	@Override
 	public boolean deleteLinkById(int id) {
 		String query = "DELETE FROM " + dbConfig.getProperty("tbl.links") + " WHERE empid = ?";
 		try (Connection connection = connectionPool.getConnection();
@@ -149,6 +155,7 @@ public class DatabaseService {
 		}
 	}
 
+	@Override
 	public void updateLastSynced(int linkID) {
 		String query = "UPDATE " + dbConfig.getProperty("tbl.links")
 				+ " SET last_synced = CURRENT_DATE WHERE empid = ?";
@@ -161,6 +168,7 @@ public class DatabaseService {
 		}
 	}
 
+	@Override
 	public List<Link> getAllLinks() {
 		List<Link> allLinks = new ArrayList<>();
 		String query = "SELECT * FROM " + dbConfig.getProperty("tbl.links");

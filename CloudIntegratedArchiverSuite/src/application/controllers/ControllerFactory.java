@@ -5,6 +5,10 @@ import java.util.concurrent.Executors;
 
 import application.config.Config;
 import application.database.DatabaseConnectionPool;
+import application.interfaces.IDashboardService;
+import application.interfaces.IDatabaseService;
+import application.interfaces.IMonitorService;
+import application.interfaces.ISchedulerService;
 import application.services.DashboardService;
 import application.services.DatabaseService;
 import application.services.MonitorService;
@@ -14,13 +18,13 @@ import application.util.LinkOperationManager;
 public class ControllerFactory {
 	private Config appConfig;
 	private Config dbConfig;
-	private DatabaseService databaseService;
-	private DashboardController dashboardController;
 	private ExecutorService executorService;
-	private DashboardService dashboardService;
-	private SchedulerService schedulerService;
-	private MonitorService monitorService;
+	private IDatabaseService databaseService;
+	private IDashboardService dashboardService;
+	private ISchedulerService schedulerService;
+	private IMonitorService monitorService;
 	private IndexController indexController;
+	private DashboardController dashboardController;
 	private ManageHomeController manageHomeController;
 	private ManageController manageController;
 	private ComparerController comparerController;
@@ -88,14 +92,14 @@ public class ControllerFactory {
 				dbConfig.getProperty("db.password"));
 	}
 
-	private DatabaseService getDatabaseService() {
+	private IDatabaseService getDatabaseService() {
 		if (databaseService == null) {
 			initializeDatabaseService();
 		}
 		return databaseService;
 	}
 	
-	private DashboardService getDashboardService() {
+	private IDashboardService getDashboardService() {
 		if (dashboardService == null) {
 			initializeDashboardService();
 		}
@@ -189,7 +193,7 @@ public class ControllerFactory {
 		return operationManager;
 	}
 	
-	private MonitorService getMonitorService() {
+	private IMonitorService getMonitorService() {
 		if (monitorService == null) {
 			initializeMonitorService();
 		}

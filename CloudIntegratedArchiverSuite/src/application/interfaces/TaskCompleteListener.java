@@ -1,7 +1,7 @@
 package application.interfaces;
 
 public interface TaskCompleteListener<T> {
-	void onTaskComplete(T result);
+	public void onTaskComplete(T result);
 
-	void onTaskFailed(Exception e);
+	public void onTaskFailed(Exception e);
 }

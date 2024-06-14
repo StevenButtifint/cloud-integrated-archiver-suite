@@ -5,7 +5,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import application.services.DatabaseService;
+import application.interfaces.IDatabaseService;
 import application.util.FileExplorer;
 import application.util.LinkValidator;
 import application.util.ValidationResult;
@@ -17,7 +17,7 @@ public abstract class SaveLink extends LinkDetails {
 
 	private static final Logger logger = LogManager.getLogger(SaveLink.class.getName());
 	
-	protected DatabaseService databaseService;
+	protected IDatabaseService databaseService;
 
 	@FXML
 	protected Button saveButton;
@@ -28,7 +28,7 @@ public abstract class SaveLink extends LinkDetails {
 	@FXML
 	private Button localDestinationButton;
 	
-	public SaveLink(DatabaseService databaseService) {
+	public SaveLink(IDatabaseService databaseService) {
 		this.databaseService = databaseService;
 	}
 

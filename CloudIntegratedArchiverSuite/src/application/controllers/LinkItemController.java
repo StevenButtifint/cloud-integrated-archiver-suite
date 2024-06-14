@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import application.config.Config;
 import application.enums.OperationState;
+import application.interfaces.IMonitorService;
 import application.models.Link;
 import application.threads.SyncLinkThread;
 import application.util.FileOperations;
@@ -26,6 +27,8 @@ import javafx.util.Duration;
 public class LinkItemController extends LinkBaseController {
 
 	private static final Logger logger = LogManager.getLogger(LinkItemController.class.getName());
+	
+	private IMonitorService monitorService;
 
 	private SyncLinkThread syncLinkThread;
 
@@ -51,8 +54,9 @@ public class LinkItemController extends LinkBaseController {
 	@FXML
 	private Rectangle backgroundRectangle;
 
-	public LinkItemController(Link link, Config appConfig, Config dbConfig) {
+	public LinkItemController(IMonitorService monitorService, Link link, Config appConfig, Config dbConfig) {
 		super(link);
+		this.monitorService = monitorService;
 		this.appConfig = appConfig;
 		this.dbConfig = dbConfig;
 	}

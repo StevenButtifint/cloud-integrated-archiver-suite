@@ -2,5 +2,5 @@ package application.interfaces;
 
 @FunctionalInterface
 public interface ComputationalTask<T> {
-	T performTask();
+	public T performTask();
 }

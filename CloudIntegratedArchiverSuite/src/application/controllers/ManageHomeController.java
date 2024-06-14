@@ -7,8 +7,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import application.config.Config;
+import application.interfaces.IDatabaseService;
 import application.models.Link;
-import application.services.DatabaseService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -19,7 +19,7 @@ public class ManageHomeController {
 
 	private static final Logger logger = LogManager.getLogger(ManageHomeController.class.getName());
 
-	private DatabaseService databaseService;
+	private IDatabaseService databaseService;
 
 	private Config appConfig;
 
@@ -31,7 +31,7 @@ public class ManageHomeController {
 	@FXML
 	private VBox manageLinkList;
 
-	public ManageHomeController(Config appConfig, DatabaseService databaseService) {
+	public ManageHomeController(Config appConfig, IDatabaseService databaseService) {
 		this.appConfig = appConfig;
 		this.databaseService = databaseService;
 	}

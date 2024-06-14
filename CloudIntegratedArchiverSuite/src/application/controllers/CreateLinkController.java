@@ -3,13 +3,13 @@ package application.controllers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import application.services.DatabaseService;
+import application.interfaces.IDatabaseService;
 
 public class CreateLinkController extends SaveLink {
 
 	private static final Logger logger = LogManager.getLogger(CreateLinkController.class.getName());
 
-	public CreateLinkController(DatabaseService databaseService) {
+	public CreateLinkController(IDatabaseService databaseService) {
 		super(databaseService);
 	}
 
