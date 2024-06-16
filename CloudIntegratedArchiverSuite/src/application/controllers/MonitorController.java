@@ -73,16 +73,20 @@ public class MonitorController {
 		operationsVBox.getChildren().clear();
 	}
 
-	public void updateActiveLinks(OperationState operationState) {
+	public synchronized void updateActiveLinks(OperationState operationState) {
 		if ((operationState == OperationState.COMPLETED) || (operationState == OperationState.TERMINATED)) {
 			activeEventsCount -= 1;
 		} else {
 			activeEventsCount += 1;
 		}
+		updateActiveEventsLabel();
+	}
+
+	private synchronized void updateActiveEventsLabel() {
 		activeEventsLabel.setText(String.valueOf(activeEventsCount));
 	}
-	
-	public boolean activeEvents() {
+
+	public synchronized boolean activeEvents() {
 		return activeEventsCount > 0;
 	}
 }
