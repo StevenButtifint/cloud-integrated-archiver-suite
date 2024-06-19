@@ -172,7 +172,32 @@
     -fx-min-height: 0.0;
     -fx-max-height: 0.0;
     -fx-pref-height: 0.0;
-    
+}
+
+.comparer-table-view {
+    -fx-background-color: #514e79;
+    -fx-table-cell-border-color: #211e49;
+    -fx-padding: 0.0;
+}
+
+.table-column {
+    -fx-alignment: CENTER-LEFT;
+    -fx-font-size: 12.0px;
+    -fx-background-color: #514e79;
+    -fx-text-fill: #000000;
+}
+
+.table-row-cell {
+    -fx-background-color: #f9f9f9;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #e0e0e0;
+}
+
+.table-view .column-header .resize-handle {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
 }
 
 .scroll-widget {
@@ -183,6 +208,20 @@
 .scroll-widget-embedded {
 	-fx-background-color: #514e79;
 	-fx-border-style: none;
+}
+
+.list-cell:filled {
+    -fx-background-color: #514e79;
+    -fx-text-fill: #000000;
+}
+
+.list-cell:empty {
+    -fx-background-color: #514e79;
+    -fx-text-fill: #000000;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: #9591bd;
 }
 
 .scroll-bar:vertical {
