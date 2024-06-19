@@ -109,4 +109,24 @@ public class FolderSync {
 		}
 	}
 
+	private static void syncDeletedFiles(DefaultSyncReport defaultSyncReport, Path source, Path finalDestination) {
+		try {
+			Files.walkFileTree(finalDestination, new SimpleFileVisitor<Path>() {
+				@Override
+				public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+					Path correspondingFile = source.resolve(finalDestination.relativize(file));
+					if (!Files.exists(correspondingFile)) {
+						// File exists in target but not in source
+						Files.delete(file);
+						defaultSyncReport.updatedDeletedFile();
+					}
+					return FileVisitResult.CONTINUE;
+				}
+			});
+		} catch (IOException e) {
+			defaultSyncReport.logIncompleteEvent(SyncEventType.INTERRUPTED, "Unable to sync deleted files.");
+			logger.error("Unable to sync deleted files." + e.getMessage());
+		}
+	}
+
 }
