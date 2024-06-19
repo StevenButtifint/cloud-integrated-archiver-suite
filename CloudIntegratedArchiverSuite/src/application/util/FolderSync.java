@@ -89,4 +89,24 @@ public class FolderSync {
 		}
 	}
 
+	private static void syncModifiedFiles(DefaultSyncReport defaultSyncReport, Path source, Path finalDestination) {
+		try {
+			Files.walkFileTree(finalDestination, new SimpleFileVisitor<Path>() {
+				@Override
+				public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+					Path correspondingFile = source.resolve(finalDestination.relativize(file));
+					if (Files.exists(correspondingFile) && Files.getLastModifiedTime(file).compareTo(Files.getLastModifiedTime(correspondingFile)) < 0) {
+						// File exists in both source and target, but target is older
+						Files.copy(correspondingFile, file, StandardCopyOption.REPLACE_EXISTING);
+						defaultSyncReport.updatedModifiedFile();
+					}
+					return FileVisitResult.CONTINUE;
+				}
+			});
+		} catch (IOException e) {
+			defaultSyncReport.logIncompleteEvent(SyncEventType.INTERRUPTED, "Unable to check all files are up to date." + e.getMessage());
+			logger.error("Unable to check all files are up to date." + e.getMessage());
+		}
+	}
+
 }
