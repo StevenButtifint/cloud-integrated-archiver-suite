@@ -129,4 +129,37 @@ public class FolderSync {
 		}
 	}
 
+	private static void removeEmptyDirectories(DefaultSyncReport defaultSyncReport, Path source,
+			Path finalDestination) {
+		try {
+			Files.walkFileTree(finalDestination, new SimpleFileVisitor<Path>() {
+				@Override
+				public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+					if (!dir.equals(finalDestination)
+							&& Files.list(dir).allMatch(p -> Files.isDirectory(p) && isEmptyDirectory(p))) {
+						Files.delete(dir);
+					}
+					return FileVisitResult.CONTINUE;
+				}
+			});
+		} catch (IOException e) {
+			logger.error("Unable to remove empty directories." + e.getMessage(), e);
+			defaultSyncReport.logIncompleteEvent(SyncEventType.SKIPPED, "Unable to remove empty directories.");
+		}
+	}
+
+	private static boolean isEmptyDirectory(Path directory) {
+		try (Stream<Path> stream = Files.list(directory)) {
+			return stream.allMatch(p -> {
+				if (Files.isDirectory(p)) {
+					return isEmptyDirectory(p);
+				} else {
+					return false;
+				}
+			});
+		} catch (IOException e) {
+			logger.error("Unable to check if directory is empty." + e.getMessage(), e);
+		}
+		return false;
+	}
 }
