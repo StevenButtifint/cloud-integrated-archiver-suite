@@ -33,6 +33,7 @@ public class ControllerFactory {
 	private EditLinkController editLinkController;
 	private DeleteLinkController deleteLinkController;
 	private MonitorController monitorController;
+	private CloudController cloudController;
 	private LinkOperationManager operationManager;
 
 	public ControllerFactory(Config appConfig, Config dbConfig) {
@@ -174,7 +175,7 @@ public class ControllerFactory {
 	public IndexController getIndexController() {
 		if (indexController == null) {
 			indexController = new IndexController(appConfig, getDashboardController(), getComparerController(),
-					getManageController(), getMonitorController());
+					getManageController(), getMonitorController(), getCloudController());
 		}
 		return indexController;
 	}
@@ -184,6 +185,13 @@ public class ControllerFactory {
 			monitorController = new MonitorController(appConfig);
 		}
 		return monitorController;
+	}
+	
+	public CloudController getCloudController() {
+		if (cloudController == null) {
+			cloudController = new CloudController();
+		}
+		return cloudController;
 	}
 
 	public LinkOperationManager getOperationManager() {

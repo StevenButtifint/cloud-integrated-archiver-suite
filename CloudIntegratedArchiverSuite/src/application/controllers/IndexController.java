@@ -29,6 +29,8 @@ public class IndexController {
 	private ComparerController comparerController;
 
 	private MonitorController monitorController;
+	
+	private CloudController cloudController;
 
 	private Config appConfig;
 
@@ -71,11 +73,12 @@ public class IndexController {
 
 	public IndexController(Config appConfig, DashboardController dashboardController,
 			ComparerController comparerController, ManageController manageController,
-			MonitorController monitorController) {
+			MonitorController monitorController, CloudController cloudController) {
 		this.dashboardController = dashboardController;
 		this.comparerController = comparerController;
 		this.manageController = manageController;
 		this.monitorController = monitorController;
+		this.cloudController = cloudController;
 		this.appConfig = appConfig;
 	}
 
@@ -118,7 +121,7 @@ public class IndexController {
 	public void initializePages() {
 		try {
 			tabPages.getTabs().add(initializeTab("dash", appConfig.getProperty("view.path.dashboard"), dashboardController));
-			tabPages.getTabs().add(initializeTab("login", appConfig.getProperty("view.path.cloudlogin"), new CloudController()));
+			tabPages.getTabs().add(initializeTab("login", appConfig.getProperty("view.path.cloudlogin"), cloudController));
 			tabPages.getTabs().add(initializeTab("manage", appConfig.getProperty("view.path.manage"), manageController));
 			tabPages.getTabs().add(initializeTab("monitor", appConfig.getProperty("view.path.monitor"), monitorController));
 			tabPages.getTabs().add(initializeTab("duplication", appConfig.getProperty("view.path.comparer"), comparerController));
