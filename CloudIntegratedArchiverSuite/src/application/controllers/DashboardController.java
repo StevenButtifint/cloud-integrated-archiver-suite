@@ -8,8 +8,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import application.config.Config;
+import application.interfaces.IDashboardService;
+import application.interfaces.IMonitorService;
 import application.models.Link;
-import application.services.DashboardService;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +22,9 @@ public class DashboardController {
 
 	private static final Logger logger = LogManager.getLogger(DashboardController.class.getName());
 
-	private DashboardService dashboardService;
+	private IDashboardService dashboardService;
+	
+	private IMonitorService monitorService;
 
 	private List<Pair<LinkItemController, Node>> linkControllerNodePairs = new ArrayList<>();
 
@@ -32,8 +35,9 @@ public class DashboardController {
 
 	private Config dbConfig;
 
-	public DashboardController(DashboardService dashboardService, Config appConfig, Config dbConfig) {
+	public DashboardController(IDashboardService dashboardService, IMonitorService monitorService, Config appConfig, Config dbConfig) {
 		this.dashboardService = dashboardService;
+		this.monitorService = monitorService;
 		this.appConfig = appConfig;
 		this.dbConfig = dbConfig;
 	}
@@ -85,7 +89,7 @@ public class DashboardController {
 			dashboardLinkList.getChildren().clear();
 
 			for (Link link : links) {
-				LinkItemController linkItemController = new LinkItemController(link, appConfig, dbConfig);
+				LinkItemController linkItemController = new LinkItemController(monitorService, link, appConfig, dbConfig);
 				FXMLLoader loader = new FXMLLoader(linkItemController.getClass().getResource(appConfig.getProperty("view.path.linkitem")));
 				loader.setController(linkItemController);
 				Node newView = loader.load();
