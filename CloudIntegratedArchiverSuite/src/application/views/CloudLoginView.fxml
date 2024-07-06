@@ -2,50 +2,34 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="510.0" prefWidth="880.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER" prefHeight="510.0" prefWidth="880.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane maxHeight="300.0" prefHeight="300.0" prefWidth="259.0" styleClass="widget" HBox.hgrow="NEVER">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <VBox alignment="TOP_CENTER" layoutY="246.0" prefWidth="259.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox alignment="CENTER" prefHeight="510.0" prefWidth="356.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="widget-title" text="Google Drive Login">
+                        <Text fill="#c3c3c3" strokeType="OUTSIDE" strokeWidth="0.0" text="To manage files in your Google Drive, the application requires permission to access and modify your files." textAlignment="CENTER" wrappingWidth="355.5078125">
                            <font>
-                              <Font size="22.0" />
+                              <Font size="15.0" />
                            </font>
-                           <padding>
-                              <Insets bottom="20.0" />
-                           </padding>
-                        </Label>
-                        <Label maxWidth="1.7976931348623157E308" styleClass="widget-title" text="Email">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <TextField styleClass="entry-box" />
-                        <Label maxWidth="1.7976931348623157E308" styleClass="widget-title" text="Password">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <TextField styleClass="entry-box" />
-                        <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="87.0" styleClass="link-button" text="Login">
                            <VBox.margin>
-                              <Insets top="15.0" />
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Button fx:id="linkDriveButton" mnemonicParsing="false" text="Connect Google Drive" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets top="10.0" />
                            </VBox.margin>
                         </Button>
                      </children>
-                     <padding>
-                        <Insets left="20.0" right="20.0" top="10.0" />
-                     </padding>
                   </VBox>
                </children>
             </AnchorPane>
