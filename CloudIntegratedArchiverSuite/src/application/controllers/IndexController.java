@@ -31,6 +31,8 @@ public class IndexController {
 	private MonitorController monitorController;
 	
 	private CloudController cloudController;
+	
+	private SettingsController settingsController;
 
 	private Config appConfig;
 
@@ -61,6 +63,9 @@ public class IndexController {
 
 	@FXML
 	private Button comparerButton;
+	
+	@FXML
+	private Button settingsButton;
 
 	@FXML
 	private Button quitButton;
@@ -73,12 +78,13 @@ public class IndexController {
 
 	public IndexController(Config appConfig, DashboardController dashboardController,
 			ComparerController comparerController, ManageController manageController,
-			MonitorController monitorController, CloudController cloudController) {
+			MonitorController monitorController, CloudController cloudController, SettingsController settingsController) {
 		this.dashboardController = dashboardController;
 		this.comparerController = comparerController;
 		this.manageController = manageController;
 		this.monitorController = monitorController;
 		this.cloudController = cloudController;
+		this.settingsController = settingsController;
 		this.appConfig = appConfig;
 	}
 
@@ -97,6 +103,7 @@ public class IndexController {
 		manageButton.setOnAction(event -> goToManage());
 		monitorButton.setOnAction(event -> goToMonitor());
 		comparerButton.setOnAction(event -> goToComparer());
+		settingsButton.setOnAction(event -> goToSettings());
 		quitButton.setOnAction(event -> goToQuit());
 	}
 
@@ -125,6 +132,7 @@ public class IndexController {
 			tabPages.getTabs().add(initializeTab("manage", appConfig.getProperty("view.path.manage"), manageController));
 			tabPages.getTabs().add(initializeTab("monitor", appConfig.getProperty("view.path.monitor"), monitorController));
 			tabPages.getTabs().add(initializeTab("duplication", appConfig.getProperty("view.path.comparer"), comparerController));
+			tabPages.getTabs().add(initializeTab("settings", appConfig.getProperty("view.path.settings"), settingsController));
 		} catch (Exception e) {
 			logger.error("Could not initalise pages.", e);
 		}
@@ -179,6 +187,12 @@ public class IndexController {
 	private void goToComparer() {
 		changeTab(4);
 		updateTite("Compare");
+	}
+	
+	@FXML
+	private void goToSettings() {
+		changeTab(5);
+		updateTite("Settings");
 	}
 
 	@FXML
