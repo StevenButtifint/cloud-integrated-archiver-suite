@@ -44,5 +44,9 @@ public class LinkOperationDetails {
 		LocalTime currentTime = LocalTime.now();
 		return currentTime.format(timeFormat);
 	}
+	
+	public String getDetailsFormatted() {
+		return timePerformed + " " + getOperationStateString() + " Name: " + name + ", Description: " + description;
+	}
 
 }
