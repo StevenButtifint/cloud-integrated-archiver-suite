@@ -21,8 +21,8 @@ import application.util.AlertError;
 public class Main extends Application {
 	private static final Logger logger = LogManager.getLogger(Main.class.getName());
 
-	private static final String APP_CONFIG_FILE = "app.properties";
-	private static final String DB_CONFIG_FILE = "db.properties";
+	private static final String APP_CONFIG_FILE = "/application/config/app.properties";
+	private static final String DB_CONFIG_FILE = "/application/config/db.properties";
 
 	private static final String VIEW_PATH_INDEX = "view.path.index";
 	private static final String APP_TITLE = "app.title";

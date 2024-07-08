@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="backgroundPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="890.0" minWidth="-Infinity" prefHeight="90.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="backgroundPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="890.0" minWidth="-Infinity" prefHeight="90.0" stylesheets="@/application/styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Rectangle fx:id="backgroundRectangle" arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="773.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="117.0" AnchorPane.topAnchor="0.0" />
       <Button fx:id="deleteButton" contentDisplay="GRAPHIC_ONLY" layoutX="811.0" layoutY="15.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="28.0" styleClass="link-button" text="SYNC" textFill="WHITE" AnchorPane.bottomAnchor="22.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="22.0">
@@ -20,7 +20,7 @@
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/trash-bin.png" />
+                  <Image url="@/application/images/trash-bin.png" />
                </image>
                <effect>
                   <ColorAdjust brightness="0.73" contrast="-0.71" hue="-0.47" saturation="0.96" />
@@ -44,7 +44,7 @@
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/pencil.png" />
+                  <Image url="@/application/images/pencil.png" />
                </image>
                <effect>
                   <ColorAdjust brightness="0.73" contrast="-0.71" hue="-0.47" saturation="0.96" />
@@ -59,7 +59,7 @@
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/eye.png" />
+                  <Image url="@/application/images/eye.png" />
                </image>
                <effect>
                   <ColorAdjust brightness="0.73" contrast="-0.71" hue="-0.47" saturation="0.96" />

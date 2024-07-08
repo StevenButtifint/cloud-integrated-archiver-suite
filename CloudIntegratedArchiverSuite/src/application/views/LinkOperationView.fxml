@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="backgroundPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="890.0" minWidth="-Infinity" prefHeight="90.0" prefWidth="890.0" styleClass="link-item-background-base" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="backgroundPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="890.0" minWidth="-Infinity" prefHeight="90.0" prefWidth="890.0" styleClass="link-item-background-base" stylesheets="@/application/styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Rectangle fx:id="backgroundRectangle" arcHeight="10.0" arcWidth="10.0" fill="#ffffff00" height="90.0" stroke="#7f79cd" strokeType="INSIDE" strokeWidth="0.0" width="773.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="117.0" AnchorPane.topAnchor="0.0" />
       <Label fx:id="nameLabel" layoutX="26.0" layoutY="17.0" prefHeight="32.0" prefWidth="517.0" text="Link Name" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0">

@@ -11,17 +11,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.IndexController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" stylesheets="@/application/styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.IndexController">
    <children>
       <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane fx:id="indexTopBar" maxHeight="75.0" minHeight="75.0" prefHeight="75.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button fx:id="quitButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="870.0" layoutY="3.0" maxHeight="50.0" maxWidth="54.0" minHeight="20.0" minWidth="40.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="54.0" styleClass="window-controls" text="Cloud Login" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Button fx:id="quitButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="870.0" layoutY="3.0" maxHeight="50.0" maxWidth="54.0" minHeight="20.0" minWidth="40.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="54.0" styleClass="window-controls" text="quit" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <graphic>
                         <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true" styleClass="sideButton">
                            <image>
-                              <Image url="@../images/close-button.png" />
+                              <Image url="@/application/images/close.png" />
                            </image>
                            <effect>
                               <ColorAdjust contrast="-1.0" />
@@ -29,11 +29,11 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="cloudLoginButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="819.0" layoutY="8.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="topButton" text="Cloud Login" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="25.0">
+                  <Button fx:id="cloudLoginButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="819.0" layoutY="8.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="topButton" text="Cloud Login" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="80.0">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="sideButton">
                            <image>
-                              <Image url="@../images/user.png" />
+                              <Image url="@/application/images/google-drive.png" />
                            </image>
                            <effect>
                               <ColorAdjust brightness="0.68" contrast="0.07" hue="-0.52" saturation="1.0" />
@@ -41,11 +41,11 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="673.0" layoutY="8.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="topButton" text="Notifications" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="80.0">
+                  <Button fx:id="settingsButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="673.0" layoutY="8.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="topButton" text="Settings" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="25.0">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="sideButton">
                            <image>
-                              <Image url="@../images/bell.png" />
+                              <Image url="@/application/images/settings.png" />
                            </image>
                            <effect>
                               <ColorAdjust brightness="0.68" contrast="0.07" hue="-0.52" saturation="1.0" />
@@ -68,7 +68,7 @@
             </AnchorPane>
             <AnchorPane fx:id="indexSidebar" maxWidth="80.0" minWidth="80.0" prefHeight="200.0" prefWidth="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox alignment="CENTER" layoutX="-15.0" layoutY="100.0" prefWidth="85.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0">
+                  <VBox alignment="CENTER" layoutX="-15.0" layoutY="100.0" prefWidth="85.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="160.0">
                      <children>
                         <AnchorPane fx:id="sidebarTile" maxWidth="80.0" minWidth="80.0" prefWidth="80.0">
                            <children>
@@ -76,7 +76,7 @@
                                  <graphic>
                                     <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/dashboard.png" />
+                                          <Image url="@/application/images/dashboard.png" />
                                        </image>
                                        <effect>
                                           <ColorAdjust brightness="0.68" contrast="0.07" hue="-0.52" saturation="1.0" />
@@ -92,7 +92,7 @@
                                  <graphic>
                                     <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/configurations.png" />
+                                          <Image url="@/application/images/configurations.png" />
                                        </image>
                                        <effect>
                                           <ColorAdjust brightness="0.68" contrast="0.07" hue="-0.52" saturation="1.0" />
@@ -108,7 +108,7 @@
                                  <graphic>
                                     <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/bar-graph.png" />
+                                          <Image url="@/application/images/bar-graph.png" />
                                        </image>
                                        <effect>
                                           <ColorAdjust brightness="0.68" contrast="0.07" hue="-0.52" saturation="1.0" />
@@ -124,23 +124,7 @@
                                  <graphic>
                                     <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/duplicate.png" />
-                                       </image>
-                                       <effect>
-                                          <ColorAdjust brightness="0.68" contrast="0.07" hue="-0.52" saturation="1.0" />
-                                       </effect>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane fx:id="sidebarTile1111" maxWidth="80.0" minWidth="80.0" prefWidth="80.0">
-                           <children>
-                              <Button fx:id="dashboardButton1111" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="60.0" minHeight="60.0" mnemonicParsing="false" prefHeight="60.0" styleClass="sideButton" text="About" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
-                                 <graphic>
-                                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/setting.png" />
+                                          <Image url="@/application/images/duplicate.png" />
                                        </image>
                                        <effect>
                                           <ColorAdjust brightness="0.68" contrast="0.07" hue="-0.52" saturation="1.0" />
@@ -158,7 +142,7 @@
                      </font></Text>
                   <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="15.0">
                      <image>
-                        <Image url="@../images/link.png" />
+                        <Image url="@/application/images/link.png" />
                      </image>
                      <effect>
                         <ColorAdjust brightness="0.63" contrast="-1.0" hue="-0.59" saturation="1.0" />
