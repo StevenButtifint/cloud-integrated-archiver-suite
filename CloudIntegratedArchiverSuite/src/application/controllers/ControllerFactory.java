@@ -45,6 +45,7 @@ public class ControllerFactory {
 	public void initializeServices() {
 		initializeDatabaseService();
 		initializeDashboardService();
+		initializeMonitorService();
 		initializeSchedulerService();
 	}
 
@@ -54,6 +55,9 @@ public class ControllerFactory {
 		}
 		if (dashboardService != null) {
 			dashboardService.shutdown();
+		}
+		if (monitorService != null) {
+			monitorService.shutdown();
 		}
 		if (comparerController != null) {
 			comparerController.stopComparingFolders();
@@ -76,12 +80,13 @@ public class ControllerFactory {
 		if (schedulerService == null) {
 			schedulerService = new SchedulerService();
 			schedulerService.scheduleTask(getDashboardController()::orderLinksListAvailability, 15);
+			schedulerService.scheduleTask(getMonitorService()::refreshUtilisationStats, 60);
 		}
 	}
 	
 	private void initializeMonitorService() {
 		if (monitorService == null) {
-			monitorService = new MonitorService(getMonitorController(), getOperationManager());
+			monitorService = new MonitorService(getMonitorController(), getOperationManager(), getExecutorService());
 			monitorService.initializeControllerManager();
 		}
 	}
