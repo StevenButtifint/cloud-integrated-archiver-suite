@@ -25,6 +25,15 @@ public class MonitorController {
 	private Config appConfig;
 
 	@FXML
+	private Label cpuLabel;
+
+	@FXML
+	private Label diskLabel;
+
+	@FXML
+	private Label ramLabel;
+
+	@FXML
 	private Button saveButton;
 
 	@FXML
@@ -89,4 +98,35 @@ public class MonitorController {
 	public synchronized boolean activeEvents() {
 		return activeEventsCount > 0;
 	}
+
+	public void setCPUUsage(int utilisationPercentage) {
+		cpuLabel.setText("CPU: " + utilisationPercentage + "%");
+	}
+
+	public void setDiskUsage(int utilisationPercentage) {
+		diskLabel.setText("Disk: " + utilisationPercentage + "%");
+	}
+
+	public void setRamUsage(int utilisationPercentage) {
+		ramLabel.setText("RAM: " + utilisationPercentage + "%");
+	}
+
+	public void clearCPUUsage() {
+		cpuLabel.setText("CPU: -%");
+	}
+
+	public void clearDiskUsage() {
+		diskLabel.setText("CPU: -%");
+	}
+
+	public void clearRamUsage() {
+		ramLabel.setText("CPU: -%");
+	}
+	
+	public void clearUsageStats() {
+		clearCPUUsage();
+		clearDiskUsage();
+		clearRamUsage();
+	}
+
 }
