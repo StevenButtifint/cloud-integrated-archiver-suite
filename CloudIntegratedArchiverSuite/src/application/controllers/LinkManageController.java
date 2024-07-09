@@ -45,4 +45,12 @@ public class LinkManageController extends LinkBaseController {
 	private void deleteLink() {
 		manageController.goToDeleteLink(link);
 	}
+
+	public void setLink(Link link) {
+		this.link = link;
+	}
+
+	public void setManageController(ManageController manageController) {
+		this.manageController = manageController;
+	}
 }
