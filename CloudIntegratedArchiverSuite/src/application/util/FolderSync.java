@@ -46,6 +46,19 @@ public class FolderSync {
 		}
 	}
 
+	public static DefaultSyncReport syncFolders(DefaultSyncReport defaultSyncReport, Path source, Path destination,
+			boolean syncModified, boolean syncDeleted) {
+		final Path finalDestination = destination;
+		syncNewFiles(defaultSyncReport, source, finalDestination);
+		if (syncModified) {
+			syncModifiedFiles(defaultSyncReport, source, finalDestination);
+		}
+		if (syncDeleted) {
+			syncDeletedFiles(defaultSyncReport, source, finalDestination);
+		}
+		removeEmptyDirectories(defaultSyncReport, source, finalDestination);
+		return defaultSyncReport;
+	}
 
 	private static void syncNewFiles(BaseSyncReport defaultSyncReport, Path source, Path finalDestination) {
 		try {
