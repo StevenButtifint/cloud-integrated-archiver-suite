@@ -82,7 +82,12 @@ public class LinkItemController extends LinkBaseController {
 	private void updateStateUI(OperationState threadState) {
 		Platform.runLater(() -> {
 			initialiseBackgroundRectangle();
+			monitorService.addNewOperation(link, threadState);
 			switch (threadState) {
+			case STARTED:
+				logger.info("Link Sync started.");
+				setStateSyncing();
+				break;
 			case RUNNING:
 				logger.info("Link Sync Running.");
 				setStateSyncing();
